@@ -1,8 +1,8 @@
 {
-  "name": "demo1",
+  "name": "demo2",
   "version": "6.1.0",
   "private": true,
-  "homepage": "https://keenthemes.com/metronic/preview/react/demo1",
+  "homepage": "https://keenthemes.com/metronic/preview/react/demo2",
   "scripts": {
     "serve": "cp-cli build _site/metronic/preview/react && serve",
     "start": "react-scripts start",
@@ -61,7 +61,7 @@
     "perfect-scrollbar": "^1.4.0",
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
-    "react-bootstrap": "^1.0.0-beta.14",
+    "react-bootstrap": "1.0.0-beta.14",
     "react-dom": "^16.10.2",
     "react-draggable": "^4.0.3",
     "react-helmet": "^5.2.1",

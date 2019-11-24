@@ -20,7 +20,7 @@ const restrictedPaths = [
 module.exports = {
   extends: "eslint-config-react-app",
   rules: {
-    "indent": ["error", 4],
+    "indent": ["error", 2],
     // "no-script-url": "warn",
     "jsx-a11y/anchor-is-valid": "warn",
     "no-restricted-imports": ["error", { paths: [].concat(...restrictedPaths) }]

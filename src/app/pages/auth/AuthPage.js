@@ -31,7 +31,7 @@ export default function AuthPage() {
       <div className="kt-grid kt-grid--ver kt-grid--root">
         <div
           id="kt_login"
-          className="kt-grid kt-grid--hor kt-grid--root kt-login kt-login--v1"
+          className="kt-grid kt-grid--hor kt-grid--root  kt-login kt-login--v1"
         >
           <div className="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--desktop kt-grid--ver-desktop kt-grid--hor-tablet-and-mobile">
             <div
@@ -52,25 +52,25 @@ export default function AuthPage() {
                 <div className="kt-grid__item kt-grid__item--middle">
                   <h3 className="kt-login__title">Welcome to Metronic!</h3>
                   <h4 className="kt-login__subtitle">
-                    The ultimate Bootstrap & Angular 6 admin theme framework for
-                    next generation web apps.
+                      The ultimate Bootstrap & Angular 6 admin theme framework for
+                      next generation web apps.
                   </h4>
                 </div>
               </div>
               <div className="kt-grid__item">
                 <div className="kt-login__info">
                   <div className="kt-login__copyright">
-                    &copy; 2018 Metronic
+                      &copy; 2018 Metronic
                   </div>
                   <div className="kt-login__menu">
                     <Link to="/terms" className="kt-link">
-                      Privacy
+                        Privacy
                     </Link>
                     <Link to="/terms" className="kt-link">
-                      Legal
+                        Legal
                     </Link>
                     <Link to="/terms" className="kt-link">
-                      Contact
+                        Contact
                     </Link>
                   </div>
                 </div>
