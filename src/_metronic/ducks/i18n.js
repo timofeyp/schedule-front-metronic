@@ -6,18 +6,18 @@ const actionTypes = {
 };
 
 const initialState = {
-  lang: "de"
+  lang: "ru"
 };
 
 export const reducer = persistReducer(
   { storage, key: "i18n" },
   (state = initialState, action) => {
     switch (action.type) {
-      case actionTypes.SetLanguage:
-        return { ...state, lang: action.payload.lang };
+    case actionTypes.SetLanguage:
+      return { ...state, lang: action.payload.lang };
 
-      default:
-        return state;
+    default:
+      return state;
     }
   }
 );

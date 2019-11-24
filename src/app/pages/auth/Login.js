@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 import { Formik } from "formik";
 import { connect } from "react-redux";
 import { FormattedMessage, injectIntl } from "react-intl";
@@ -27,16 +27,6 @@ function Login(props) {
 
   return (
     <>
-      <div className="kt-login__head">
-        <span className="kt-login__signup-label">
-          Don't have an account yet?
-        </span>
-        &nbsp;&nbsp;
-        <Link to="/auth/registration" className="kt-link kt-login__signup-link">
-          Sign Up!
-        </Link>
-      </div>
-
       <div className="kt-login__body">
         <div className="kt-login__form">
           <div className="kt-login__title">
@@ -96,7 +86,6 @@ function Login(props) {
             }}
           >
             {({
-              values,
               status,
               errors,
               touched,
@@ -118,8 +107,7 @@ function Login(props) {
                 ) : (
                   <div role="alert" className="alert alert-info">
                     <div className="alert-text">
-                      Use account <strong>admin@demo.com</strong> and password{" "}
-                      <strong>demo</strong> to continue.
+                      Используйте ваши данные домена для входа.
                     </div>
                   </div>
                 )}
@@ -127,13 +115,12 @@ function Login(props) {
                 <div className="form-group">
                   <TextField
                     type="email"
-                    label="Email"
+                    label="Логин"
                     margin="normal"
                     className="kt-width-full"
                     name="email"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    value={values.email}
                     helperText={touched.email && errors.email}
                     error={Boolean(touched.email && errors.email)}
                   />
@@ -143,26 +130,18 @@ function Login(props) {
                   <TextField
                     type="password"
                     margin="normal"
-                    label="Password"
+                    label="Пароль"
                     className="kt-width-full"
                     name="password"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    value={values.password}
                     helperText={touched.password && errors.password}
                     error={Boolean(touched.password && errors.password)}
                   />
                 </div>
 
                 <div className="kt-login__actions">
-                  <Link
-                    to="/auth/forgot-password"
-                    className="kt-link kt-login__link-forgot"
-                  >
-                    <FormattedMessage id="AUTH.GENERAL.FORGOT_BUTTON" />
-                  </Link>
-
-                  <button
+                  <Button
                     id="kt_login_signin_submit"
                     type="submit"
                     disabled={isSubmitting}
@@ -172,36 +151,14 @@ function Login(props) {
                       }
                     )}`}
                     style={loadingButtonStyle}
+                    block
                   >
-                    Sign In
-                  </button>
+                    Вход
+                  </Button>
                 </div>
               </form>
             )}
           </Formik>
-
-          <div className="kt-login__divider">
-            <div className="kt-divider">
-              <span />
-              <span>OR</span>
-              <span />
-            </div>
-          </div>
-
-          <div className="kt-login__options">
-            <Link to="http://facebook.com" className="btn btn-primary kt-btn">
-              <i className="fab fa-facebook-f" />
-              Facebook
-            </Link>
-            <Link to="http://twitter.com" className="btn btn-info kt-btn">
-              <i className="fab fa-twitter" />
-              Twitter
-            </Link>
-            <Link to="google.com" className="btn btn-danger kt-btn">
-              <i className="fab fa-google" />
-              Google
-            </Link>
-          </div>
         </div>
       </div>
     </>

@@ -35,6 +35,11 @@ const languages = [
     lang: "fr",
     name: "French",
     flag: toAbsoluteUrl("/media/flags/195-france.svg")
+  },
+  {
+    lang: "ru",
+    name: "Русский",
+    flag: toAbsoluteUrl("/media/flags/248-russia.svg")
   }
 ];
 

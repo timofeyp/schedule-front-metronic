@@ -15,8 +15,10 @@ import esMessages from "./messages/es";
 import frMessages from "./messages/fr";
 import jaMessages from "./messages/ja";
 import zhMessages from "./messages/zh";
+import ruMessages from "./messages/ru";
 
 const allMessages = {
+  ru: ruMessages,
   de: deMessages,
   en: enMessages,
   es: esMessages,
@@ -30,8 +32,8 @@ export default function I18nProvider({ children }) {
   const messages = allMessages[locale];
 
   return (
-      <IntlProvider locale={locale} messages={messages}>
-        {children}
-      </IntlProvider>
+    <IntlProvider locale={locale} messages={messages}>
+      {children}
+    </IntlProvider>
   );
 }
