@@ -7,6 +7,7 @@ import { TextField } from "@material-ui/core";
 import clsx from "clsx";
 import * as auth from "../../store/ducks/auth.duck";
 import { login } from "../../crud/auth.crud";
+import validate from 'app/pages/auth/validate';
 
 function Login(props) {
   const { intl } = props;
@@ -41,30 +42,7 @@ function Login(props) {
               email: "admin@demo.com",
               password: "demo"
             }}
-            validate={values => {
-              const errors = {};
-
-              if (!values.email) {
-                // https://github.com/formatjs/react-intl/blob/master/docs/API.md#injection-api
-                errors.email = intl.formatMessage({
-                  id: "AUTH.VALIDATION.REQUIRED_FIELD"
-                });
-              } else if (
-                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-              ) {
-                errors.email = intl.formatMessage({
-                  id: "AUTH.VALIDATION.INVALID_FIELD"
-                });
-              }
-
-              if (!values.password) {
-                errors.password = intl.formatMessage({
-                  id: "AUTH.VALIDATION.REQUIRED_FIELD"
-                });
-              }
-
-              return errors;
-            }}
+            validate={values => validate(values, intl)}
             onSubmit={(values, { setStatus, setSubmitting }) => {
               enableLoading();
               setTimeout(() => {

@@ -18,36 +18,36 @@ const initialAuthState = {
 };
 
 export const reducer = persistReducer(
-    { storage, key: "demo1-auth", whitelist: ["user", "authToken"] },
-    (state = initialAuthState, action) => {
-      switch (action.type) {
-        case actionTypes.Login: {
-          const { authToken } = action.payload;
+  { storage, key: "demo1-auth", whitelist: ["user", "authToken"] },
+  (state = initialAuthState, action) => {
+    switch (action.type) {
+    case actionTypes.Login: {
+      const { authToken } = action.payload;
 
-          return { authToken, user: undefined };
-        }
-
-        case actionTypes.Register: {
-          const { authToken } = action.payload;
-
-          return { authToken, user: undefined };
-        }
-
-        case actionTypes.Logout: {
-          routerHelpers.forgotLastLocation();
-          return initialAuthState;
-        }
-
-        case actionTypes.UserLoaded: {
-          const { user } = action.payload;
-
-          return { ...state, user };
-        }
-
-        default:
-          return state;
-      }
+      return { authToken, user: undefined };
     }
+
+    case actionTypes.Register: {
+      const { authToken } = action.payload;
+
+      return { authToken, user: undefined };
+    }
+
+    case actionTypes.Logout: {
+      routerHelpers.forgotLastLocation();
+      return initialAuthState;
+    }
+
+    case actionTypes.UserLoaded: {
+      const { user } = action.payload;
+
+      return { ...state, user };
+    }
+
+    default:
+      return state;
+    }
+  }
 );
 
 export const actions = {

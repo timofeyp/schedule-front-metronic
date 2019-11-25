@@ -35,8 +35,8 @@ export const initLayoutConfig = {
       primary: "#4596d1",
       success: "#34bfa3",
       info: "#36a3f7",
-      warning: "#ffb822",
-      danger: "#fd3995"
+      warning: "#f6b021",
+      danger: "#c63032"
     },
     base: {
       label: ["#c5cbe3", "#a1a8c3", "#3d4465", "#3e4466"],
