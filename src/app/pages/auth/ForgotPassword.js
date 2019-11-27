@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { Formik } from "formik";
-import { connect } from "react-redux";
-import { TextField } from "@material-ui/core";
-import { Link, Redirect } from "react-router-dom";
-import { FormattedMessage, injectIntl } from "react-intl";
-import * as auth from "../../store/ducks/auth.duck";
-import { requestPassword } from "../../crud/auth.crud";
+import React, { Component } from 'react';
+import { Formik } from 'formik';
+import { connect } from 'react-redux';
+import { TextField } from '@material-ui/core';
+import { Link, Redirect } from 'react-router-dom';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import * as auth from '../../store/ducks/auth.duck';
+import { requestPassword } from '../../crud/auth.crud';
 
 class ForgotPassword extends Component {
   state = { isRequested: false };
@@ -29,19 +29,19 @@ class ForgotPassword extends Component {
             </div>
 
             <Formik
-              initialValues={{ email: "" }}
+              initialValues={{ email: '' }}
               validate={values => {
                 const errors = {};
 
                 if (!values.email) {
                   errors.email = intl.formatMessage({
-                    id: "AUTH.VALIDATION.REQUIRED_FIELD"
+                    id: 'AUTH.VALIDATION.REQUIRED_FIELD',
                   });
                 } else if (
                   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
                 ) {
                   errors.email = intl.formatMessage({
-                    id: "AUTH.VALIDATION.INVALID_FIELD"
+                    id: 'AUTH.VALIDATION.INVALID_FIELD',
                   });
                 }
 
@@ -56,9 +56,9 @@ class ForgotPassword extends Component {
                     setSubmitting(false);
                     setStatus(
                       intl.formatMessage(
-                        { id: "AUTH.VALIDATION.NOT_FOUND" },
-                        { name: values.email }
-                      )
+                        { id: 'AUTH.VALIDATION.NOT_FOUND' },
+                        { name: values.email },
+                      ),
                     );
                   });
               }}
@@ -71,7 +71,7 @@ class ForgotPassword extends Component {
                 handleChange,
                 handleBlur,
                 handleSubmit,
-                isSubmitting
+                isSubmitting,
               }) => (
                 <form onSubmit={handleSubmit} className="kt-form">
                   {status && (
@@ -85,7 +85,7 @@ class ForgotPassword extends Component {
                       type="email"
                       label="Email"
                       margin="normal"
-                      fullWidth={true}
+                      fullWidth
                       name="email"
                       onBlur={handleBlur}
                       onChange={handleChange}
@@ -121,9 +121,4 @@ class ForgotPassword extends Component {
   }
 }
 
-export default injectIntl(
-  connect(
-    null,
-    auth.actions
-  )(ForgotPassword)
-);
+export default injectIntl(connect(null, auth.actions)(ForgotPassword));

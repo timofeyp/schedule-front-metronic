@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import { connect } from 'react-redux';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { TextField } from '@material-ui/core';
-import clsx from 'clsx';
 import validate from 'app/pages/auth/validate';
-import { setAuthRoutine } from 'app/store/ducks/session.duck';
+import { fetchAuthRoutine } from 'app/store/ducks/session.duck';
+import SubmitButton from 'app/components/Buttons/FormSubmitButton';
 
 function Login(props) {
-  const { intl } = props;
-  const [loading] = useState(false);
-  const [loadingButtonStyle] = useState({
-    paddingRight: '2.5rem',
-  });
+  const { intl, login, isLoading } = props;
+
+  const onSubmit = async (values, { setSubmitting, setStatus }) => {
+    try {
+      await login(values);
+    } catch {
+      setStatus('123');
+      setSubmitting(false);
+    }
+  };
 
   return (
     <>
@@ -27,14 +31,7 @@ function Login(props) {
             </h3>
           </div>
 
-          <Formik
-            initialValues={{
-              email: 'admin@demo.com',
-              password: 'demo',
-            }}
-            validate={values => validate(values, intl)}
-            onSubmit={props.login}
-          >
+          <Formik validate={values => validate(values, intl)} onSubmit={login}>
             {({
               status,
               errors,
@@ -64,15 +61,15 @@ function Login(props) {
 
                 <div className="form-group">
                   <TextField
-                    type="email"
+                    type="username"
                     label="Логин"
                     margin="normal"
                     className="kt-width-full"
-                    name="email"
+                    name="username"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    helperText={touched.email && errors.email}
-                    error={Boolean(touched.email && errors.email)}
+                    helperText={touched.username && errors.username}
+                    error={Boolean(touched.username && errors.username)}
                   />
                 </div>
 
@@ -91,20 +88,10 @@ function Login(props) {
                 </div>
 
                 <div className="kt-login__actions">
-                  <Button
-                    id="kt_login_signin_submit"
-                    type="submit"
-                    disabled={isSubmitting}
-                    className={`btn btn-primary btn-elevate kt-login__btn-primary ${clsx(
-                      {
-                        'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading,
-                      },
-                    )}`}
-                    style={loadingButtonStyle}
-                    block
-                  >
-                    Вход
-                  </Button>
+                  <SubmitButton
+                    isSubmitting={isSubmitting}
+                    loading={isLoading}
+                  />
                 </div>
               </form>
             )}
@@ -118,10 +105,15 @@ function Login(props) {
 Login.propTypes = {
   intl: PropTypes.object,
   login: PropTypes.func,
+  isLoading: PropTypes.bool,
 };
+
+const mapStateToProps = ({ session }) => ({
+  isLoading: session.isSessionLoading,
+});
 
 const mapDispatchToProps = {
-  login: setAuthRoutine.trigger,
+  login: fetchAuthRoutine.trigger,
 };
 
-export default injectIntl(connect(null, mapDispatchToProps)(Login));
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Login));

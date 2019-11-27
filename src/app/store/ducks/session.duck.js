@@ -7,39 +7,44 @@ import {
 } from 'redux-saga/dist/redux-saga-effects-npm-proxy.esm';
 import { push } from 'connected-react-router';
 import API from 'app/api';
+import tryCatchWrapper from 'app/utils/tryCatchWrapper';
 export const fetchSessionRoutine = createAction('FETCH_SESSION', 'session');
-export const setAuthRoutine = createAction('SET_AUTH', 'session');
+export const fetchAuthRoutine = createAction('FETCH_AUTH', 'session');
 export const logoutRoutine = createAction('LOGOUT', 'session');
 
 export const initialState = {
   profile: {},
   auth: false,
+  isSessionLoading: false,
+  error: {},
 };
 
 /* eslint-disable default-case, no-param-reassign */
 export const reducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
-      case setAuthRoutine.SUCCESS:
+      case fetchAuthRoutine.TRIGGER:
+        draft.isSessionLoading = true;
+        break;
+      case fetchAuthRoutine.SUCCESS:
         if (!action.payload.failure) {
           draft.profile = action.payload;
           draft.auth = true;
+          draft.isSessionLoading = false;
         }
         break;
-    }
-    switch (action.type) {
+      case fetchAuthRoutine.FAILURE:
+        draft.isSessionLoading = false;
+        draft.error = action.payload;
+        break;
       case fetchSessionRoutine.SUCCESS:
         draft.profile = action.payload;
         draft.auth = true;
         break;
-    }
-    switch (action.type) {
       case logoutRoutine.SUCCESS:
         draft.profile = {};
         draft.auth = false;
         break;
-    }
-    switch (action.type) {
       case fetchSessionRoutine.FAILURE:
         draft.profile = {};
         draft.auth = false;
@@ -48,16 +53,9 @@ export const reducer = (state = initialState, action) =>
   });
 
 function* fetchAuth({ payload }) {
-  try {
-    const res = yield call(API.session.fetchAuth, payload);
-    yield put({ type: setAuthRoutine.SUCCESS, payload: res.data });
-    yield put(push('/'));
-  } catch (err) {
-    yield put({
-      type: setAuthRoutine.SUCCESS,
-      payload: { failure: true, username: 'Ошибка', password: ' ' },
-    });
-  }
+  const res = yield call(API.session.fetchAuth, payload);
+  yield put(fetchAuthRoutine.success(res.data));
+  yield put(push('/'));
 }
 
 function* fetchSession() {
@@ -65,24 +63,20 @@ function* fetchSession() {
     const res = yield call(API.session.fetchSession, '/api/auth/session');
     yield put({ type: fetchSessionRoutine.SUCCESS, payload: res.data });
   } catch (err) {
-    yield put({
-      type: fetchSessionRoutine.FAILURE,
-      payload: undefined,
-    });
+    yield put(fetchSessionRoutine.failure());
   }
 }
 
 function* fetchLogout() {
   yield call(API.session.fetchLogout, '/api/auth/logout');
-  yield put({ type: logoutRoutine.SUCCESS });
+  yield put(logoutRoutine.success);
 }
 
-export const actions = {
-  login: setAuthRoutine.trigger,
-};
-
 export function* saga() {
-  yield takeLatest(setAuthRoutine.TRIGGER, fetchAuth);
   yield takeLatest(fetchSessionRoutine.TRIGGER, fetchSession);
   yield takeLatest(logoutRoutine.TRIGGER, fetchLogout);
+  yield takeLatest(
+    fetchAuthRoutine.TRIGGER,
+    tryCatchWrapper(fetchAuth, fetchAuthRoutine),
+  );
 }

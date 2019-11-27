@@ -38,7 +38,7 @@
   "AUTH.VALIDATION.REQUIRED_FIELD": "Необходимое поле",
   "AUTH.VALIDATION.MIN_LENGTH_FIELD": "Минимальная длина поля:",
   "AUTH.VALIDATION.MAX_LENGTH_FIELD": "Максимальная длина поля:",
-  "AUTH.VALIDATION.INVALID_FIELD": "Неверный ввод поля",
+  "AUTH.VALIDATION.INVALID_FIELD": "Неверный ввод",
   "ECOMMERCE.COMMON.SELECTED_RECORDS_COUNT": "Количество выбранных записей: ",
   "ECOMMERCE.COMMON.ALL": "Все",
   "ECOMMERCE.COMMON.SUSPENDED": "Приостановлено",

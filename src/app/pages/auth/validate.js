@@ -1,22 +1,20 @@
-const validate = ( values, intl ) => {
+const validate = (values, intl) => {
   const errors = {};
 
-  if (!values.email) {
+  if (!values.username) {
     // https://github.com/formatjs/react-intl/blob/master/docs/API.md#injection-api
-    errors.email = intl.formatMessage({
-      id: "AUTH.VALIDATION.REQUIRED_FIELD"
+    errors.username = intl.formatMessage({
+      id: 'AUTH.VALIDATION.REQUIRED_FIELD',
     });
-  } else if (
-    !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-  ) {
-    errors.email = intl.formatMessage({
-      id: "AUTH.VALIDATION.INVALID_FIELD"
+  } else if (!/^[A-Z0-9._%+-]{2,}$/i.test(values.username)) {
+    errors.username = intl.formatMessage({
+      id: 'AUTH.VALIDATION.INVALID_FIELD',
     });
   }
 
   if (!values.password) {
     errors.password = intl.formatMessage({
-      id: "AUTH.VALIDATION.REQUIRED_FIELD"
+      id: 'AUTH.VALIDATION.REQUIRED_FIELD',
     });
   }
 
@@ -24,4 +22,3 @@ const validate = ( values, intl ) => {
 };
 
 export default validate;
-
