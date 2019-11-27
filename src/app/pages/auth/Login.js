@@ -1,30 +1,20 @@
-import React, { useState } from "react";
-import { Button } from "react-bootstrap";
-import { Formik } from "formik";
-import { connect } from "react-redux";
-import { FormattedMessage, injectIntl } from "react-intl";
-import { TextField } from "@material-ui/core";
-import clsx from "clsx";
-import * as auth from "../../store/ducks/auth.duck";
-import { login } from "../../crud/auth.crud";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { Button } from 'react-bootstrap';
+import { Formik } from 'formik';
+import { connect } from 'react-redux';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import { TextField } from '@material-ui/core';
+import clsx from 'clsx';
 import validate from 'app/pages/auth/validate';
+import { setAuthRoutine } from 'app/store/ducks/session.duck';
 
 function Login(props) {
   const { intl } = props;
-  const [loading, setLoading] = useState(false);
-  const [loadingButtonStyle, setLoadingButtonStyle] = useState({
-    paddingRight: "2.5rem"
+  const [loading] = useState(false);
+  const [loadingButtonStyle] = useState({
+    paddingRight: '2.5rem',
   });
-
-  const enableLoading = () => {
-    setLoading(true);
-    setLoadingButtonStyle({ paddingRight: "3.5rem" });
-  };
-
-  const disableLoading = () => {
-    setLoading(false);
-    setLoadingButtonStyle({ paddingRight: "2.5rem" });
-  };
 
   return (
     <>
@@ -39,29 +29,11 @@ function Login(props) {
 
           <Formik
             initialValues={{
-              email: "admin@demo.com",
-              password: "demo"
+              email: 'admin@demo.com',
+              password: 'demo',
             }}
             validate={values => validate(values, intl)}
-            onSubmit={(values, { setStatus, setSubmitting }) => {
-              enableLoading();
-              setTimeout(() => {
-                login(values.email, values.password)
-                  .then(({ data: { accessToken } }) => {
-                    disableLoading();
-                    props.login(accessToken);
-                  })
-                  .catch(() => {
-                    disableLoading();
-                    setSubmitting(false);
-                    setStatus(
-                      intl.formatMessage({
-                        id: "AUTH.VALIDATION.INVALID_LOGIN"
-                      })
-                    );
-                  });
-              }, 1000);
-            }}
+            onSubmit={props.login}
           >
             {({
               status,
@@ -70,10 +42,10 @@ function Login(props) {
               handleChange,
               handleBlur,
               handleSubmit,
-              isSubmitting
+              isSubmitting,
             }) => (
               <form
-                noValidate={true}
+                noValidate
                 autoComplete="off"
                 className="kt-form"
                 onSubmit={handleSubmit}
@@ -125,8 +97,8 @@ function Login(props) {
                     disabled={isSubmitting}
                     className={`btn btn-primary btn-elevate kt-login__btn-primary ${clsx(
                       {
-                        "kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light": loading
-                      }
+                        'kt-spinner kt-spinner--right kt-spinner--md kt-spinner--light': loading,
+                      },
                     )}`}
                     style={loadingButtonStyle}
                     block
@@ -143,9 +115,13 @@ function Login(props) {
   );
 }
 
-export default injectIntl(
-  connect(
-    null,
-    auth.actions
-  )(Login)
-);
+Login.propTypes = {
+  intl: PropTypes.object,
+  login: PropTypes.func,
+};
+
+const mapDispatchToProps = {
+  login: setAuthRoutine.trigger,
+};
+
+export default injectIntl(connect(null, mapDispatchToProps)(Login));
