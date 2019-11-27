@@ -33,7 +33,7 @@ export const initLayoutConfig = {
       dark: "#003274",
       light: "#ffffff",
       primary: "#4596d1",
-      success: "#34bfa3",
+      success: "#5ba252",
       info: "#36a3f7",
       warning: "#f6b021",
       danger: "#c63032"

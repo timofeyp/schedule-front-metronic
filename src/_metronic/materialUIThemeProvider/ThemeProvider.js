@@ -22,13 +22,13 @@ const theme = createMuiTheme(
       },
       secondary: {
         // light: will be calculated from palette.primary.main,
-        main: "#0abb87",
+        main: "#5ba252",
         // dark: will be calculated from palette.primary.main,
         contrastText: "#ffffff"
       },
       error: {
         // light: will be calculated from palette.primary.main,
-        main: "#fd397a"
+        main: "#c63032"
         // dark: will be calculated from palette.primary.main,
         // contrastText: will be calculated to contrast with palette.primary.main
       }
