@@ -1,28 +1,23 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import * as auth from '../../store/ducks/auth.duck';
-import { LayoutSplashScreen } from '../../../_metronic';
+import { logoutRoutine } from 'app/store/ducks/session.duck';
 
-class Logout extends Component {
-  componentDidMount() {
-    this.props.logout();
-  }
+const Logout = ({ logout }) => {
+  useEffect(() => {
+    logout();
+  }, [logout]);
 
-  render() {
-    const { hasAuthToken } = this.props;
-
-    return hasAuthToken ? <LayoutSplashScreen /> : <Redirect to="/auth" />;
-  }
-}
-
-Logout.propTypes = {
-  hasAuthToken: PropTypes.bool,
-  logout: PropTypes.bool,
+  return <Redirect to="/" />;
 };
 
-export default connect(
-  ({ auth }) => ({ hasAuthToken: Boolean(auth.authToken) }),
-  auth.actions,
-)(Logout);
+Logout.propTypes = {
+  logout: PropTypes.func,
+};
+
+const mapDispatchToProps = {
+  logout: logoutRoutine.trigger,
+};
+
+export default connect(null, mapDispatchToProps)(Logout);

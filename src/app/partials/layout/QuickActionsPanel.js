@@ -1,17 +1,27 @@
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
-import React from "react";
-import clsx from "clsx";
-import Dropdown from "react-bootstrap/Dropdown";
-import HeaderDropdownToggle from "../content/CustomDropdowns/HeaderDropdownToggle";
-import { ReactComponent as EqualizerIcon } from "../../../_metronic/layout/assets/layout-svg-icons/Equalizer.svg";
-import { ReactComponent as EuroIcon } from "../../../_metronic/layout/assets/layout-svg-icons/Euro.svg";
-import { ReactComponent as MailAttachmentIcon } from "../../../_metronic/layout/assets/layout-svg-icons/Mail-attachment.svg";
-import { ReactComponent as BoxNum2Icon } from "../../../_metronic/layout/assets/layout-svg-icons/BoxNum2.svg";
-import { ReactComponent as GroupIcon } from "../../../_metronic/layout/assets/layout-svg-icons/Group.svg";
+import React from 'react';
+import clsx from 'clsx';
+import Dropdown from 'react-bootstrap/Dropdown';
+import HeaderDropdownToggle from '../content/CustomDropdowns/HeaderDropdownToggle';
+import { ReactComponent as EqualizerIcon } from '../../../_metronic/layout/assets/layout-svg-icons/Equalizer.svg';
+import { ReactComponent as EuroIcon } from '../../../_metronic/layout/assets/layout-svg-icons/Euro.svg';
+import { ReactComponent as MailAttachmentIcon } from '../../../_metronic/layout/assets/layout-svg-icons/Mail-attachment.svg';
+import { ReactComponent as BoxNum2Icon } from '../../../_metronic/layout/assets/layout-svg-icons/BoxNum2.svg';
+import { ReactComponent as GroupIcon } from '../../../_metronic/layout/assets/layout-svg-icons/Group.svg';
 
 export default class QuickActionsPanel extends React.Component {
   render() {
-    const { icon, useSVG, bgImage, iconType, gridNavSkin } = this.props;
+    const {
+      icon,
+      useSVG,
+      bgImage,
+      iconType,
+      gridNavSkin,
+      isHidden,
+    } = this.props;
+    if (isHidden) {
+      return null;
+    }
     return (
       <Dropdown className="kt-header__topbar-item" drop="down" alignRight>
         <Dropdown.Toggle
@@ -20,15 +30,15 @@ export default class QuickActionsPanel extends React.Component {
         >
           <span
             className={clsx(`kt-header__topbar-icon`, {
-              "kt-header__topbar-icon--warning": iconType === "warning"
+              'kt-header__topbar-icon--warning': iconType === 'warning',
             })}
           >
             {!useSVG && <i className={icon} />}
 
             {useSVG && (
               <span
-                className={clsx("kt-svg-icon", {
-                  "kt-svg-icon--warning": iconType === "warning"
+                className={clsx('kt-svg-icon', {
+                  'kt-svg-icon--warning': iconType === 'warning',
                 })}
               >
                 <EqualizerIcon className="kt-svg-icon kt-svg-icon--primary kt-svg-icon--lg" />

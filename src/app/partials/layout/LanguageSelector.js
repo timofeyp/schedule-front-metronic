@@ -45,8 +45,11 @@ const languages = [
 
 class LanguageSelector extends React.Component {
   render() {
-    const { lang, iconType, setLanguage } = this.props;
+    const { lang, iconType, setLanguage, isHidden } = this.props;
     const currentLanguage = languages.find(x => x.lang === lang);
+    if (isHidden) {
+      return null
+    }
     return (
       <Dropdown
         className="kt-header__topbar-item kt-header__topbar-item--langs"

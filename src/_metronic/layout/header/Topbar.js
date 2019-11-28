@@ -1,51 +1,63 @@
-import React from "react";
-import SearchDropdown from "../../../app/partials/layout/SearchDropdown";
-import UserNotifications from "../../../app/partials/layout/UserNotifications";
-import MyCart from "../../../app/partials/layout/MyCart";
-import QuickActionsPanel from "../../../app/partials/layout/QuickActionsPanel";
-import QuickPanelToggler from "./QuickPanelToggle";
-import LanguageSelector from "../../../app/partials/layout/LanguageSelector";
-import UserProfile from "../../../app/partials/layout/UserProfile";
-import { toAbsoluteUrl } from "../../utils/utils";
+import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import TopBarButton from 'app/components/Buttons/TopBarButton';
+import SearchDropdown from '../../../app/partials/layout/SearchDropdown';
+import UserNotifications from '../../../app/partials/layout/UserNotifications';
+import MyCart from '../../../app/partials/layout/MyCart';
+import QuickActionsPanel from '../../../app/partials/layout/QuickActionsPanel';
+import QuickPanelToggler from './QuickPanelToggle';
+import LanguageSelector from '../../../app/partials/layout/LanguageSelector';
+import UserProfile from '../../../app/partials/layout/UserProfile';
+import { toAbsoluteUrl } from '../../utils/utils';
 
-export default class Topbar extends React.Component {
-  render() {
-    return (
-      <div className="kt-header__topbar">
-        <SearchDropdown useSVG="true" />
+const Topbar = ({ isAuth }) => (
+  <div className="kt-header__topbar">
+    <SearchDropdown useSVG="true" />
 
-        <UserNotifications
-          bgImage={toAbsoluteUrl("/media/misc/bg-1.jpg")}
-          pulse="true"
-          pulseLight="false"
-          skin="dark"
-          iconType=""
-          type="success"
-          useSVG="true"
-          dot="false"
-        />
+    <UserNotifications
+      bgImage={toAbsoluteUrl('/media/misc/bg-1.jpg')}
+      pulse="true"
+      pulseLight="false"
+      skin="dark"
+      iconType=""
+      type="success"
+      useSVG="true"
+      dot="false"
+      isHidden
+    />
 
-        <QuickActionsPanel
-          bgImage={toAbsoluteUrl("/media/misc/bg-2.jpg")}
-          skin="dark"
-          iconType=""
-          useSVG="true"
-          gridNavSkin="light"
-        />
+    <QuickActionsPanel
+      bgImage={toAbsoluteUrl('/media/misc/bg-2.jpg')}
+      skin="dark"
+      iconType=""
+      useSVG="true"
+      gridNavSkin="light"
+      isHidden
+    />
 
-        <MyCart
-          iconType=""
-          useSVG="true"
-          bgImage={toAbsoluteUrl("/media/misc/bg-1.jpg")}
-        />
+    <MyCart
+      iconType=""
+      useSVG="true"
+      bgImage={toAbsoluteUrl('/media/misc/bg-1.jpg')}
+      isHidden
+    />
 
-          <QuickPanelToggler />
+    <QuickPanelToggler />
 
+    <LanguageSelector isHidden iconType="" />
 
-          <LanguageSelector iconType="" />
+    {!isAuth && <TopBarButton>Вход</TopBarButton>}
 
-        <UserProfile showAvatar={true} showHi={true} showBadge={false} />
-      </div>
-    );
-  }
-}
+    {isAuth && <UserProfile showAvatar showHi showBadge={false} />}
+  </div>
+);
+
+Topbar.propTypes = {
+  isAuth: PropTypes.bool,
+};
+const matStateToProps = store => ({
+  isAuth: store.session.isAuth,
+});
+
+export default connect(matStateToProps, null)(Topbar);

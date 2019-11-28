@@ -1,35 +1,38 @@
-import React from "react";
-import clsx from "clsx";
-import { Link } from "react-router-dom";
-import PerfectScrollbar from "react-perfect-scrollbar";
-import { Dropdown } from "react-bootstrap";
-import { toAbsoluteUrl } from "../../../_metronic";
-import HeaderDropdownToggle from "../content/CustomDropdowns/HeaderDropdownToggle";
-import { ReactComponent as CartNum3Icon } from "../../../_metronic/layout/assets/layout-svg-icons/CartNum3.svg";
+import React from 'react';
+import clsx from 'clsx';
+import { Link } from 'react-router-dom';
+import PerfectScrollbar from 'react-perfect-scrollbar';
+import { Dropdown } from 'react-bootstrap';
+import { toAbsoluteUrl } from '../../../_metronic';
+import HeaderDropdownToggle from '../content/CustomDropdowns/HeaderDropdownToggle';
+import { ReactComponent as CartNum3Icon } from '../../../_metronic/layout/assets/layout-svg-icons/CartNum3.svg';
 
 const perfectScrollbarOptions = {
   wheelSpeed: 2,
-  wheelPropagation: false
+  wheelPropagation: false,
 };
 
 export default class MyCart extends React.Component {
   render() {
-    const { bgImage, useSVG, icon, iconType } = this.props;
+    const { bgImage, useSVG, icon, iconType, isHidden } = this.props;
+    if (isHidden) {
+      return null;
+    }
 
     return (
       <Dropdown className="kt-header__topbar-item" drop="down" alignRight>
         <Dropdown.Toggle as={HeaderDropdownToggle} id="dropdown-toggle-my-cart">
           <span
-            className={clsx("kt-header__topbar-icon", {
-              "kt-header__topbar-icon--brand": iconType === "brand"
+            className={clsx('kt-header__topbar-icon', {
+              'kt-header__topbar-icon--brand': iconType === 'brand',
             })}
           >
             {!useSVG && <i className={icon} />}
 
             {useSVG && (
               <span
-                className={clsx("kt-svg-icon", {
-                  "kt-svg-icon-brand": iconType === "brand"
+                className={clsx('kt-svg-icon', {
+                  'kt-svg-icon-brand': iconType === 'brand',
                 })}
               >
                 <CartNum3Icon className="kt-svg-icon kt-svg-icon--primary" />
@@ -59,7 +62,7 @@ export default class MyCart extends React.Component {
 
               <PerfectScrollbar
                 options={perfectScrollbarOptions}
-                style={{ maxHeight: "35vh", position: "relative" }}
+                style={{ maxHeight: '35vh', position: 'relative' }}
               >
                 <div className="kt-mycart__body">
                   <div className="kt-mycart__item">
@@ -87,7 +90,7 @@ export default class MyCart extends React.Component {
 
                       <Link to="cart-item" className="kt-mycart__pic">
                         <img
-                          src={toAbsoluteUrl("/media/products/product9.jpg")}
+                          src={toAbsoluteUrl('/media/products/product9.jpg')}
                           alt="product"
                         />
                       </Link>
@@ -120,7 +123,7 @@ export default class MyCart extends React.Component {
 
                       <Link to="cart-item" className="kt-mycart__pic">
                         <img
-                          src={toAbsoluteUrl("/media/products/product13.jpg")}
+                          src={toAbsoluteUrl('/media/products/product13.jpg')}
                           alt="product"
                         />
                       </Link>
@@ -151,7 +154,7 @@ export default class MyCart extends React.Component {
 
                       <Link to="cart-item" className="kt-mycart__pic">
                         <img
-                          src={toAbsoluteUrl("/media/products/product16.jpg")}
+                          src={toAbsoluteUrl('/media/products/product16.jpg')}
                           alt="product"
                         />
                       </Link>
@@ -184,7 +187,7 @@ export default class MyCart extends React.Component {
 
                       <Link to="cart-item" className="kt-mycart__pic">
                         <img
-                          src={toAbsoluteUrl("/media/products/product15.jpg")}
+                          src={toAbsoluteUrl('/media/products/product15.jpg')}
                           title=""
                           alt=""
                         />

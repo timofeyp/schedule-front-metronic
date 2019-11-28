@@ -5,10 +5,11 @@
  * components (e.g: `src/pages/auth/AuthPage`, `src/pages/home/HomePage`).
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
-import { shallowEqual, useSelector } from 'react-redux';
+import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import { useLastLocation } from 'react-router-last-location';
+import { fetchSessionRoutine } from 'app/store/ducks/session.duck';
 import HomePage from 'app/pages/home/HomePage';
 import AuthPage from 'app/pages/auth/AuthPage';
 import ErrorsPage from 'app/pages/errors/ErrorsPage';
@@ -17,6 +18,10 @@ import { LayoutContextProvider } from '_metronic';
 import * as routerHelpers from 'app/router/RouterHelpers';
 
 export const Routes = withRouter(({ Layout, history }) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchSessionRoutine.trigger());
+  }, [dispatch]);
   const lastLocation = useLastLocation();
   routerHelpers.saveLastLocation(lastLocation);
   const {
@@ -26,7 +31,7 @@ export const Routes = withRouter(({ Layout, history }) => {
   } = useSelector(
     ({ session, urls, builder: { menuConfig } }) => ({
       menuConfig,
-      isAuthorized: session.auth,
+      isAuthorized: session.isAuth,
       userLastLocation: routerHelpers.getLastLocation(),
     }),
     shallowEqual,
@@ -47,14 +52,9 @@ export const Routes = withRouter(({ Layout, history }) => {
         <Route path="/error" component={ErrorsPage} />
         <Route path="/logout" component={LogoutPage} />
 
-        {!isAuthorized ? (
-          /* Redirect to `/auth` when user is not authorized */
-          <Redirect to="/auth/login" />
-        ) : (
-          <Layout>
-            <HomePage userLastLocation={userLastLocation} />
-          </Layout>
-        )}
+        <Layout>
+          <HomePage userLastLocation={userLastLocation} />
+        </Layout>
       </Switch>
     </LayoutContextProvider>
   );

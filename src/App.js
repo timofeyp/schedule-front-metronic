@@ -2,17 +2,17 @@
  * Entry application component used to compose providers and render Routes.
  * */
 
-import React from "react";
-import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
-import { PersistGate } from "redux-persist/integration/react";
-import { LastLocationProvider } from "react-router-last-location";
-import { Routes } from "./app/router/Routes";
-import { I18nProvider, LayoutSplashScreen, ThemeProvider } from "./_metronic";
+import React from 'react';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import { PersistGate } from 'redux-persist/integration/react';
+import { LastLocationProvider } from 'react-router-last-location';
+import { Routes } from './app/router/Routes';
+import { I18nProvider, LayoutSplashScreen, ThemeProvider } from './_metronic';
 
-export default function App({ store, Layout, persistor, basename })    {
+export default function App({ store, Layout, persistor, basename }) {
   return (
-  /* Provide Redux store */
+    /* Provide Redux store */
     <Provider store={store} loading={<LayoutSplashScreen />}>
       {/* Asynchronously persist redux stores and show `SplashScreen` while it's loading. */}
       <PersistGate persistor={persistor}>
@@ -20,7 +20,7 @@ export default function App({ store, Layout, persistor, basename })    {
         <React.Suspense fallback={<LayoutSplashScreen />}>
           {/* Override `basename` (e.g: `homepage` in `package.json`) */}
           <BrowserRouter basename={basename}>
-            {/*This library only returns the location that has been active before the recent location change in the current window lifetime.*/}
+            {/* This library only returns the location that has been active before the recent location change in the current window lifetime. */}
             <LastLocationProvider>
               {/* Provide Metronic theme overrides. */}
               <ThemeProvider>

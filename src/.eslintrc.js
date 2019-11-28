@@ -98,6 +98,7 @@ module.exports = {
         'no-plusplus': 0,
         'react/no-array-index-key': 0,
         'no-unused-vars': 0,
+        'react/jsx-props-no-spreading': 0,
     },
     "settings": {
         "import/resolver": {
