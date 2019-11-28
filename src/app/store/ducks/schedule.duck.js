@@ -42,7 +42,7 @@ export const initialState = {
 };
 
 /* eslint-disable default-case, no-param-reassign */
-const reducer = (state = initialState, action) =>
+export const reducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
       case fetchCurrentWeekEventsRoutine.SUCCESS:
@@ -83,44 +83,30 @@ function* fetchCurrentWeekEvents() {
   const data = !isEmpty(items) ? { filter: items } : {};
   let res;
   if (profile.isAdmin) {
-    res = yield call(
-      API.schedule.fetchEventsAdmin,
-      '/api/events/get-week-admin',
-      data,
-    );
+    res = yield call(API.schedule.fetchEventsAdmin, data);
   } else {
-    res = yield call(API.schedule.fetchEvents, '/api/events/get-week', data);
+    res = yield call(API.schedule.fetchEvents, data);
   }
   yield put({ type: fetchCurrentWeekEventsRoutine.SUCCESS, payload: res.data });
 }
 
 function* fetchVcParts() {
-  const res = yield call(API.schedule.fetchVCParts, '/api/events/get-vc-parts');
+  const res = yield call(API.schedule.fetchVCParts);
   yield put({ type: fetchVCPartsRoutine.SUCCESS, payload: res.data });
 }
 
 function* fetchSelectedVcParts() {
-  const res = yield call(
-    API.schedule.fetchSelectedVcParts,
-    '/api/events/get-selected-vc-parts',
-  );
+  const res = yield call(API.schedule.fetchSelectedVcParts);
   yield put({ type: fetchSelectedVCPartsRoutine.SUCCESS, payload: res.data });
 }
 
 function* fetchEvent({ payload }) {
-  const res = yield call(
-    API.schedule.fetchEvent,
-    `/api/events/get-event-data/${payload.id}`,
-  );
+  const res = yield call(API.schedule.fetchEvent, payload.id);
   yield put({ type: fetchEventRoutine.SUCCESS, payload: res.data });
 }
 
 function* updateEvent({ payload }) {
-  const res = yield call(
-    API.schedule.updateEvent,
-    `/api/events/update`,
-    payload,
-  );
+  const res = yield call(API.schedule.updateEvent, payload);
   yield put({
     type: updateEventRoutine.SUCCESS,
     payload: res.data,
@@ -131,11 +117,7 @@ function* updateEvent({ payload }) {
 function* updateEventDebounced({ payload }) {
   const { arrayIndex, dayId } = payload;
   yield delay(500);
-  const res = yield call(
-    API.schedule.updateEventDebounced,
-    `/api/events/update`,
-    payload,
-  );
+  const res = yield call(API.schedule.updateEventDebounced, payload);
   yield put({
     type: debouncedUpdateEventRoutine.SUCCESS,
     payload: { arrayIndex, data: res.data, dayId },
@@ -144,16 +126,13 @@ function* updateEventDebounced({ payload }) {
 
 function* localConfirmEvent({ payload }) {
   const id = payload;
-  const res = yield call(
-    API.schedule.localConfirmEvent,
-    `/api/events/local-confirm-event/${id}`,
-  );
+  const res = yield call(API.schedule.localConfirmEvent, id);
   yield put({ type: fetchEventRoutine.TRIGGER, payload: { id } });
   yield put({ type: fetchCurrentWeekEventsRoutine.TRIGGER });
   yield put({ type: confirmLocalEventRoutine.SUCCESS, payload: res.data });
 }
 
-export default function* defaultSaga() {
+export function* saga() {
   yield takeLatest(
     fetchCurrentWeekEventsRoutine.TRIGGER,
     fetchCurrentWeekEvents,
