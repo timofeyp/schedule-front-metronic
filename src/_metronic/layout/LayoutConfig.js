@@ -1,17 +1,17 @@
-import { toAbsoluteUrl } from "../utils/utils";
+import { toAbsoluteUrl } from '../utils/utils';
 
 export const initLayoutConfig = {
-  demo: "demo1",
+  demo: 'demo1',
   // == Base Layout
   self: {
-    layout: "fluid",
+    layout: 'fluid',
     // body: { "background-image": toAbsoluteUrl("/media/misc/bg-1.jpg") },
     logo: {
-      dark: toAbsoluteUrl("/media/logos/logo-light.png"),
-      light: toAbsoluteUrl("/media/logos/logo-dark.png"),
-      brand: toAbsoluteUrl("/media/logos/logo-light.png"),
-      green: toAbsoluteUrl("/media/logos/logo-light.png")
-    }
+      dark: toAbsoluteUrl('/media/logos/logo-light.png'),
+      light: toAbsoluteUrl('/media/logos/logo-dark.png'),
+      brand: toAbsoluteUrl('/media/logos/logo-light.png'),
+      green: toAbsoluteUrl('/media/logos/logo-light.png'),
+    },
   },
   // == Portlet Plugin
   // portlet: {
@@ -22,116 +22,116 @@ export const initLayoutConfig = {
   // == Page Splash Screen loading
   loader: {
     enabled: true,
-    type: "spinner-logo",
-    logo: toAbsoluteUrl("/media/logos/logo-mini-md.png"),
-    message: "Please wait..."
+    type: 'spinner-logo',
+    logo: toAbsoluteUrl('/media/logos/logo-mini-md.png'),
+    message: 'Please wait...',
   },
   // == Colors for javascript
   colors: {
     state: {
-      brand: "#025ea1",
-      dark: "#003274",
-      light: "#ffffff",
-      primary: "#4596d1",
-      success: "#5ba252",
-      info: "#36a3f7",
-      warning: "#f6b021",
-      danger: "#c63032"
+      brand: '#025ea1',
+      dark: '#003274',
+      light: '#ffffff',
+      primary: '#4596d1',
+      success: '#5ba252',
+      info: '#36a3f7',
+      warning: '#f6b021',
+      danger: '#c63032',
     },
     base: {
-      label: ["#c5cbe3", "#a1a8c3", "#3d4465", "#3e4466"],
-      shape: ["#f0f3ff", "#d9dffa", "#afb4d4", "#646c9a"]
-    }
+      label: ['#c5cbe3', '#a1a8c3', '#3d4465', '#3e4466'],
+      shape: ['#f0f3ff', '#d9dffa', '#afb4d4', '#646c9a'],
+    },
   },
   // page toolbar
   toolbar: {
-    display: true
+    display: true,
   },
   header: {
     self: {
-      width: "fluid", // fixed|fluid
-      skin: "light",
+      width: 'fluid',
+      skin: 'light',
       fixed: {
         desktop: true,
-        mobile: true
-      }
+        mobile: true,
+      },
     },
     menu: {
       self: {
         display: true,
-        layout: "default",
-        "root-arrow": false,
-        "icon-style": "duotone"
+        layout: 'default',
+        'root-arrow': false,
+        'icon-style': 'duotone',
       },
       desktop: {
         arrow: true,
-        toggle: "click",
+        toggle: 'click',
         submenu: {
-          skin: "light",
-          arrow: true
-        }
+          skin: 'light',
+          arrow: true,
+        },
       },
       mobile: {
         submenu: {
-          skin: "dark",
-          accordion: true
-        }
-      }
-    }
+          skin: 'dark',
+          accordion: true,
+        },
+      },
+    },
   },
   subheader: {
-    display: true,
+    display: false,
     displayDesc: false,
     displayDaterangepicker: true,
-    layout: "subheader-v1",
-    fixed: true,
-    width: 'fluid', // fixed|fluid,
+    layout: 'subheader-v1',
+    fixed: false,
+    width: 'fluid',
     clear: false,
-    style: 'solid'
+    style: 'solid',
   },
   content: {
-    width: "fluid"
+    width: 'fluid',
   },
   brand: {
     self: {
-      skin: "dark"
-    }
+      skin: 'light',
+    },
   },
   aside: {
     self: {
-      skin: "dark",
-      display: true,
-      fixed: true,
+      skin: 'light',
+      display: false,
+      fixed: false,
       minimize: {
-        toggle: true,
-        default: false
-      }
+        toggle: false,
+        default: false,
+      },
     },
     footer: {
       self: {
-        display: true
-      }
+        display: true,
+      },
     },
     menu: {
-      dropdown: "false",
+      dropdown: 'false',
       scroll: false,
-      "icon-style": "duotone",
+      'icon-style': 'duotone',
       submenu: {
         accordion: true,
         dropdown: {
           arrow: true,
-          "hover-timeout": 100
-        }
-      }
-    }
+          'hover-timeout': 100,
+        },
+      },
+    },
   },
   footer: {
     self: {
       width: 'fluid',
-      fixed: false
-    }
-  }
+      fixed: false,
+    },
+  },
 };
 
-let LayoutConfig = JSON.parse(JSON.stringify(initLayoutConfig)); // deep object copy
+const LayoutConfig = JSON.parse(JSON.stringify(initLayoutConfig)); // deep object copy
 export default LayoutConfig;
