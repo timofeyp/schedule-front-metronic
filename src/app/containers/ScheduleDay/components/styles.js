@@ -32,7 +32,7 @@ export const DayCard = styled(Card)`
 `;
 
 export const DayHeader = styled.h4`
-  color: '#646c9a94';
+  color: ${initLayoutConfig.colors.base.shape[2]} !important;
 `;
 
 export const TableTh = styled.th`
