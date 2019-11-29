@@ -64,6 +64,7 @@
     "jss-rtl": "^0.3.0",
     "lodash": "^4.17.15",
     "material-ui-popup-state": "^1.4.1",
+    "mdi-react": "^6.3.0",
     "object-path": "^0.11.4",
     "perfect-scrollbar": "^1.4.0",
     "prop-types": "^15.7.2",
@@ -85,12 +86,14 @@
     "react-spring": "^8.0.27",
     "react-swipeable-views": "^0.13.3",
     "react-syntax-highlighter": "^11.0.2",
+    "react-to-print": "^2.5.0",
     "react-window": "^1.8.5",
     "reactstrap": "^8.1.1",
     "redux": "^4.0.4",
     "redux-persist": "^6.0.0",
     "redux-saga": "^1.1.1",
-    "socicon": "^3.0.5"
+    "socicon": "^3.0.5",
+    "styled-components": "^4.4.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
