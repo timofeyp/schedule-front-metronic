@@ -32,9 +32,7 @@ export const DayCard = styled(Card)`
 `;
 
 export const DayHeader = styled.h4`
-  border: 0;
-  margin: 10px;
-  padding: 40px;
+  color: '#646c9a94';
 `;
 
 export const TableTh = styled.th`
