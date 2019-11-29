@@ -9,6 +9,6 @@ export const StyledPrinterIcon = styled(
   cursor: pointer;
   color: ${initLayoutConfig.colors.base.shape[2]};
   :hover {
-    color: ${initLayoutConfig.colors.state.info} !important;
+    color: ${initLayoutConfig.colors.state.info}80 !important;
   }
 `;

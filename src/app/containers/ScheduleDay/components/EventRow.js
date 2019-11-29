@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import InfoRow from 'app/containers/ScheduleDay/components/Info';
 import { useSelector } from 'react-redux';
 import { CancelTag } from 'app/components/Buttons/styles';
-import TableField from 'app/components/Fields/TableField';
+import { EditableTd } from 'app/containers/ScheduleDay/components/styles';
 
 const EventRow = ({
   event: {
@@ -22,6 +22,15 @@ const EventRow = ({
   eventRoomChangeHandler,
   num,
 }) => {
+  const handleChangeRoom = e => {
+    eventRoomChangeHandler(_id, e, num - 1, dayId);
+  };
+  useEffect(() => {
+    const editable = document.getElementById(`room-${_id}`);
+    editable.addEventListener('input', e => {
+      handleChangeRoom(e.target.innerText);
+    });
+  }, [_id, handleChangeRoom]);
   const settings = useSelector(state => state.settings);
   const isAdmin = useSelector(state => state.session.profile.isAdmin);
   const isInfo =
@@ -29,17 +38,15 @@ const EventRow = ({
     settings &&
     settings.showInfoValue;
   const handleClick = e => {
-    if (e.target.id !== 'room') {
+    if (e.target.id !== `room-${_id}`) {
       eventClickHandler(_id);
     }
   };
-  const handleChangeRoom = e => {
-    eventRoomChangeHandler(_id, e.target.value, num - 1, dayId);
-  };
+
   return (
     <>
       <tr onClick={handleClick}>
-        <th className="no-wrap" scope="row">
+        <th className="text-nowrap" scope="row">
           {++num}
         </th>
         <td key={_id}>
@@ -50,25 +57,16 @@ const EventRow = ({
             </CancelTag>
           )}
         </td>
-        <td
-          id={isAdmin ? 'room' : ''}
-          className="no-wrap"
+        <EditableTd
+          id={isAdmin ? `room-${_id}` : ''}
+          className="text-nowrap"
           style={{ textAlign: 'end' }}
+          contentEditable
         >
-          {isAdmin ? (
-            <TableField
-              disabled={!isAdmin}
-              defaultValue={localRoom}
-              num={num}
-              _id={_id}
-              onChange={handleChangeRoom}
-            />
-          ) : (
-            localRoom
-          )}
-        </td>
-        <td className="no-wrap" style={{ textAlign: 'end' }}>
-          {timeStart}-{timeEnd}
+          {localRoom}
+        </EditableTd>
+        <td className="text-nowrap" style={{ textAlign: 'end' }}>
+          {`${timeStart} - ${timeEnd}`}
         </td>
       </tr>
       {isInfo && (

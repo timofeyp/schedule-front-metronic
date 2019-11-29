@@ -21,7 +21,8 @@ export const DayTable = styled(Table)`
     }
   }
   & tbody > tr:hover {
-    color: ${initLayoutConfig.colors.state.info} !important;
+    color: ${initLayoutConfig.colors.state.brand} !important;
+    cursor: pointer;
   }
 `;
 
@@ -31,11 +32,17 @@ export const DayCard = styled(Card)`
   padding: 40px;
 `;
 
-export const DayHeader = styled.h4`
+export const DayHeader = styled.h5`
   color: ${initLayoutConfig.colors.base.shape[2]} !important;
 `;
 
 export const TableTh = styled.th`
   width: ${props => props.width};
   text-align: ${props => props.textAlign};
+`;
+
+export const EditableTd = styled.td`
+  outline: 0px solid transparent;
+  cursor: text;
+  text-align: end;
 `;
