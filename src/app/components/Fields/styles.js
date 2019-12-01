@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-import { Input } from 'reactstrap';
+import ContentEditable from 'react-contenteditable';
 
-export const StyledInput = styled(Input)`
-  &:hover {
-    border-color: #6cace4;
-  }
+export const StyledContentEditable = styled(ContentEditable)`
+  outline: 0px solid transparent;
+  cursor: text;
+  text-align: end;
+  white-space: nowrap;
 `;

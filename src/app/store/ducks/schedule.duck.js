@@ -8,7 +8,6 @@ import {
 } from 'redux-saga/dist/redux-saga-effects-npm-proxy.esm';
 import API from 'app/api';
 import { isEmpty } from 'lodash';
-import { debouncedUpdateEventRoutine } from 'app/store/ducks/event.duck';
 export const fetchCurrentWeekEventsRoutine = createAction(
   'FETCH_CURRNET_WEEK_EVENTS',
   'schedule',
@@ -24,19 +23,6 @@ export const reducer = (state = initialState, action) =>
     switch (action.type) {
       case fetchCurrentWeekEventsRoutine.SUCCESS:
         draft.currentWeekEvents = action.payload;
-        break;
-      case debouncedUpdateEventRoutine.SUCCESS:
-        state.currentWeekEvents[action.payload.dayId].events[
-          action.payload.arrayIndex
-        ] = {
-          ...action.payload.data,
-          confirms:
-            state.currentWeekEvents[action.payload.dayId].events[
-              action.payload.arrayIndex
-            ].confirms,
-        };
-        draft.currentWeekEvents[action.payload.dayId] =
-          state.currentWeekEvents[action.payload.dayId];
         break;
     }
   });

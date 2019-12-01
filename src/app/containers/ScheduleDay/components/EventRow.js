@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import InfoRow from 'app/containers/ScheduleDay/components/Info';
 import { useSelector } from 'react-redux';
 import { CancelTag } from 'app/components/Buttons/styles';
-import { EditableTd } from 'app/containers/ScheduleDay/components/styles';
+import EditableTd from 'app/components/Fields/EditableTd';
 
 const EventRow = ({
   event: {
@@ -17,20 +17,16 @@ const EventRow = ({
     timeEnd,
     localRoom,
   },
-  dayId,
   eventClickHandler,
   eventRoomChangeHandler,
   num,
 }) => {
   const handleChangeRoom = e => {
-    eventRoomChangeHandler(_id, e, num - 1, dayId);
-  };
-  useEffect(() => {
-    const editable = document.getElementById(`room-${_id}`);
-    editable.addEventListener('input', e => {
-      handleChangeRoom(e.target.innerText);
+    eventRoomChangeHandler({
+      _id,
+      localRoom: e.target.value,
     });
-  }, [_id, handleChangeRoom]);
+  };
   const settings = useSelector(state => state.settings);
   const isAdmin = useSelector(state => state.session.profile.isAdmin);
   const isInfo =
@@ -38,7 +34,7 @@ const EventRow = ({
     settings &&
     settings.showInfoValue;
   const handleClick = e => {
-    if (e.target.id !== `room-${_id}`) {
+    if (e.target.id !== 'localRoom') {
       eventClickHandler(_id);
     }
   };
@@ -57,14 +53,15 @@ const EventRow = ({
             </CancelTag>
           )}
         </td>
-        <EditableTd
-          id={isAdmin ? `room-${_id}` : ''}
-          className="text-nowrap"
-          style={{ textAlign: 'end' }}
-          contentEditable
-        >
-          {localRoom}
-        </EditableTd>
+        {isAdmin ? (
+          <EditableTd
+            className="text-nowrap"
+            innerText={localRoom}
+            handleChange={handleChangeRoom}
+          />
+        ) : (
+          <td>{localRoom}</td>
+        )}
         <td className="text-nowrap" style={{ textAlign: 'end' }}>
           {`${timeStart} - ${timeEnd}`}
         </td>
@@ -81,7 +78,6 @@ const EventRow = ({
 };
 
 EventRow.propTypes = {
-  dayId: PropTypes.number,
   event: PropTypes.object,
   eventRoomChangeHandler: PropTypes.func,
   eventClickHandler: PropTypes.func,

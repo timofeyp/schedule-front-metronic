@@ -6,12 +6,12 @@ const Participants = ({ VCParts }) => (
     {VCParts.map((VCGroup, i) =>
       VCGroup.VCParts.length ? (
         // eslint-disable-next-line react/no-array-index-key
-        <h4 key={i} className="subhead mb-1">
-          {`${VCGroup.groupName}: `}
+        <div key={i} className="subhead mb-1">
+          <b>{VCGroup.groupName}: </b>
           <span className="dark-text">
             {VCGroup.VCParts.map(VCPart => `${VCPart.name} / `)}
           </span>
-        </h4>
+        </div>
       ) : null,
     )}
   </div>

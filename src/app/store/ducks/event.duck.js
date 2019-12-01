@@ -21,7 +21,7 @@ export const debouncedUpdateEventRoutine = createAction(
 );
 
 export const initialState = {
-  event: {},
+  data: {},
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -29,10 +29,10 @@ export const reducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
       case fetchEventRoutine.SUCCESS:
-        draft.event = action.payload;
+        draft.data = action.payload;
         break;
       case eraseEventRoutine.SUCCESS:
-        draft.event = {};
+        draft.data = {};
         break;
     }
   });
@@ -52,13 +52,9 @@ function* updateEvent({ payload }) {
 }
 
 function* updateEventDebounced({ payload }) {
-  const { arrayIndex, dayId } = payload;
   yield delay(500);
-  const res = yield call(API.schedule.updateEventDebounced, payload);
-  yield put({
-    type: debouncedUpdateEventRoutine.SUCCESS,
-    payload: { arrayIndex, data: res.data, dayId },
-  });
+  yield call(API.schedule.updateEventDebounced, payload);
+  yield put({ type: fetchCurrentWeekEventsRoutine.TRIGGER });
 }
 
 function* localConfirmEvent({ payload }) {

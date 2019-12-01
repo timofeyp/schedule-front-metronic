@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Button, ButtonToolbar, Modal } from 'reactstrap';
+import { Button, ButtonToolbar, Modal } from 'react-bootstrap';
 import { eraseEventRoutine } from 'app/store/ducks/event.duck';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { isEmpty } from 'lodash';
-import ModalTabs from 'app/containers/ModalTabs';
+import ModalTabs from 'app/containers/EventInfoModal/ModalTabs';
 
 const EventInfoModal = ({ isOpen, toggleHandler, event, eraseEvent }) => {
   const color = '#003274';
@@ -17,21 +17,12 @@ const EventInfoModal = ({ isOpen, toggleHandler, event, eraseEvent }) => {
   }, [eraseEvent, isOpen]);
   return (
     !isEmpty(event) && (
-      <Modal
-        isOpen={isOpen}
-        toggle={toggleHandler}
-        className="modal-dialog--success modal-dialog--header"
-        size="sm"
-      >
-        <div className="modal__header">
-          <button
-            className="lnr lnr-cross modal__close-btn"
-            type="button"
-            onClick={toggleHandler}
-          />
-          <span className="lnr lnr-pushpin modal__title-icon" />
-          <h4 className="bold-text  modal__title">{event.eventName}</h4>
-        </div>
+      <Modal show={isOpen} onHide={toggleHandler} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            {event.eventName}
+          </Modal.Title>
+        </Modal.Header>
         <ModalTabs data={event} />
         <ButtonToolbar className="modal__footer">
           <Button outline={colored} color={color} onClick={toggleHandler}>
@@ -49,7 +40,7 @@ EventInfoModal.propTypes = {
 };
 
 const mapStateToProps = store => ({
-  event: store.event.event,
+  event: store.event.data,
 });
 
 const mapDispatchToProps = {

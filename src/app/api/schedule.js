@@ -9,8 +9,8 @@ export function* fetchEvents(data) {
   return yield call(axios.post, '/api/events/get-week', data);
 }
 
-export function* fetchEvent({ payload }) {
-  return yield call(axios.get, `/api/events/get-event-data/${payload.id}`);
+export function* fetchEvent(id) {
+  return yield call(axios.get, `/api/events/get-event-data/${id}`);
 }
 
 export function* fetchVCParts() {

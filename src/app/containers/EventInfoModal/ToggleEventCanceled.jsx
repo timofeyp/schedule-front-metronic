@@ -4,7 +4,7 @@ import { updateEventRoutine } from 'app/store/ducks/event.duck';
 import Toggler from 'app/components/Toggler';
 
 const ToggleEventVisibility = () => {
-  const event = useSelector(state => state.schedule.event);
+  const event = useSelector(state => state.event.data);
   const { _id, isCanceled } = event;
   const isAdmin = useSelector(state => state.session.profile.isAdmin);
   const dispatch = useDispatch();

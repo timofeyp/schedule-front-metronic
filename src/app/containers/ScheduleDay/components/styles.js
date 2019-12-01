@@ -40,9 +40,3 @@ export const TableTh = styled.th`
   width: ${props => props.width};
   text-align: ${props => props.textAlign};
 `;
-
-export const EditableTd = styled.td`
-  outline: 0px solid transparent;
-  cursor: text;
-  text-align: end;
-`;

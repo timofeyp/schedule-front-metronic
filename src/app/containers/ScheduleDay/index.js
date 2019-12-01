@@ -65,7 +65,6 @@ const ScheduleDay = ({
                 {eventsSorted.map((event, i) => (
                   <EventRow
                     key={event._id}
-                    dayId={dayId}
                     eventClickHandler={eventClickHandler}
                     eventRoomChangeHandler={updateRoomEvent}
                     event={event}

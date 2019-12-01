@@ -73,7 +73,7 @@ export const initLayoutConfig = {
       },
       mobile: {
         submenu: {
-          skin: 'dark',
+          skin: 'light',
           accordion: true,
         },
       },
