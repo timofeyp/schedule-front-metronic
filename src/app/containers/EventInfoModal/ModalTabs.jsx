@@ -62,20 +62,22 @@ const ModalTabs = ({
   const activeTab = tabs.find(tab => tab.isShown);
 
   return (
-    <Col className="mt-2" md={12} lg={12} xs={12}>
+    <Col className="mt-2  mb-4" md={12} lg={12} xs={12}>
       <Tabs tabs={tabs} initial={activeTab.title} />
-      <div className="text-center">
-        <Button
-          disabled={!isAuth || confirmed}
-          onClick={handleConfirm}
-          size="sm"
-          color="success"
-        >
-          {confirmed
-            ? 'Вы подтвердили участие'
-            : 'Подтвердить участие в конференции'}
-        </Button>
-      </div>
+      {isAuth && (
+        <div className="text-center">
+          <Button
+            disabled={!isAuth || confirmed}
+            onClick={handleConfirm}
+            size="sm"
+            color="success"
+          >
+            {confirmed
+              ? 'Вы подтвердили участие'
+              : 'Подтвердить участие в конференции'}
+          </Button>
+        </div>
+      )}
     </Col>
   );
 };

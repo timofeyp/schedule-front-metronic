@@ -5,7 +5,7 @@ import {
   DayTable,
   DayCard,
   DayHeader,
-  TableTh,
+  StyledEventRow,
 } from 'app/containers/ScheduleDay/components/styles';
 
 import {
@@ -14,7 +14,6 @@ import {
 } from 'app/store/ducks/event.duck';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import EventRow from 'app/containers/ScheduleDay/components/EventRow';
 
 const ScheduleDay = ({
   eventData,
@@ -46,33 +45,25 @@ const ScheduleDay = ({
   return (
     <Container className="mb-10">
       <Row className="justify-content-md-center">
-        <Col md={12} lg={12} xl={10}>
+        <Col>
           <DayCard>
             <DayHeader>{eventData._id}</DayHeader>
-            <DayTable responsive hover striped>
-              <thead>
-                <tr>
-                  <TableTh width="2em" textAlign="start">
-                    #
-                  </TableTh>
-                  <th>Название</th>
-                  <th style={{ width: '8em', textAlign: 'end' }}>Зал</th>
-                  <th style={{ width: '8em', textAlign: 'end' }}>Время</th>
-                </tr>
-              </thead>
-              {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
-              <tbody>
-                {eventsSorted.map((event, i) => (
-                  <EventRow
-                    key={event._id}
-                    eventClickHandler={eventClickHandler}
-                    eventRoomChangeHandler={updateRoomEvent}
-                    event={event}
-                    num={i}
-                    {...props}
-                  />
-                ))}
-              </tbody>
+            <Row>
+              <Col xs={1}>#</Col>
+              <Col xs={8}>Название</Col>
+              <Col xs={1} className="text-nowrap text-right">
+                Зал
+              </Col>
+              <Col xs={2} className="text-nowrap text-right">
+                Время
+              </Col>
+            </Row>
+            <DayTable>
+              {eventsSorted.map((event, i) => (
+                <StyledEventRow
+
+                />
+              ))}
             </DayTable>
             <Row className="mt-1 justify-content-center">{children}</Row>
           </DayCard>

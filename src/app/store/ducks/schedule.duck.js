@@ -28,16 +28,10 @@ export const reducer = (state = initialState, action) =>
   });
 
 function* fetchCurrentWeekEvents() {
-  const profile = yield select(store => store.session.profile);
   const filter = yield select(store => store.settings.filter);
   const items = filter ? filter.map(item => item.value) : [];
   const data = !isEmpty(items) ? { filter: items } : {};
-  let res;
-  if (profile.isAdmin) {
-    res = yield call(API.schedule.fetchEventsAdmin, data);
-  } else {
-    res = yield call(API.schedule.fetchEvents, data);
-  }
+  const res = yield call(API.schedule.fetchEvents, data);
   yield put(fetchCurrentWeekEventsRoutine.success(res.data));
 }
 

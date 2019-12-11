@@ -1,6 +1,6 @@
 import React from 'react';
-import ToggleEventVisibility from './ToggleEventVisibility';
-import ToggleEventCanceled from './ToggleEventCanceled';
+import ToggleEventVisibility from 'app/components/Togglers/ToggleEventVisibility';
+import ToggleEventCanceled from 'app/components/Togglers/ToggleEventCanceled';
 
 const OptionsTab = () => (
   <>

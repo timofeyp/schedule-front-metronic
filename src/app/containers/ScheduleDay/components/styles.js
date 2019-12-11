@@ -1,28 +1,11 @@
 import styled from 'styled-components';
-import { Table, Card } from 'reactstrap';
+import { Card, Row } from 'reactstrap';
+import EventRow from 'app/containers/ScheduleDay/components/EventRow';
 import { initLayoutConfig } from '_metronic/layout/LayoutConfig';
 
-export const DayTable = styled(Table)`
-  table-layout: fixed;
-  color: ${initLayoutConfig.colors.base.shape[3]} !important;
-  & thead > tr > th {
-    border-bottom: 0 !important;
-  }
-  & tbody > tr > th,
-  td {
-    border-top: 0 !important;
-  }
-  & tbody > tr {
-    & :last-child {
-      border-radius: 0 4px 4px 0;
-    }
-    & :first-child {
-      border-radius: 4px 0 0 4px;
-    }
-  }
-  & tbody > tr:hover {
-    color: ${initLayoutConfig.colors.state.brand} !important;
-    cursor: pointer;
+export const DayTable = styled.div`
+  .event-row:nth-child(odd) {
+    background-color: #4d59950f;
   }
 `;
 
@@ -36,7 +19,9 @@ export const DayHeader = styled.h5`
   color: ${initLayoutConfig.colors.base.shape[2]} !important;
 `;
 
-export const TableTh = styled.th`
-  width: ${props => props.width};
-  text-align: ${props => props.textAlign};
+export const StyledEventRow = styled(EventRow)`
+  border-radius: 4px !important;
+  background-color: red !important;
+  margin: 10px;
+  padding: 40px;
 `;

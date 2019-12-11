@@ -69,6 +69,7 @@
     "perfect-scrollbar": "^1.4.0",
     "prop-types": "^15.7.2",
     "proptypes": "^1.1.0",
+    "query-string": "^6.9.0",
     "react": "^16.10.2",
     "react-bootstrap": "1.0.0-beta.14",
     "react-contenteditable": "^3.3.2",

@@ -12,6 +12,7 @@ import InfoModal from 'app/containers/EventInfoModal';
 import ReactToPrint from 'react-to-print';
 import Printable from 'app/components/Printable';
 import { StyledPrinterIcon } from 'app/containers/Schedule/styles';
+import Filter from 'app/containers/Filter';
 
 export const getSelects = () => {
   const defaultValues = localStorage.getItem('selectValues')

@@ -1,7 +1,12 @@
 import createAction from 'app/utils/createAction';
 
 import produce from 'immer/dist/immer';
-import { filterDef, showInfoValue, setFilter } from 'app/utils/localstorage';
+import {
+  filterDef,
+  isExtraInfo,
+  setExtraInfo,
+  setFilter,
+} from 'app/utils/localstorage';
 
 import {
   put,
@@ -9,8 +14,8 @@ import {
 } from 'redux-saga/dist/redux-saga-effects-npm-proxy.esm';
 
 import { fetchCurrentWeekEventsRoutine } from 'app/store/ducks/schedule.duck';
-export const toggleShowInfoRoutine = createAction(
-  'TOGGLE_SHOW_INFO',
+export const toggleExtraInfoRoutine = createAction(
+  'TOGGLE_EXTRA_INFO',
   'settings',
 );
 export const updateFilterRoutine = createAction('UPDATE_FILTER', 'settings');
@@ -20,17 +25,17 @@ export const toggleShowCreateModal = createAction(
 );
 
 export const initialState = {
-  showInfoValue,
+  isExtraInfo,
   filter: filterDef,
-  showCreateModal: false,
+  isShowCreateModal: false,
 };
 
 /* eslint-disable default-case, no-param-reassign */
 export const reducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
-      case toggleShowInfoRoutine.SUCCESS:
-        draft.showInfoValue = action.payload;
+      case toggleExtraInfoRoutine.SUCCESS:
+        draft.isExtraInfo = action.payload;
         break;
       case updateFilterRoutine.SUCCESS:
         draft.filter = action.payload;
@@ -47,6 +52,12 @@ function* updateFilter({ payload }) {
   yield put(fetchCurrentWeekEventsRoutine.trigger());
 }
 
+function* toggleExtraInfo({ payload }) {
+  setExtraInfo(payload);
+  yield put(toggleExtraInfoRoutine.success(payload));
+}
+
 export function* saga() {
   yield takeLatest(updateFilterRoutine.TRIGGER, updateFilter);
+  yield takeLatest(toggleExtraInfoRoutine.TRIGGER, toggleExtraInfo);
 }

@@ -1,29 +1,20 @@
 import React from 'react';
-import Select from 'react-select';
 import { connect } from 'react-redux';
-import { makeSelectSelectedVCParts } from 'containers/Schedule/selectors';
-import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
-import { updateFilterRoutine } from 'containers/App/settings/constants';
-import { makeSelectFilter } from 'containers/App/settings/selectors';
-import { filterDef } from 'utils/localstorage';
+import { updateFilterRoutine } from 'app/store/ducks/settings.duck';
+import FilterSelect from 'app/components/Selects/FilterSelect';
+import { isEmpty } from 'lodash';
 
 const Filter = ({ currentWeekVCParts, updateFilter }) => {
-  const currentWeekVCPartsArray = currentWeekVCParts || [];
-
   const handleSelect = values => {
     updateFilter(values);
   };
-
-  return (
-    <Select
-      defaultValue={filterDef}
-      onChange={handleSelect}
-      isMulti
-      options={currentWeekVCPartsArray}
-      placeholder="Выберите филиалы"
-    />
-  );
+  if (!isEmpty(currentWeekVCParts)) {
+    return (
+      <FilterSelect onChange={handleSelect} options={currentWeekVCParts} />
+    );
+  }
+  return null;
 };
 
 Filter.propTypes = {
@@ -31,16 +22,13 @@ Filter.propTypes = {
   updateFilter: PropTypes.func,
 };
 
-const mapStateToProps = createStructuredSelector({
-  currentWeekVCParts: makeSelectSelectedVCParts(),
-  filter: makeSelectFilter(),
+const mapStateToProps = store => ({
+  currentWeekVCParts: store.vcparts.selectedVCParts,
+  filter: store.settings.filter,
 });
 
 const mapDispatchToProps = {
-  updateFilter: events => updateFilterRoutine.trigger(events),
+  updateFilter: updateFilterRoutine.trigger,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Filter);
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);

@@ -11,4 +11,5 @@ export const StyledNavItem = styled(Nav.Item)`
   & :hover {
     background-color: #f8fafb !important;
   }
+  margin: 0 !important;
 `;

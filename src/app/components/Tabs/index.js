@@ -44,7 +44,7 @@ const Tabs = ({ tabs, initial, onChange, errors, submitFailed, resubmit }) => {
           </Nav>
         </Col>
         <Col sm={10}>
-          <Tab.Content activeTab={activeTab} className="mt-2">
+          <Tab.Content className="mt-2">
             {tabs.map(({ content, title, isShown }) => {
               if (isShown) {
                 return (

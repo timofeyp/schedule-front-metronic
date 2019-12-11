@@ -10,7 +10,7 @@ const EditableTd = ({ handleChange, innerText }) => {
       disabled={false}
       onChange={handleChange}
       id="localRoom"
-      tagName="td"
+      tagName="div"
     />
   );
 };
