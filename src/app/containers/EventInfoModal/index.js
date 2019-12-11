@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import { eraseEventRoutine } from 'app/store/ducks/event.duck';
 import { compose } from 'redux';
 import { connect } from 'react-redux';

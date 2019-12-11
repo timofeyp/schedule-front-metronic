@@ -48,7 +48,7 @@ const ScheduleDay = ({
         <Col>
           <DayCard>
             <DayHeader>{eventData._id}</DayHeader>
-            <Row>
+            <Row className="p-2">
               <Col xs={1}>#</Col>
               <Col xs={8}>Название</Col>
               <Col xs={1} className="text-nowrap text-right">
@@ -61,7 +61,13 @@ const ScheduleDay = ({
             <DayTable>
               {eventsSorted.map((event, i) => (
                 <StyledEventRow
-
+                  className="event-row"
+                  key={event._id}
+                  eventClickHandler={eventClickHandler}
+                  eventRoomChangeHandler={updateRoomEvent}
+                  event={event}
+                  num={i}
+                  {...props}
                 />
               ))}
             </DayTable>

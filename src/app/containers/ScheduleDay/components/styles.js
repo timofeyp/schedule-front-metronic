@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Card, Row } from 'reactstrap';
+import { Card } from 'reactstrap';
 import EventRow from 'app/containers/ScheduleDay/components/EventRow';
 import { initLayoutConfig } from '_metronic/layout/LayoutConfig';
 
@@ -20,8 +20,10 @@ export const DayHeader = styled.h5`
 `;
 
 export const StyledEventRow = styled(EventRow)`
-  border-radius: 4px !important;
-  background-color: red !important;
-  margin: 10px;
-  padding: 40px;
+  border-radius: 4px;
+  cursor: pointer;
+  :hover {
+    background-color: #fafbfc !important;
+    color: #4596d1;
+  }
 `;
