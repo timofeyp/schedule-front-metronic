@@ -47,6 +47,7 @@ const StyledDataPicker = styled.div`
   border-radius: 5px;
   width: 100%;
   height: 32px;
+  padding: 5px;
   display: flex;
   justify-content: center;
   align-items: center;

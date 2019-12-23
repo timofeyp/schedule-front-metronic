@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { StyledTimePicker } from 'app/components/Selects/styles';
 import moment from 'moment';
 
-const TimePickerField = ({ name, onChange, timeMode }) => {
+const TimePickerField = ({ name, handleChange, is12HoursMode }) => {
   const [open, setOpen] = useState(false);
   useEffect(() => {
-    onChange(moment().format('HH:mm'));
+    handleChange(moment().format('HH:mm'));
   }, []);
-  const handleChange = value => {
-    onChange(value.format('HH:mm'));
+  const handleChangeTime = value => {
+    handleChange(value.format('HH:mm'));
   };
   const setOpenFromPicker = e => setOpen(e.open);
   return (
@@ -22,34 +22,17 @@ const TimePickerField = ({ name, onChange, timeMode }) => {
       onOpen={setOpenFromPicker}
       onClose={setOpenFromPicker}
       name={name}
-      onChange={handleChange}
+      onChange={handleChangeTime}
       showSecond={false}
-      use12Hours={timeMode}
+      use12Hours={is12HoursMode}
     />
   );
 };
 
-const renderTimePickerField = props => {
-  const { input, timeMode } = props;
-  return <TimePickerField {...input} timeMode={timeMode} />;
-};
-
-renderTimePickerField.propTypes = {
-  input: PropTypes.shape({
-    onChange: PropTypes.func,
-    name: PropTypes.string,
-  }).isRequired,
-  timeMode: PropTypes.bool,
-};
-
-renderTimePickerField.defaultProps = {
-  timeMode: false,
-};
-
 TimePickerField.propTypes = {
-  onChange: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
-  timeMode: PropTypes.bool.isRequired,
+  is12HoursMode: PropTypes.bool.isRequired,
 };
 
-export default renderTimePickerField;
+export default TimePickerField;

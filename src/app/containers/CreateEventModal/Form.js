@@ -22,6 +22,8 @@ const View = ({ eventsNames, eventNameInput }) => {
   const dispatch = useDispatch();
   const color = '#003274';
   const colored = true;
+  const handleChangeFrom = () => false;
+  const handleChangeTo = () => false;
   return (
     <>
       <Formik
@@ -42,6 +44,20 @@ const View = ({ eventsNames, eventNameInput }) => {
             <Form.Row>
               <Form.Group xs={4} as={Col}>
                 <DatePickerField />
+              </Form.Group>
+              <Form.Group xs={4} as={Col}>
+                <TimePickerField
+                  onChange={handleChangeFrom}
+                  is12HoursMode={false}
+                  name="from"
+                />
+              </Form.Group>
+              <Form.Group xs={4} as={Col}>
+                <TimePickerField
+                  onChange={handleChangeTo}
+                  is12HoursMode={false}
+                  name="to"
+                />
               </Form.Group>
             </Form.Row>
           </Form>

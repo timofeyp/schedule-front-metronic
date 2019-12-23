@@ -32,37 +32,32 @@ const View = ({ options, eventNameInput }) => {
     dispatch(changeEventNameInputRoutine.success(value.value));
   };
   const menuOpacity = isEmpty(options) ? 0 : 1;
+  const arr = [{value: 1, label: 1}]
   return (
-    <div className="form__form-group-input-wrap">
-      <Select
-        options={options}
-        isSearchable
-        isClearable={false}
-        className="react-select react-select-editable"
-        classNamePrefix="react-select"
-        placeholder="Название"
-        objectValue={eventNameInput}
-        inputValue={eventNameInput}
-        value={eventNameInput}
-        skipEnter
-        onChange={onChange}
-        onInputChange={onInputChange}
-        noOptionsMessage={() => ''}
-        styles={{
-          valueContainer: styles => ({ ...styles, padding: '0 8px' }),
-          input: styles => ({
-            ...styles,
-            padding: '0 8px',
-            opacity: '1 !important',
-            overflow: 'hidden',
-          }),
-          placeholder: styles => ({ ...styles, padding: '0 8px' }),
-          dropdownIndicator: () => ({ display: 'none' }),
-          menu: styles => ({ ...styles, opacity: menuOpacity }),
-          noOptionsMessage: styles => ({ ...styles, opacity: menuOpacity }),
-        }}
-      />
-    </div>
+    <Select
+      options={arr}
+      isSearchable
+      isClearable={false}
+      placeholder="Название"
+      objectValue={eventNameInput}
+      inputValue={eventNameInput}
+      value={eventNameInput}
+      skipEnter
+      onChange={onChange}
+      onInputChange={onInputChange}
+      noOptionsMessage={() => ''}
+      styles={{
+        valueContainer: styles => ({ ...styles, padding: '0 8px' }),
+        input: styles => ({
+          ...styles,
+          padding: '0 8px',
+          opacity: '1 !important',
+          overflow: 'hidden',
+        }),
+        placeholder: styles => ({ ...styles, padding: '0 8px' }),
+        dropdownIndicator: () => ({ display: 'none' }),
+      }}
+    />
   );
 };
 
