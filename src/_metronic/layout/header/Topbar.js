@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import TopBarButton from 'app/components/Buttons/TopBarButton';
+import CreateEvent from 'app/components/Buttons/TopBar/CreateEvent';
+import Login from 'app/components/Buttons/TopBar/Login';
 import SearchDropdown from '../../../app/partials/layout/SearchDropdown';
 import UserNotifications from '../../../app/partials/layout/UserNotifications';
 import MyCart from '../../../app/partials/layout/MyCart';
 import QuickActionsPanel from '../../../app/partials/layout/QuickActionsPanel';
 import QuickPanelToggler from './QuickPanelToggle';
 import LanguageSelector from '../../../app/partials/layout/LanguageSelector';
-import UserProfile from '../../../app/partials/layout/UserProfile';
 import { toAbsoluteUrl } from '../../utils/utils';
 
 const Topbar = ({ isAuth }) => (
@@ -47,9 +47,9 @@ const Topbar = ({ isAuth }) => (
 
     <LanguageSelector isHidden iconType="" />
 
-    {!isAuth && <TopBarButton>Вход</TopBarButton>}
+    <CreateEvent />
 
-    {isAuth && <UserProfile showAvatar showHi showBadge={false} />}
+    <Login />
   </div>
 );
 

@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Schedule from 'app/containers/Schedule';
+import CreateEventModal from 'app/containers/CreateEventModal/index';
 import Builder from './Builder';
 import Dashboard from './Dashboard';
 import DocsPage from './docs/DocsPage';
@@ -26,6 +27,7 @@ export default function HomePage() {
         <Route path="/docs" component={DocsPage} />
         <Redirect to="/error/error-v1" />
       </Switch>
+      <CreateEventModal />
     </Suspense>
   );
 }

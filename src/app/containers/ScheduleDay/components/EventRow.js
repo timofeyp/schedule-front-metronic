@@ -4,6 +4,7 @@ import Info from 'app/containers/ScheduleDay/components/Info';
 import { useSelector } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
 import EditableTd from 'app/components/Fields/EditableTd';
+import InfoWarning from 'app/components/Buttons/InfoWarning';
 
 const EventRow = ({
   event: {
@@ -35,6 +36,13 @@ const EventRow = ({
     }
   };
 
+  const roomTag = () =>
+    isAdmin ? (
+      <EditableTd innerText={localRoom} handleChange={handleChangeRoom} />
+    ) : (
+      localRoom
+    );
+
   return (
     <div className={`event-row p-2 ${className}`}>
       <Row onClick={handleClick}>
@@ -43,18 +51,20 @@ const EventRow = ({
         </Col>
         <Col xs={8}>{eventName}</Col>
         <Col className="text-nowrap text-right" xs={1}>
-          {isAdmin ? (
-            <EditableTd innerText={localRoom} handleChange={handleChangeRoom} />
+          {isCanceled ? (
+            <InfoWarning active disabled variant="danger">
+              Отмена
+            </InfoWarning>
           ) : (
-            localRoom || ''
+            roomTag()
           )}
         </Col>
         <Col xs={2} className="text-right">
           {`${timeStart} - ${timeEnd}`}
         </Col>
       </Row>
-      <Row>
-        <Col xs={{ span: 11, offset: 1 }}>
+      <Row onClick={handleClick}>
+        <Col xs={{ span: 8, offset: 1 }}>
           <Info
             isCanceled={isCanceled}
             confirms={confirms}

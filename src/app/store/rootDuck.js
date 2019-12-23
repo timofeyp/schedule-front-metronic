@@ -7,6 +7,7 @@ import * as schedule from 'app/store/ducks/schedule.duck';
 import * as event from 'app/store/ducks/event.duck';
 import * as vcparts from 'app/store/ducks/vcparts.duck';
 import * as settings from 'app/store/ducks/settings.duck';
+import * as creating from 'app/store/ducks/creating.duck';
 import { metronic } from '../../_metronic';
 
 export const rootReducer = combineReducers({
@@ -16,6 +17,7 @@ export const rootReducer = combineReducers({
   event: event.reducer,
   vcparts: vcparts.reducer,
   settings: settings.reducer,
+  creating: creating.reducer,
   i18n: metronic.i18n.reducer,
   builder: metronic.builder.reducer,
 });
@@ -28,5 +30,6 @@ export function* rootSaga() {
     event.saga(),
     vcparts.saga(),
     settings.saga(),
+    creating.saga(),
   ]);
 }

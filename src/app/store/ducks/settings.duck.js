@@ -41,7 +41,7 @@ export const reducer = (state = initialState, action) =>
         draft.filter = action.payload;
         break;
       case toggleShowCreateModal.SUCCESS:
-        draft.showCreateModal = action.payload;
+        draft.isShowCreateModal = action.payload;
         break;
     }
   });

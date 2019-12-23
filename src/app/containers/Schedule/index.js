@@ -12,18 +12,7 @@ import InfoModal from 'app/containers/EventInfoModal';
 import ReactToPrint from 'react-to-print';
 import Printable from 'app/components/Printable';
 import { StyledPrinterIcon } from 'app/containers/Schedule/styles';
-
-export const getSelects = () => {
-  const defaultValues = localStorage.getItem('selectValues')
-    ? JSON.parse(localStorage.getItem('selectValues'))
-    : [];
-  if (defaultValues && !isEmpty(defaultValues)) {
-    return JSON.parse(localStorage.getItem('selectValues')).map(
-      item => item.value,
-    );
-  }
-  return [];
-};
+import AnimateLoading from 'app/partials/layout/AnimateLoading';
 
 const Schedule = ({
   currentWeekEvents,
@@ -62,7 +51,7 @@ const Schedule = ({
       </div>
     );
   }
-  return <div>NULL</div>;
+  return <AnimateLoading />;
 };
 
 Schedule.propTypes = {

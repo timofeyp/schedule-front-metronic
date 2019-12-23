@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import { useSelector } from 'react-redux';
-import InfoWarning from 'app/components/Buttons/InfoWarning';
 
 const Info = ({ confirms, isCanceled, isHidden }) => {
   const isAdmin = useSelector(state => state.session.profile.isAdmin);
@@ -10,30 +9,26 @@ const Info = ({ confirms, isCanceled, isHidden }) => {
   if (isExtraInfo) {
     return (
       <>
+        {isHidden && isAdmin && (
+          <div className="text-warning">
+            Эта конференция скрыта от пользователей
+          </div>
+        )}
+        {isCanceled && (
+          <div className="text-danger">Эта конференция отменена</div>
+        )}
         {!isEmpty(confirms) && (
           <>
-            <div className="subhead text-muted">
-              Зарегистрировавшиеся участники:
-            </div>
+            <div className="text-primary">Зарегистрировавшиеся участники:</div>
             {confirms.map(item => (
               <div
                 key={item._id}
-                className="align-items-end justify-content-end"
+                className="text-primary align-items-end justify-content-end"
               >
                 {`${item.user.name} - ${item.user.departament} - ${item.user.mail} - ${item.user.phone}`}
               </div>
             ))}
           </>
-        )}
-        {isHidden && (
-          <InfoWarning active disabled variant="warning">
-            Эта конференция скрыта от пользователей
-          </InfoWarning>
-        )}
-        {isCanceled && isAdmin && (
-          <InfoWarning active disabled variant="danger">
-            Эта конференция отменена
-          </InfoWarning>
         )}
       </>
     );

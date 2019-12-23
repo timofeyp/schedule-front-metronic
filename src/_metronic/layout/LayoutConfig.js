@@ -42,6 +42,7 @@ export const initLayoutConfig = {
       label: ['#c5cbe3', '#a1a8c3', '#3d4465', '#3e4466'],
       shape: ['#f0f3ff', '#d9dffa', '#afb4d4', '#646c9a'],
     },
+    headerText: '#6c7293',
   },
   // page toolbar
   toolbar: {

@@ -1,18 +1,12 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { updateEventRoutine } from 'app/store/ducks/event.duck';
 import Toggler from 'app/components/Togglers/Toggler';
+import PropTypes from 'prop-types';
 
-const ToggleEventVisibility = () => {
-  const event = useSelector(state => state.event.data);
+const ToggleEventVisibility = ({ event, updateEvent, isAdmin }) => {
   const { _id, isCanceled } = event;
-  const isAdmin = useSelector(state => state.session.profile.isAdmin);
-  const dispatch = useDispatch();
-  const handleClick = () =>
-    dispatch({
-      type: updateEventRoutine.TRIGGER,
-      payload: { _id, isCanceled: !isCanceled },
-    });
+  const handleClick = () => updateEvent({ _id, isCanceled: !isCanceled });
 
   if (isAdmin && event) {
     return (
@@ -27,4 +21,22 @@ const ToggleEventVisibility = () => {
   return null;
 };
 
-export default ToggleEventVisibility;
+const mapStateToProps = store => ({
+  event: store.event.data,
+  isAdmin: store.session.profile.isAdmin,
+});
+
+const mapDispatchToProps = {
+  updateEvent: updateEventRoutine.trigger,
+};
+
+ToggleEventVisibility.propTypes = {
+  event: PropTypes.object,
+  isAdmin: PropTypes.bool,
+  updateEvent: PropTypes.func,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ToggleEventVisibility);

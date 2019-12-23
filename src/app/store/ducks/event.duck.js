@@ -39,16 +39,13 @@ export const reducer = (state = initialState, action) =>
 
 function* fetchEvent({ payload }) {
   const res = yield call(API.schedule.fetchEvent, payload);
-  yield put({ type: fetchEventRoutine.SUCCESS, payload: res.data });
+  yield put(fetchEventRoutine.success(res.data));
 }
 
 function* updateEvent({ payload }) {
   const res = yield call(API.schedule.updateEvent, payload);
-  yield put({
-    type: updateEventRoutine.SUCCESS,
-    payload: res.data,
-  });
-  yield put({ type: fetchCurrentWeekEventsRoutine.TRIGGER });
+  yield put(updateEventRoutine.success(res.data));
+  yield put(fetchCurrentWeekEventsRoutine.trigger());
 }
 
 function* updateEventDebounced({ payload }) {
@@ -60,9 +57,9 @@ function* updateEventDebounced({ payload }) {
 function* localConfirmEvent({ payload }) {
   const id = payload;
   const res = yield call(API.schedule.localConfirmEvent, id);
-  yield put({ type: fetchEventRoutine.TRIGGER, payload: { id } });
-  yield put({ type: fetchCurrentWeekEventsRoutine.TRIGGER });
-  yield put({ type: confirmLocalEventRoutine.SUCCESS, payload: res.data });
+  yield put(fetchEventRoutine.trigger(id));
+  yield put(fetchCurrentWeekEventsRoutine.trigger());
+  yield put(confirmLocalEventRoutine.success(res.data));
 }
 
 export function* saga() {

@@ -1,13 +1,15 @@
-import React from "react";
-import { withRouter } from "react-router-dom";
-import { Progress } from "reactstrap";
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+import { Progress } from 'reactstrap';
 
 class AnimateLoading extends React.Component {
   animateTimeout;
+
   stopAnimateTimeout;
+
   state = {
     width: 0,
-    routeChanged: false
+    routeChanged: false,
   };
 
   componentDidUpdate(nextProps) {
@@ -26,12 +28,14 @@ class AnimateLoading extends React.Component {
       }
     }, 30);
   }
+
   stopAnimate() {
     clearTimeout(this.animateInterval);
     this.stopAnimateTimeout = setTimeout(() => {
       this.setState({ width: 0 });
     }, 300);
   }
+
   componentWillUnmount() {
     if (this.stopAnimateTimeout) {
       clearTimeout(this.stopAnimateTimeout);
@@ -40,14 +44,15 @@ class AnimateLoading extends React.Component {
       clearTimeout(this.animateTimeout);
     }
   }
+
   render() {
     return (
       <div
         className="header-progress-bar"
-        style={{ height: "3px", width: "100%" }}
+        style={{ height: '3px', width: '100%' }}
       >
         {this.state.width > 0 && (
-          <Progress value={this.state.width} style={{ height: "3px" }} />
+          <Progress value={this.state.width} style={{ height: '3px' }} />
         )}
       </div>
     );

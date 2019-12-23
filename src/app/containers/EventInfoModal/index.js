@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from 'react-bootstrap';
 import { eraseEventRoutine } from 'app/store/ducks/event.duck';
-import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { isEmpty } from 'lodash';
 import ModalTabs from 'app/containers/EventInfoModal/ModalTabs';
@@ -40,6 +39,4 @@ const mapDispatchToProps = {
   eraseEvent: () => eraseEventRoutine.success(),
 };
 
-export default compose(connect(mapStateToProps, mapDispatchToProps))(
-  EventInfoModal,
-);
+export default connect(mapStateToProps, mapDispatchToProps)(EventInfoModal);

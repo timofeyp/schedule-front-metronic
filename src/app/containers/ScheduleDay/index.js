@@ -52,7 +52,7 @@ const ScheduleDay = ({
               <Col xs={1}>#</Col>
               <Col xs={8}>Название</Col>
               <Col xs={1} className="text-nowrap text-right">
-                Зал
+                Зал/Статус
               </Col>
               <Col xs={2} className="text-nowrap text-right">
                 Время

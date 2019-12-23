@@ -1,10 +1,14 @@
 import { call, delay } from 'redux-saga/effects';
 import axios from 'axios';
+import { isEmpty } from 'lodash';
 import queryString from 'query-string';
 
 export function* fetchEvents(data) {
   const query = queryString.stringify(data);
-  return yield call(axios.get, `/api/events/get-week?${query}`);
+  return yield call(
+    axios.get,
+    `/api/events/get-week${!isEmpty(data) ? `?${query}` : ''}`,
+  );
 }
 
 export function* fetchEvent(id) {
