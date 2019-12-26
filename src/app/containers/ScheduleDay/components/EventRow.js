@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
 import EditableTd from 'app/components/Fields/EditableTd';
 import InfoWarning from 'app/components/Buttons/InfoWarning';
+import { isEmpty } from 'lodash';
 
 const EventRow = ({
   event: {
@@ -42,10 +43,11 @@ const EventRow = ({
     ) : (
       localRoom
     );
-
+  const isInfo = isCanceled || !isEmpty(confirms) || isHidden;
+  const infoMargin = isInfo ? 'mb-2' : '';
   return (
     <div className={`event-row p-2 ${className}`}>
-      <Row onClick={handleClick}>
+      <Row className={infoMargin} onClick={handleClick}>
         <Col xs={1} className="text-nowrap">
           {++num}
         </Col>
@@ -63,15 +65,13 @@ const EventRow = ({
           {`${timeStart} - ${timeEnd}`}
         </Col>
       </Row>
-      <Row onClick={handleClick}>
-        <Col xs={{ span: 8, offset: 1 }}>
-          <Info
-            isCanceled={isCanceled}
-            confirms={confirms}
-            isHidden={isHidden}
-          />
-        </Col>
-      </Row>
+      <Info
+        isInfo={isInfo}
+        isCanceled={isCanceled}
+        confirms={confirms}
+        isHidden={isHidden}
+        handleClick={handleClick}
+      />
     </div>
   );
 };

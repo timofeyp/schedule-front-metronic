@@ -55,8 +55,8 @@ function* createEvent({
 }) {
   const query = {
     eventName,
-    timeStart,
-    timeEnd,
+    timeStart: moment(timeStart).format('HH:mm'),
+    timeEnd: moment(timeEnd).format('HH:mm'),
     dateStart,
     yearMonthDay: moment(dateStart).format('DD-MM-YYYY'),
     localRoom,

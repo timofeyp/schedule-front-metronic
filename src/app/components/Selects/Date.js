@@ -1,50 +1,72 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import DatePicker, { registerLocale } from 'react-datepicker';
+import { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import CalendarBlankIcon from 'mdi-react/CalendarBlankIcon';
+import { FormControl, InputGroup } from 'react-bootstrap';
 import moment from 'moment';
 import ru from 'date-fns/locale/ru';
-import { StyledDataPicker } from 'app/components/Selects/styles';
+import { StyledDatePicker } from 'app/components/Selects/styles';
 registerLocale('ru', ru);
 
-const CustomInput = React.forwardRef(({ value, onClick }, ref) => (
-  <StyledDataPicker ref={ref} onClick={onClick}>
-    {value}
-  </StyledDataPicker>
+const CustomInput = React.forwardRef(({ label, value, onClick }, ref) => (
+  <InputGroup>
+    <InputGroup.Prepend>
+      <InputGroup.Text>{label}</InputGroup.Text>
+    </InputGroup.Prepend>
+    <FormControl
+      readOnly
+      value={value}
+      placeholder={value}
+      ref={ref}
+      onClick={onClick}
+    />
+  </InputGroup>
 ));
 
 CustomInput.propTypes = {
+  label: PropTypes.string,
   value: PropTypes.string,
   onClick: PropTypes.func,
 };
 
-const Date = () => {
-  const [startDate, changeDate] = useState(moment().toDate());
+const Date = ({ label, isTime, isFrom, field, handleChange }) => {
+  const time = moment()
+    .add(!isFrom ? 4 : 2, 'hours')
+    .minutes(0)
+    .toDate();
+  const [value, changeValue] = useState(time);
   useEffect(() => {
-    // onChange(startDate);
-  }, []);
-  const handleChange = date => {
-    changeDate(date);
-    // onChange(date);
+    handleChange(field, value);
+  }, [handleChange, field, value]);
+  const handleChangeDate = date => {
+    changeValue(date);
+    handleChange(field, value);
   };
+  const dateFormat = isTime ? 'HH:mm' : 'dd/MM/yyyy';
 
   return (
-    <div className="date-picker">
-      <DatePicker
-        locale="ru"
-        selected={startDate}
-        onChange={handleChange}
-        dropDownMode="select"
-        customInput={<CustomInput />}
-        dateFormat="dd/MM/yyyy"
-      />
-    </div>
+    <StyledDatePicker
+      locale="ru"
+      selected={value}
+      onChange={handleChangeDate}
+      dropDownMode="select"
+      customInput={<CustomInput label={label} />}
+      dateFormat={dateFormat}
+      type="text"
+      showTimeSelect={isTime}
+      showTimeSelectOnly={isTime}
+      timeIntervals={15}
+      timeCaption="Время"
+    />
   );
 };
 
 Date.propTypes = {
-  input: PropTypes.object,
+  handleChange: PropTypes.func,
+  field: PropTypes.string,
+  isTime: PropTypes.bool,
+  isFrom: PropTypes.bool,
+  label: PropTypes.string,
 };
 
 export default Date;

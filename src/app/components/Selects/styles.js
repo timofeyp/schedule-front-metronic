@@ -1,11 +1,17 @@
 import styled from 'styled-components';
 import TimePicker from 'rc-time-picker';
+import DatePicker from 'react-datepicker';
+import 'rc-time-picker/assets/index.css';
 
 const StyledTimePicker = styled(TimePicker)`
   cursor: pointer;
   width: 5em;
-  background: #6cace4;
-  border-radius: 5px;
+  height: 100%;
+  background: #4596d1;
+  border-radius: 3.75px;
+  display: flex !important;
+  align-items: center;
+
   & .rc-time-picker-panel-select-option-selected {
     background-color: #edeffe;
     font-weight: normal;
@@ -19,17 +25,16 @@ const StyledTimePicker = styled(TimePicker)`
   & .rc-time-picker-panel-select,
   & .rc-time-picker-input,
   & .rc-time-picker-panel-input {
-    cursor: pointer;
     border: 0;
-    font-family: sans-serif;
-    font-size: 12px;
+    cursor: pointer;
+    background: #4596d1;
     font-stretch: 100%;
     font-style: normal;
+    color: white;
     font-variant-caps: normal;
     font-variant-east-asian: normal;
     font-variant-ligatures: normal;
     font-variant-numeric: normal;
-    color: white;
     text-align: center;
 
     ::-webkit-scrollbar {
@@ -39,26 +44,8 @@ const StyledTimePicker = styled(TimePicker)`
   }
 `;
 
-const StyledDataPicker = styled.div`
+const StyledDatePicker = styled(DatePicker)`
   cursor: pointer;
-  text-align: center;
-  color: white;
-  background-color: #6cace4;
-  border-radius: 5px;
-  width: 100%;
-  height: 32px;
-  padding: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: sans-serif;
-  font-size: 12px;
-  font-stretch: 100%;
-  font-style: normal;
-  font-variant-caps: normal;
-  font-variant-east-asian: normal;
-  font-variant-ligatures: normal;
-  font-variant-numeric: normal;
 `;
 
-export { StyledTimePicker, StyledDataPicker };
+export { StyledTimePicker, StyledDatePicker };

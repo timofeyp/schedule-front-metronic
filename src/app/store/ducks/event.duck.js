@@ -56,10 +56,10 @@ function* updateEventDebounced({ payload }) {
 
 function* localConfirmEvent({ payload }) {
   const id = payload;
-  const res = yield call(API.schedule.localConfirmEvent, id);
+  yield call(API.schedule.localConfirmEvent, id);
   yield put(fetchEventRoutine.trigger(id));
   yield put(fetchCurrentWeekEventsRoutine.trigger());
-  yield put(confirmLocalEventRoutine.success(res.data));
+  yield put(confirmLocalEventRoutine.success());
 }
 
 export function* saga() {

@@ -32,7 +32,7 @@ export function* updateEventDebounced(data) {
   return yield call(axios.put, `/api/events/update`, data);
 }
 function* localConfirmEvent(id) {
-  return yield call(axios.get, `/api/events/local-confirm-event/${id}`);
+  return yield call(axios.put, `/api/events/local-confirm-event/${id}`);
 }
 
 export default {
