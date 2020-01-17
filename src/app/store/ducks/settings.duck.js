@@ -14,6 +14,7 @@ import {
 } from 'redux-saga/dist/redux-saga-effects-npm-proxy.esm';
 
 import { fetchCurrentWeekEventsRoutine } from 'app/store/ducks/schedule.duck';
+
 export const toggleExtraInfoRoutine = createAction(
   'TOGGLE_EXTRA_INFO',
   'settings',

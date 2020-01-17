@@ -23,90 +23,17 @@ const UserProfile = ({ user, showHi, showBadge }) => (
             {user}
           </span>
         )}
-        {/* {showAvatar && <img alt="Pic" src={user.pic} />} */}
-
-        {showBadge && (
-          <span className="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold">
-            {/* TODO: Should get from currentUser */}
-            John Doe
-          </span>
-        )}
       </div>
     </Dropdown.Toggle>
-    <Dropdown.Menu className="dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl">
+    <Dropdown.Menu className="dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xs">
       {/** ClassName should be 'dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-top-unround dropdown-menu-xl' */}
-      <div
-        className="kt-user-card kt-user-card--skin-dark kt-notification-item-padding-x"
-        style={{
-          backgroundImage: `url(${toAbsoluteUrl('/media/misc/bg-1.jpg')})`,
-        }}
-      >
-        <div className="kt-user-card__avatar">
-          {/* <img alt="Pic" className="kt-hidden" src={user.pic} /> */}
-          <span className="kt-badge kt-badge--lg kt-badge--rounded kt-badge--bold kt-font-success">
-            S
-          </span>
-        </div>
-        <div className="kt-user-card__name">{user}</div>
-        <div className="kt-user-card__badge">
-          <span className="btn btn-success btn-sm btn-bold btn-font-md">
-            23 messages
-          </span>
-        </div>
-      </div>
       <div className="kt-notification">
-        <a className="kt-notification__item">
-          <div className="kt-notification__item-icon">
-            <i className="flaticon2-calendar-3 kt-font-success" />
-          </div>
-          <div className="kt-notification__item-details">
-            <div className="kt-notification__item-title kt-font-bold">
-              My Profile
-            </div>
-            <div className="kt-notification__item-time">
-              Account settings and more
-            </div>
-          </div>
-        </a>
-        <a className="kt-notification__item">
-          <div className="kt-notification__item-icon">
-            <i className="flaticon2-mail kt-font-warning" />
-          </div>
-          <div className="kt-notification__item-details">
-            <div className="kt-notification__item-title kt-font-bold">
-              My Messages
-            </div>
-            <div className="kt-notification__item-time">Inbox and tasks</div>
-          </div>
-        </a>
-        <a className="kt-notification__item">
-          <div className="kt-notification__item-icon">
-            <i className="flaticon2-rocket-1 kt-font-danger" />
-          </div>
-          <div className="kt-notification__item-details">
-            <div className="kt-notification__item-title kt-font-bold">
-              My Activities
-            </div>
-            <div className="kt-notification__item-time">
-              Logs and notifications
-            </div>
-          </div>
-        </a>
-        <a className="kt-notification__item">
-          <div className="kt-notification__item-icon">
-            <i className="flaticon2-hourglass kt-font-brand" />
-          </div>
-          <div className="kt-notification__item-details">
-            <div className="kt-notification__item-title kt-font-bold">
-              My Tasks
-            </div>
-            <div className="kt-notification__item-time">
-              latest tasks and projects
-            </div>
-          </div>
-        </a>
         <div className="kt-notification__custom">
-          <Link to="/logout" className="btn btn-label-brand btn-sm btn-bold">
+          <Link
+            to="/logout"
+            block
+            className="btn btn-label-brand btn-sm btn-bold btn-block"
+          >
             Выход
           </Link>
         </div>

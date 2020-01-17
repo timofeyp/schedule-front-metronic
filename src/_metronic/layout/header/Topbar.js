@@ -13,7 +13,7 @@ import { toAbsoluteUrl } from '../../utils/utils';
 
 const Topbar = ({ isAuth }) => (
   <div className="kt-header__topbar">
-    <SearchDropdown useSVG="true" />
+    {false && <SearchDropdown useSVG="true" />}
 
     <UserNotifications
       bgImage={toAbsoluteUrl('/media/misc/bg-1.jpg')}
@@ -47,7 +47,7 @@ const Topbar = ({ isAuth }) => (
 
     <LanguageSelector isHidden iconType="" />
 
-    <CreateEvent />
+    {isAuth && <CreateEvent />}
 
     <Login />
   </div>

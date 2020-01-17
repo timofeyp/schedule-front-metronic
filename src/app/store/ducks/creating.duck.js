@@ -5,12 +5,14 @@ import {
   put,
   takeLatest,
   delay,
+  select,
 } from 'redux-saga/dist/redux-saga-effects-npm-proxy.esm';
 import { defaultParticipant } from 'app/store/constants';
 import moment from 'moment';
 import API from 'app/api';
 import { toggleShowCreateModal } from 'app/store/ducks/settings.duck';
 import { fetchCurrentWeekEventsRoutine } from 'app/store/ducks/schedule.duck';
+import { toggleShowAlert } from 'app/store/ducks/alert.duck';
 export const fetchEventNamesRoutine = createAction(
   'FETCH_EVENT_NAMES',
   'creating',
@@ -53,6 +55,7 @@ function* fetchNames({ payload }) {
 function* createEvent({
   payload: { eventName, timeStart, timeEnd, dateStart, localRoom },
 }) {
+  const isAdmin = yield select(state => state.session.profile.isAdmin);
   const query = {
     eventName,
     timeStart: moment(timeStart).format('HH:mm'),
@@ -63,7 +66,24 @@ function* createEvent({
     VCPartsIDs: [7],
     VCParts: [defaultParticipant],
   };
-  yield call(API.creating.createEvent, query);
+  try {
+    yield call(API.creating.createEvent, query);
+    yield put(
+      toggleShowAlert.trigger({
+        variant: 'success',
+        text: isAdmin
+          ? 'Мероприятие добавлено успешно!'
+          : 'Мероприятие отправлено оператору на проверку. Ожидайте появления в расписании!',
+      }),
+    );
+  } catch {
+    yield put(
+      toggleShowAlert.trigger({
+        variant: 'danger',
+        text: 'При добавлении мероприятия произошла ошибка!',
+      }),
+    );
+  }
   yield put(fetchCurrentWeekEventsRoutine.trigger());
   yield put(toggleShowCreateModal.success(false));
   yield put(changeEventNameInputRoutine.success(''));

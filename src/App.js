@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { LastLocationProvider } from 'react-router-last-location';
+import AlertList from 'app/components/AlertList';
 import { Routes } from './app/router/Routes';
 import { I18nProvider, LayoutSplashScreen, ThemeProvider } from './_metronic';
 
@@ -29,6 +30,7 @@ export default function App({ store, Layout, persistor, basename }) {
                   {/* Render routes with provided `Layout`. */}
                   <Routes Layout={Layout} />
                 </I18nProvider>
+                <AlertList />
               </ThemeProvider>
             </LastLocationProvider>
           </BrowserRouter>
