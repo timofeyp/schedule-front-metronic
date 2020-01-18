@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Dropdown } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { toAbsoluteUrl } from '../../../_metronic';
 import HeaderDropdownToggle from '../content/CustomDropdowns/HeaderDropdownToggle';
 
 const UserProfile = ({ user, showHi, showBadge }) => (
