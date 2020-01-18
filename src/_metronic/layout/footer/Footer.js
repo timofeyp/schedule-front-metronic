@@ -20,7 +20,7 @@ class Footer extends React.Component {
               rel="noopener noreferrer"
               className="kt-link"
             >
-              Консист-ОС
+              Консист-ОС Ленинградский
             </a>
           </div>
           {/* <div className="kt-footer__menu"> */}
