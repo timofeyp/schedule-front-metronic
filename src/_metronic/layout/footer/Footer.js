@@ -1,7 +1,7 @@
-import React from "react";
-import { connect } from "react-redux";
-import objectPath from "object-path";
-import * as builder from "../../ducks/builder";
+import React from 'react';
+import { connect } from 'react-redux';
+import objectPath from 'object-path';
+import * as builder from '../../ducks/builder';
 
 class Footer extends React.Component {
   render() {
@@ -15,40 +15,40 @@ class Footer extends React.Component {
           <div className="kt-footer__copyright">
             {today.toString()}&nbsp;&copy;&nbsp;
             <a
-              href="http://keenthemes.com/metronic"
+              href="#"
               target="_blank"
               rel="noopener noreferrer"
               className="kt-link"
             >
-              Keenthemes
+              Консист-ОС
             </a>
           </div>
-          <div className="kt-footer__menu">
-            <a
-              href="http://keenthemes.com/metronic"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="kt-footer__menu-link kt-link"
-            >
-              About
-            </a>
-            <a
-              href="http://keenthemes.com/metronic"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="kt-footer__menu-link kt-link"
-            >
-              Team
-            </a>
-            <a
-              href="http://keenthemes.com/metronic"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="kt-footer__menu-link kt-link"
-            >
-              Contact
-            </a>
-          </div>
+          {/* <div className="kt-footer__menu"> */}
+          {/*  <a */}
+          {/*    href="http://keenthemes.com/metronic" */}
+          {/*    target="_blank" */}
+          {/*    rel="noopener noreferrer" */}
+          {/*    className="kt-footer__menu-link kt-link" */}
+          {/*  > */}
+          {/*    About */}
+          {/*  </a> */}
+          {/*  <a */}
+          {/*    href="http://keenthemes.com/metronic" */}
+          {/*    target="_blank" */}
+          {/*    rel="noopener noreferrer" */}
+          {/*    className="kt-footer__menu-link kt-link" */}
+          {/*  > */}
+          {/*    Team */}
+          {/*  </a> */}
+          {/*  <a */}
+          {/*    href="http://keenthemes.com/metronic" */}
+          {/*    target="_blank" */}
+          {/*    rel="noopener noreferrer" */}
+          {/*    className="kt-footer__menu-link kt-link" */}
+          {/*  > */}
+          {/*    Contact */}
+          {/*  </a> */}
+          {/* </div> */}
         </div>
       </div>
     );
@@ -57,15 +57,15 @@ class Footer extends React.Component {
 
 const mapStateToProps = store => ({
   fluid:
-    objectPath.get(store.builder.layoutConfig, "footer.self.width") === "fluid",
+    objectPath.get(store.builder.layoutConfig, 'footer.self.width') === 'fluid',
   footerClasses: builder.selectors.getClasses(store, {
-    path: "footer",
-    toString: true
+    path: 'footer',
+    toString: true,
   }),
   footerContainerClasses: builder.selectors.getClasses(store, {
-    path: "footer_container",
-    toString: true
-  })
+    path: 'footer_container',
+    toString: true,
+  }),
 });
 
 export default connect(mapStateToProps)(Footer);

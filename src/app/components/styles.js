@@ -23,3 +23,12 @@ export const StyledAlert = styled(Alert)`
   animation: ${alertKeyframes} 10s ease-in;
   animation-fill-mode: forwards;
 `;
+
+export const PortalTitle = styled.div`
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+`;

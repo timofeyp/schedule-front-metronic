@@ -1,32 +1,34 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Link, withRouter } from "react-router-dom";
-import objectPath from "object-path";
-import HMenuItem from "./HMenuItem";
-import * as builder from "../../../ducks/builder";
-import { toAbsoluteUrl } from "../../..";
-import KTMenu from "../../../_assets/js/menu";
-import KTOffcanvas from "../../../_assets/js/offcanvas";
+import React from 'react';
+import { connect } from 'react-redux';
+import { PortalTitle } from 'app/components/styles';
+import { withRouter } from 'react-router-dom';
+import objectPath from 'object-path';
+import HMenuItem from './HMenuItem';
+import * as builder from '../../../ducks/builder';
+import { toAbsoluteUrl } from '../../..';
+import KTMenu from '../../../_assets/js/menu';
+import KTOffcanvas from '../../../_assets/js/offcanvas';
 
 const offcanvasOptions = {
   overlay: true,
-  baseClass: "kt-header-menu-wrapper",
-  closeBy: "kt_header_menu_mobile_close_btn",
+  baseClass: 'kt-header-menu-wrapper',
+  closeBy: 'kt_header_menu_mobile_close_btn',
   toggleBy: {
-    target: "kt_header_mobile_toggler",
-    state: "kt-header-mobile__toolbar-toggler--active"
-  }
+    target: 'kt_header_mobile_toggler',
+    state: 'kt-header-mobile__toolbar-toggler--active',
+  },
 };
 
 class HMenu extends React.Component {
   offCanvasCommonRef = React.createRef();
+
   ktMenuCommonRef = React.createRef();
 
   getHeaderLogo() {
-    let result = "logo-light.png";
-    console.log("this.props.headerSelfSkin", this.props.headerSelfSkin);
-    if (this.props.headerSelfSkin && this.props.headerSelfSkin !== "dark") {
-      result = "logo-dark.png";
+    let result = 'logo-light.png';
+    console.log('this.props.headerSelfSkin', this.props.headerSelfSkin);
+    if (this.props.headerSelfSkin && this.props.headerSelfSkin !== 'dark') {
+      result = 'logo-dark.png';
     }
     return toAbsoluteUrl(`/media/logos/${result}`);
   }
@@ -48,31 +50,31 @@ class HMenu extends React.Component {
   };
 
   initKTMenu = () => {
-    let menuOptions = {
+    const menuOptions = {
       submenu: {
-        desktop: "dropdown",
-        tablet: "accordion",
-        mobile: "accordion"
+        desktop: 'dropdown',
+        tablet: 'accordion',
+        mobile: 'accordion',
       },
       accordion: {
         slideSpeed: 200, // accordion toggle slide speed in milliseconds
-        expandAll: false // allow having multiple expanded accordions in the menu
+        expandAll: false, // allow having multiple expanded accordions in the menu
       },
       dropdown: {
-        timeout: 50
-      }
+        timeout: 50,
+      },
     };
 
-    let menuDesktopMode = "accordion";
+    let menuDesktopMode = 'accordion';
     if (
-      this.ktMenuCommonRef.current.getAttribute("data-ktmenu-dropdown") === "1"
+      this.ktMenuCommonRef.current.getAttribute('data-ktmenu-dropdown') === '1'
     ) {
-      menuDesktopMode = "dropdown";
+      menuDesktopMode = 'dropdown';
     }
 
-    if (typeof objectPath.get(menuOptions, "submenu.desktop") === "object") {
+    if (typeof objectPath.get(menuOptions, 'submenu.desktop') === 'object') {
       menuOptions.submenu.desktop = {
-        default: menuDesktopMode
+        default: menuDesktopMode,
       };
     }
 
@@ -85,9 +87,9 @@ class HMenu extends React.Component {
       disabledAsideSelfDisplay,
       ktMenuClasses,
       ulClasses,
-      rootArrowEnabled
+      rootArrowEnabled,
     } = this.props;
-    const items = this.props.menuConfig.header.items;
+    const { items } = this.props.menuConfig.header;
     return (
       <>
         <button
@@ -102,11 +104,9 @@ class HMenu extends React.Component {
           ref={this.offCanvasCommonRef}
         >
           {disabledAsideSelfDisplay && (
-            <div className="kt-header-logo">
-              <Link to="/">
-                <img alt="logo" src={this.getHeaderLogo()} />
-              </Link>
-            </div>
+            <PortalTitle className="kt-header-logo">
+              <b>ПОРТАЛ МЕРОПРИЯТИЙ</b>
+            </PortalTitle>
           )}
 
           <div
@@ -115,19 +115,17 @@ class HMenu extends React.Component {
             ref={this.ktMenuCommonRef}
           >
             <ul className={`kt-menu__nav ${ulClasses}`}>
-              {items.map((item, index) => {
-                return (
-                  <React.Fragment key={`hmenuList${index}`}>
-                    {item.title && (
-                      <HMenuItem
-                        item={item}
-                        currentUrl={this.currentUrl}
-                        rootArrowEnabled={rootArrowEnabled}
-                      />
-                    )}
-                  </React.Fragment>
-                );
-              })}
+              {items.map((item, index) => (
+                <React.Fragment key={`hmenuList${index}`}>
+                  {item.title && (
+                    <HMenuItem
+                      item={item}
+                      currentUrl={this.currentUrl}
+                      rootArrowEnabled={rootArrowEnabled}
+                    />
+                  )}
+                </React.Fragment>
+              ))}
             </ul>
           </div>
         </div>
@@ -140,20 +138,20 @@ const mapStateToProps = store => ({
   config: store.builder.layoutConfig,
   menuConfig: store.builder.menuConfig,
   ktMenuClasses: builder.selectors.getClasses(store, {
-    path: "header_menu",
-    toString: true
+    path: 'header_menu',
+    toString: true,
   }),
   rootArrowEnabled: builder.selectors.getConfig(
     store,
-    "header.menu.self.root-arrow"
+    'header.menu.self.root-arrow',
   ),
-  headerSelfSkin: builder.selectors.getConfig(store, "header.self.skin"),
+  headerSelfSkin: builder.selectors.getConfig(store, 'header.self.skin'),
   ulClasses: builder.selectors.getClasses(store, {
-    path: "header_menu_nav",
-    toString: true
+    path: 'header_menu_nav',
+    toString: true,
   }),
   disabledAsideSelfDisplay:
-    objectPath.get(store.builder.layoutConfig, "aside.self.display") === false
+    objectPath.get(store.builder.layoutConfig, 'aside.self.display') === false,
 });
 
 export default withRouter(connect(mapStateToProps)(HMenu));
