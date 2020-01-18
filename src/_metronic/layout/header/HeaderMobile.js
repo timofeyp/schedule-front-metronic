@@ -19,7 +19,7 @@ class HeaderMobile extends React.Component {
   }
 
   render() {
-    const { headerLogo, asideDisplay, headerMenuSelfDisplay } = this.props;
+    const { asideDisplay, headerMenuSelfDisplay } = this.props;
     return (
       <div
         id="kt_header_mobile"

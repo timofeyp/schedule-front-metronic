@@ -15,7 +15,7 @@ class Footer extends React.Component {
           <div className="kt-footer__copyright">
             {today.toString()}&nbsp;&copy;&nbsp;
             <a
-              href="#"
+              href="http://10.10.229.243"
               target="_blank"
               rel="noopener noreferrer"
               className="kt-link"
