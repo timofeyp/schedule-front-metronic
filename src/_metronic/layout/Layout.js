@@ -1,21 +1,20 @@
-import React from "react";
-import { connect } from "react-redux";
-import objectPath from "object-path";
-import Header from "./header/Header";
-import SubHeader from "./sub-header/SubHeader";
-import { withRouter } from "react-router-dom";
-import HeaderMobile from "./header/HeaderMobile";
-import AsideLeft from "./aside/AsideLeft";
-import Footer from "./footer/Footer";
-import ScrollTop from "../../app/partials/layout/ScrollTop";
-import StickyToolbar from "../../app/partials/layout/StickyToolbar";
-import HTMLClassService from "./HTMLClassService";
-import LayoutConfig from "./LayoutConfig";
-import MenuConfig from "./MenuConfig";
-import LayoutInitializer from "./LayoutInitializer";
-import KtContent from "./KtContent";
-import QuickPanel from "../../app/partials/layout/QuickPanel";
-import("./assets/Base.scss");
+import React from 'react';
+import { connect } from 'react-redux';
+import objectPath from 'object-path';
+import { withRouter } from 'react-router-dom';
+import Header from './header/Header';
+import SubHeader from './sub-header/SubHeader';
+import HeaderMobile from './header/HeaderMobile';
+import AsideLeft from './aside/AsideLeft';
+import Footer from './footer/Footer';
+import ScrollTop from '../../app/partials/layout/ScrollTop';
+import HTMLClassService from './HTMLClassService';
+import LayoutConfig from './LayoutConfig';
+import MenuConfig from './MenuConfig';
+import LayoutInitializer from './LayoutInitializer';
+import KtContent from './KtContent';
+import QuickPanel from '../../app/partials/layout/QuickPanel';
+import('./assets/Base.scss');
 
 const htmlClassService = new HTMLClassService();
 
@@ -30,15 +29,15 @@ function Layout({
   selfLayout,
   fitTop,
   fluid,
-  layoutConfig
+  layoutConfig,
 }) {
   htmlClassService.setConfig(layoutConfig);
   // scroll to top after location changes
   window.scrollTo(0, 0);
 
-  const contentCssClasses = htmlClassService.classes.content.join(" ");
+  const contentCssClasses = htmlClassService.classes.content.join(' ');
 
-  return selfLayout !== "blank" ? (
+  return selfLayout !== 'blank' ? (
     <LayoutInitializer
       styles={styles}
       menuConfig={MenuConfig}
@@ -82,7 +81,7 @@ function Layout({
               {/* <!-- begin:: Content Body --> */}
               {/* TODO: add class to animate  kt-grid--animateContent-finished */}
               <KtContent>{children}</KtContent>
-              {/*<!-- end:: Content Body -->*/}
+              {/* <!-- end:: Content Body --> */}
             </div>
             {/* <!-- end:: Content --> */}
             <Footer />
@@ -92,7 +91,6 @@ function Layout({
       </div>
       <QuickPanel />
       <ScrollTop />
-      <StickyToolbar />
     </LayoutInitializer>
   ) : (
     // BLANK LAYOUT
@@ -104,15 +102,15 @@ function Layout({
 
 const mapStateToProps = ({ builder: { layoutConfig } }) => ({
   layoutConfig,
-  selfLayout: objectPath.get(layoutConfig, "self.layout"),
-  asideDisplay: objectPath.get(layoutConfig, "aside.self.display"),
-  subheaderDisplay: objectPath.get(layoutConfig, "subheader.display"),
+  selfLayout: objectPath.get(layoutConfig, 'self.layout'),
+  asideDisplay: objectPath.get(layoutConfig, 'aside.self.display'),
+  subheaderDisplay: objectPath.get(layoutConfig, 'subheader.display'),
   desktopHeaderDisplay: objectPath.get(
     layoutConfig,
-    "header.self.fixed.desktop"
+    'header.self.fixed.desktop',
   ),
-  fitTop: objectPath.get(layoutConfig, "content.fit-top"),
-  fluid: objectPath.get(layoutConfig, "content.width") === "fluid"
+  fitTop: objectPath.get(layoutConfig, 'content.fit-top'),
+  fluid: objectPath.get(layoutConfig, 'content.width') === 'fluid',
 });
 
 export default withRouter(connect(mapStateToProps)(Layout));
