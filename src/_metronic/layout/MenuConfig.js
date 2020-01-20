@@ -13,6 +13,14 @@ export default {
   },
   aside: {
     self: {},
-    items: [],
+    items: [
+      {
+        title: 'Расписание',
+        root: true,
+        alignment: 'left',
+        page: 'schedule',
+        translate: 'MENU.SCHEDULE',
+      },
+    ],
   },
 };
