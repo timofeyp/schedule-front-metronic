@@ -51,8 +51,8 @@ const EventRow = ({
         <Col xs={1} className="text-nowrap">
           {++num}
         </Col>
-        <Col xs={8}>{eventName}</Col>
-        <Col className="text-nowrap text-right" xs={1}>
+        <Col xs={7}>{eventName}</Col>
+        <Col className="text-right" xs={2}>
           {isCanceled ? (
             <InfoWarning active disabled variant="danger">
               Отмена

@@ -56,15 +56,13 @@ const ScheduleDay = ({
         <Col>
           <DayCard>
             <DayHeader>
-              <Row>
-                <Col xs={2}>{eventData._id}</Col>
-                <Col>{participantsInfo}</Col>
-              </Row>
+              <p className="text-center"> {eventData._id}</p>
+              <p className="text-center">{participantsInfo}</p>
             </DayHeader>
             <Row className="p-2">
               <Col xs={1}>#</Col>
-              <Col xs={8}>Название</Col>
-              <Col xs={1} className="text-nowrap text-right">
+              <Col xs={7}>Название</Col>
+              <Col xs={2} className="text-nowrap text-right">
                 Зал/Статус
               </Col>
               <Col xs={2} className="text-nowrap text-right">
