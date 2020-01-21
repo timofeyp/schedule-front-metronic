@@ -14,6 +14,7 @@ import {
 } from 'app/store/ducks/event.duck';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { isEmpty } from 'lodash';
 
 const ScheduleDay = ({
   defaultFilter,
@@ -42,7 +43,7 @@ const ScheduleDay = ({
     toggleHandler();
     fetchEvent(id);
   };
-  const filterNames = defaultFilter
+  const filterNames = !isEmpty(defaultFilter)
     ? defaultFilter.map(event => event.label).join(', ')
     : null;
 
