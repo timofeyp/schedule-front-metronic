@@ -8,7 +8,6 @@ import * as builder from '../../../ducks/builder';
 import { toAbsoluteUrl } from '../../..';
 import KTMenu from '../../../_assets/js/menu';
 import KTOffcanvas from '../../../_assets/js/offcanvas';
-import styled from 'styled-components';
 
 const offcanvasOptions = {
   overlay: true,
@@ -19,20 +18,6 @@ const offcanvasOptions = {
     state: 'kt-header-mobile__toolbar-toggler--active',
   },
 };
-
-export const StyledHMenu = styled.div`
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex; 
-  -webkit-box-align: center; 
-    -ms-flex-align: center; 
-        align-items: center; 
-  -webkit-box-pack: right; 
-    -ms-flex-pack: right; 
-        justify-content: right;
-  text-align:right;
-  flex-direction: row;
-`;
 
 class HMenu extends React.Component {
   offCanvasCommonRef = React.createRef();
