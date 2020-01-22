@@ -1,10 +1,10 @@
 {
-  "name": "demo2",
+  "name": "eventsportal",
   "version": "6.1.0",
   "private": true,
-  "homepage": "https://keenthemes.com/metronic/preview/react/demo2",
+  "homepage": "http://10.10.229.243",
   "scripts": {
-    "serve": "cp-cli build _site/metronic/preview/react && serve",
+    "serve": "cp-cli build _site && serve",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

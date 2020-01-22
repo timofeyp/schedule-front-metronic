@@ -17,7 +17,7 @@ const View = ({
       <Modal centered show={isShowCreateModal} onHide={toggleHandler} size="lg">
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Добавить конференцию
+            Добавить мероприятие
           </Modal.Title>
         </Modal.Header>
         <Form eventNameInput={eventNameInput} eventsNames={eventsNames} />

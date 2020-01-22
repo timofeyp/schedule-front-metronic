@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 const CreateEvent = ({ toggleModal }) => {
   const handleClick = () => toggleModal(true);
   return (
-    <TopBarButton handleClick={handleClick} tipText="Добавить конференцию">
+    <TopBarButton handleClick={handleClick} tipText="Добавить мероприятие">
       <Add />
     </TopBarButton>
   );

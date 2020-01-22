@@ -2,18 +2,18 @@ import createAction from 'app/utils/createAction';
 
 import produce from 'immer/dist/immer';
 import {
-  filterDef,
+  filterDef as localStoreFilter,
   isExtraInfo,
   setExtraInfo,
   setFilter,
 } from 'app/utils/localstorage';
-
 import {
   put,
   takeLatest,
 } from 'redux-saga/dist/redux-saga-effects-npm-proxy.esm';
-
 import { fetchCurrentWeekEventsRoutine } from 'app/store/ducks/schedule.duck';
+import { defaultFilter } from 'app/store/constants';
+import { isEmpty } from 'lodash';
 
 export const toggleExtraInfoRoutine = createAction(
   'TOGGLE_EXTRA_INFO',
@@ -27,7 +27,7 @@ export const toggleShowCreateModal = createAction(
 
 export const initialState = {
   isExtraInfo,
-  filter: filterDef,
+  filter: isEmpty(localStoreFilter) ? defaultFilter : localStoreFilter,
   isShowCreateModal: false,
 };
 

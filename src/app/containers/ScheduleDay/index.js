@@ -14,8 +14,10 @@ import {
 } from 'app/store/ducks/event.duck';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { isEmpty } from 'lodash';
 
 const ScheduleDay = ({
+  defaultFilter,
   eventData,
   toggleHandler,
   fetchEvent,
@@ -41,17 +43,27 @@ const ScheduleDay = ({
     toggleHandler();
     fetchEvent(id);
   };
+  const filterNames = !isEmpty(defaultFilter)
+    ? defaultFilter.map(event => event.label).join(', ')
+    : null;
+
+  const participantsInfo = filterNames
+    ? `Отображены мероприятия с участием следующих предприятий: ${filterNames}`
+    : 'Отображены мероприятия с участием всех предприятий';
 
   return (
     <Container className="mb-10">
       <Row className="justify-content-md-center">
         <Col>
           <DayCard>
-            <DayHeader>{eventData._id}</DayHeader>
+            <DayHeader>
+              <p className="text-center"> {eventData._id}</p>
+              <p className="text-center">{participantsInfo}</p>
+            </DayHeader>
             <Row className="p-2">
               <Col xs={1}>#</Col>
-              <Col xs={8}>Название</Col>
-              <Col xs={1} className="text-nowrap text-right">
+              <Col xs={7}>Название</Col>
+              <Col xs={2} className="text-nowrap text-right">
                 Зал/Статус
               </Col>
               <Col xs={2} className="text-nowrap text-right">
@@ -86,11 +98,18 @@ ScheduleDay.propTypes = {
   children: PropTypes.object,
   updateRoomEvent: PropTypes.func,
   dayId: PropTypes.number,
+  defaultFilter: PropTypes.array,
 };
+
+const mapStateToProps = store => ({
+  defaultFilter: store.settings.filter,
+});
 
 const mapDispatchToProps = {
   fetchEvent: fetchEventRoutine.trigger,
   updateRoomEvent: debouncedUpdateEventRoutine.trigger,
 };
 
-export default compose(connect(null, mapDispatchToProps))(ScheduleDay);
+export default compose(connect(mapStateToProps, mapDispatchToProps))(
+  ScheduleDay,
+);
