@@ -20,7 +20,9 @@ const EventInfoModal = ({ isOpen, toggleHandler, event, eraseEvent }) => {
             {event.eventName}
           </Modal.Title>
         </Modal.Header>
-        <ModalTabs data={event} />
+        <Modal.Body className="pl-o pr-0">
+          <ModalTabs data={event} />
+        </Modal.Body>
       </Modal>
     )
   );
@@ -29,6 +31,8 @@ const EventInfoModal = ({ isOpen, toggleHandler, event, eraseEvent }) => {
 EventInfoModal.propTypes = {
   event: PropTypes.object,
   eraseEvent: PropTypes.func,
+  isOpen: PropTypes.bool,
+  toggleHandler: PropTypes.func,
 };
 
 const mapStateToProps = store => ({

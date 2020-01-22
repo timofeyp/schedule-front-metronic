@@ -99,7 +99,7 @@ class HMenu extends React.Component {
           <i className="la la-close" />
         </button>
         <div
-          className="kt-header-menu-wrapper"
+          className="kt-header-menu-wrapper w-100"
           id="kt_header_menu_wrapper"
           ref={this.offCanvasCommonRef}
         >
