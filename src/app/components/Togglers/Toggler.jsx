@@ -12,7 +12,7 @@ const Toggler = ({ text, handleClick, defaultChecked, id }) => (
             name={id}
             id={id}
             defaultChecked={defaultChecked}
-            onClick={handleClick}
+            onChange={handleClick}
           />
           <span />
         </label>

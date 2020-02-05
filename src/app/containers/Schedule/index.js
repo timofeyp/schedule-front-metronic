@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import ScheduleDay from 'app/containers/ScheduleDay';
 import { connect } from 'react-redux';
@@ -13,32 +13,42 @@ import ReactToPrint from 'react-to-print';
 import Printable from 'app/components/Printable';
 import { StyledPrinterIcon } from 'app/containers/Schedule/styles';
 import AnimateLoading from 'app/partials/layout/AnimateLoading';
+import useHooks from 'app/containers/Schedule/hooks';
 
 const Schedule = ({
   currentWeekEvents,
   fetchVCParts,
   fetchSelectedVCParts,
   fetchEvents,
+  isParticipantsInfo,
+  isVideo,
+  isLocal,
 }) => {
-  useEffect(() => {
-    fetchVCParts();
-    fetchSelectedVCParts();
-    fetchEvents();
-  }, [fetchEvents, fetchSelectedVCParts, fetchVCParts]);
-  const [isInfoModalOpen, toggleInfoModalOpen] = useState(false);
+  const { isInfoModalOpen, toggleInfoModalOpen, sortedEvents } = useHooks({
+    fetchEvents,
+    fetchSelectedVCParts,
+    fetchVCParts,
+    isLocal,
+    isVideo,
+    currentWeekEvents,
+  });
   const toggleHandler = () => toggleInfoModalOpen(!isInfoModalOpen);
 
-  if (!isEmpty(currentWeekEvents)) {
+  if (!isEmpty(sortedEvents)) {
     // eslint-disable-next-line no-unused-vars
-    const componentRefs = currentWeekEvents.map(() => React.createRef());
+    const componentRefs = Object.keys(sortedEvents).map(() =>
+      React.createRef(),
+    );
     return (
       <div className="container__wrap">
-        {currentWeekEvents.map((event, i) => (
+        {Object.keys(sortedEvents).map((day, i) => (
           <Printable key={i} ref={componentRefs[i]}>
             <ScheduleDay
-              eventData={event}
+              events={sortedEvents[day]}
+              dayTitle={day}
               dayId={i}
               toggleHandler={toggleHandler}
+              isParticipantsInfo={isParticipantsInfo}
             >
               <ReactToPrint
                 trigger={() => <StyledPrinterIcon />}
@@ -59,6 +69,9 @@ Schedule.propTypes = {
   fetchVCParts: PropTypes.func,
   fetchSelectedVCParts: PropTypes.func,
   fetchEvents: PropTypes.func,
+  isParticipantsInfo: PropTypes.bool,
+  isVideo: PropTypes.bool,
+  isLocal: PropTypes.bool,
 };
 
 const mapStateToProps = store => ({

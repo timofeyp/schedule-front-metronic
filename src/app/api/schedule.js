@@ -1,4 +1,4 @@
-import { call, delay } from 'redux-saga/effects';
+import { call } from 'redux-saga/effects';
 import axios from 'axios';
 import { isEmpty } from 'lodash';
 import queryString from 'query-string';
@@ -27,11 +27,7 @@ export function* updateEvent(data) {
   return yield call(axios.put, `/api/events/update`, data);
 }
 
-export function* updateEventDebounced(data) {
-  yield delay(500);
-  return yield call(axios.put, `/api/events/update`, data);
-}
-function* localConfirmEvent(id) {
+export function* localConfirmEvent(id) {
   return yield call(axios.put, `/api/events/local-confirm-event/${id}`);
 }
 
@@ -40,7 +36,6 @@ export default {
   fetchVCParts,
   fetchSelectedVcParts,
   updateEvent,
-  updateEventDebounced,
   localConfirmEvent,
   fetchEvent,
 };

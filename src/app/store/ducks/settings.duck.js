@@ -2,7 +2,7 @@ import createAction from 'app/utils/createAction';
 
 import produce from 'immer/dist/immer';
 import {
-  filterDef as localStoreFilter,
+  filterDef as localStorageFilter,
   isExtraInfo,
   setExtraInfo,
   setFilter,
@@ -27,7 +27,7 @@ export const toggleShowCreateModal = createAction(
 
 export const initialState = {
   isExtraInfo,
-  filter: isEmpty(localStoreFilter) ? defaultFilter : localStoreFilter,
+  filter: isEmpty(localStorageFilter) ? defaultFilter : localStorageFilter,
   isShowCreateModal: false,
 };
 
@@ -50,7 +50,7 @@ export const reducer = (state = initialState, action) =>
 function* updateFilter({ payload }) {
   setFilter(payload);
   yield put(updateFilterRoutine.success(payload));
-  yield put(fetchCurrentWeekEventsRoutine.trigger());
+  yield put(fetchCurrentWeekEventsRoutine.trigger({ isVideo: true }));
 }
 
 function* toggleExtraInfo({ payload }) {

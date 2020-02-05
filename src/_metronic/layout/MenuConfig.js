@@ -3,11 +3,18 @@ export default {
     self: {},
     items: [
       {
-        title: 'Расписание',
+        title: 'ВКС с концерном',
         root: true,
         alignment: 'left',
-        page: 'schedule',
+        page: 'video-conferences',
         translate: 'MENU.SCHEDULE',
+      },
+      {
+        title: 'Локальные мероприятия',
+        root: true,
+        alignment: 'left',
+        page: 'local-events',
+        translate: 'MENU.ROOMS',
       },
       {
         title: 'Dashboards',

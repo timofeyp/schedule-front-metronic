@@ -12,6 +12,7 @@ export const fetchSelectedVCPartsRoutine = createAction(
   'FETCH_SELECTED_VC_PARTS',
   'vcparts',
 );
+export const eraseVCPartsRoutine = createAction('ERASE_VC_PARTS', 'vcparts');
 
 export const initialState = {
   VCParts: [],
@@ -28,6 +29,10 @@ export const reducer = (state = initialState, action) =>
       case fetchSelectedVCPartsRoutine.SUCCESS:
         draft.selectedVCParts = action.payload;
         break;
+      case eraseVCPartsRoutine.SUCCESS:
+        draft.selectedVCParts = [];
+        draft.VCParts = [];
+        break;
     }
   });
 
@@ -41,7 +46,12 @@ function* fetchSelectedVcParts() {
   yield put({ type: fetchSelectedVCPartsRoutine.SUCCESS, payload: res.data });
 }
 
+function* eraseVcParts() {
+  yield put(fetchSelectedVCPartsRoutine.success());
+}
+
 export function* saga() {
   yield takeLatest(fetchVCPartsRoutine.TRIGGER, fetchVcParts);
   yield takeLatest(fetchSelectedVCPartsRoutine.TRIGGER, fetchSelectedVcParts);
+  yield takeLatest(eraseVCPartsRoutine.TRIGGER, eraseVcParts);
 }

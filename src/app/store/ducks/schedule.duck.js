@@ -12,6 +12,10 @@ export const fetchCurrentWeekEventsRoutine = createAction(
   'FETCH_CURRNET_WEEK_EVENTS',
   'schedule',
 );
+export const eraseCurrentWeekEventsRoutine = createAction(
+  'ERASE_CURRNET_WEEK_EVENTS',
+  'schedule',
+);
 
 export const initialState = {
   currentWeekEvents: [],
@@ -24,20 +28,39 @@ export const reducer = (state = initialState, action) =>
       case fetchCurrentWeekEventsRoutine.SUCCESS:
         draft.currentWeekEvents = action.payload;
         break;
+      case eraseCurrentWeekEventsRoutine.SUCCESS:
+        draft.currentWeekEvents = [];
+        break;
     }
   });
 
-function* fetchCurrentWeekEvents() {
+function* fetchCurrentWeekEvents({ payload }) {
+  const { isVideo, isLocal } = payload;
   const filter = yield select(store => store.settings.filter);
   const items = filter ? filter.map(item => item.value) : [];
-  const data = !isEmpty(items) ? { filter: items } : {};
+  let data = {};
+  const filterItems = !isEmpty(items) ? { filter: items } : {};
+  if (isVideo) {
+    data = { ...filterItems, isVideo };
+  }
+  if (isLocal) {
+    data = { isLocal };
+  }
   const res = yield call(API.schedule.fetchEvents, data);
   yield put(fetchCurrentWeekEventsRoutine.success(res.data));
+}
+
+function* eraseCurrentWeekEvents() {
+  yield put(eraseCurrentWeekEventsRoutine.success());
 }
 
 export function* saga() {
   yield takeLatest(
     fetchCurrentWeekEventsRoutine.TRIGGER,
     fetchCurrentWeekEvents,
+  );
+  yield takeLatest(
+    eraseCurrentWeekEventsRoutine.TRIGGER,
+    eraseCurrentWeekEvents,
   );
 }

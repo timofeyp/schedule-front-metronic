@@ -17,6 +17,8 @@ const EventRow = ({
     timeStart,
     timeEnd,
     localRoom,
+    isVideo,
+    isLocal,
   },
   eventClickHandler,
   eventRoomChangeHandler,
@@ -27,6 +29,9 @@ const EventRow = ({
     eventRoomChangeHandler({
       _id,
       localRoom: e.target.value,
+      isVideo,
+      isLocal,
+      isDebounced: true,
     });
   };
 

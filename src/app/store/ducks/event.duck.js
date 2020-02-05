@@ -15,10 +15,6 @@ export const confirmLocalEventRoutine = createAction(
   'event',
 );
 export const updateEventRoutine = createAction('UPDATE_EVENT', 'event');
-export const debouncedUpdateEventRoutine = createAction(
-  'UPDATE_EVENT_DEBOUNCED',
-  'event',
-);
 
 export const initialState = {
   data: {},
@@ -43,22 +39,22 @@ function* fetchEvent({ payload }) {
 }
 
 function* updateEvent({ payload }) {
+  const { isVideo, isLocal, isDebounced } = payload;
+  if (isDebounced) {
+    yield delay(500);
+  }
+  delete payload.isVideo;
+  delete payload.isLocal;
+  delete payload.isDebounced;
   const res = yield call(API.schedule.updateEvent, payload);
   yield put(updateEventRoutine.success(res.data));
-  yield put(fetchCurrentWeekEventsRoutine.trigger());
-}
-
-function* updateEventDebounced({ payload }) {
-  yield delay(500);
-  yield call(API.schedule.updateEventDebounced, payload);
-  yield put({ type: fetchCurrentWeekEventsRoutine.TRIGGER });
+  yield put(fetchCurrentWeekEventsRoutine.trigger({ isVideo, isLocal }));
 }
 
 function* localConfirmEvent({ payload }) {
   const id = payload;
   yield call(API.schedule.localConfirmEvent, id);
   yield put(fetchEventRoutine.trigger(id));
-  yield put(fetchCurrentWeekEventsRoutine.trigger());
   yield put(confirmLocalEventRoutine.success());
 }
 
@@ -66,5 +62,4 @@ export function* saga() {
   yield takeLatest(fetchEventRoutine.TRIGGER, fetchEvent);
   yield takeLatest(confirmLocalEventRoutine.TRIGGER, localConfirmEvent);
   yield takeLatest(updateEventRoutine.TRIGGER, updateEvent);
-  yield takeLatest(debouncedUpdateEventRoutine.TRIGGER, updateEventDebounced);
 }

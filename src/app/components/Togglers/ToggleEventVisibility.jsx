@@ -5,14 +5,18 @@ import Toggler from 'app/components/Togglers/Toggler';
 
 const ToggleEventVisibility = () => {
   const event = useSelector(state => state.event.data);
-  const { _id, isHidden } = event;
+  const { _id, isHidden, isVideo, isLocal } = event;
   const isAdmin = useSelector(state => state.session.profile.isAdmin);
   const dispatch = useDispatch();
   const handleClick = () =>
-    dispatch({
-      type: updateEventRoutine.TRIGGER,
-      payload: { _id, isHidden: !isHidden },
-    });
+    dispatch(
+      updateEventRoutine.trigger({
+        _id,
+        isHidden: !isHidden,
+        isVideo,
+        isLocal,
+      }),
+    );
 
   if (isAdmin) {
     return (

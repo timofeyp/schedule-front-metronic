@@ -5,6 +5,7 @@ import { Form, Row, Col, Button } from 'react-bootstrap';
 import FormControl from 'app/components/Fields/FormControl';
 import DatePickerField from 'app/components/Selects/Date';
 import { createEventRoutine } from 'app/store/ducks/creating.duck';
+import Toggler from 'app/components/Togglers/Toggler';
 
 const View = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,8 @@ const View = () => {
                   placeholder="Введите название мероприятия"
                 />
               </Form.Group>
+            </Form.Row>
+            <Form.Row>
               <Form.Group xs={3} as={Col}>
                 <DatePickerField
                   handleChange={setFieldValue}
@@ -52,6 +55,21 @@ const View = () => {
                   component={FormControl}
                   type="text"
                   placeholder="Введите аудиторию"
+                />
+              </Form.Group>
+            </Form.Row>
+            <Form.Row>
+              <Form.Group xs={3} as={Col}>
+                <Field
+                  name="localRoom"
+                  component={() => (
+                    <Toggler
+                      text="Доп. инфо"
+                      defaultChecked
+                      id="extra_toggle"
+                    />
+                  )}
+                  type="radio"
                 />
               </Form.Group>
             </Form.Row>
