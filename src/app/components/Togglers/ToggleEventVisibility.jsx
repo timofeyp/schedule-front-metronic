@@ -5,17 +5,12 @@ import Toggler from 'app/components/Togglers/Toggler';
 
 const ToggleEventVisibility = () => {
   const event = useSelector(state => state.event.data);
-  const { _id, isHidden, isVideo, isLocal } = event;
+  const { _id, isHidden } = event;
   const isAdmin = useSelector(state => state.session.profile.isAdmin);
   const dispatch = useDispatch();
   const handleClick = () =>
     dispatch(
-      updateEventRoutine.trigger({
-        _id,
-        isHidden: !isHidden,
-        isVideo,
-        isLocal,
-      }),
+      updateEventRoutine.trigger({ event: { _id, isHidden: !isHidden } }),
     );
 
   if (isAdmin) {
@@ -25,6 +20,7 @@ const ToggleEventVisibility = () => {
         defaultChecked={isHidden}
         handleClick={handleClick}
         id="hidden_toggle"
+        isButtonLeft
       />
     );
   }

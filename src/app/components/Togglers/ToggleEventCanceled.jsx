@@ -5,9 +5,9 @@ import Toggler from 'app/components/Togglers/Toggler';
 import PropTypes from 'prop-types';
 
 const ToggleEventVisibility = ({ event, updateEvent, isAdmin }) => {
-  const { _id, isCanceled, isLocal, isVideo } = event;
+  const { _id, isCanceled } = event;
   const handleClick = () =>
-    updateEvent({ _id, isCanceled: !isCanceled, isLocal, isVideo });
+    updateEvent({ event: { _id, isCanceled: !isCanceled } });
 
   if (isAdmin && event) {
     return (
@@ -16,6 +16,7 @@ const ToggleEventVisibility = ({ event, updateEvent, isAdmin }) => {
         defaultChecked={isCanceled}
         handleClick={handleClick}
         id="canceled_toggle"
+        isButtonLeft
       />
     );
   }

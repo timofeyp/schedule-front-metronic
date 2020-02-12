@@ -16,6 +16,7 @@ const ToggleExtraInfo = () => {
         defaultChecked={isExtraInfo}
         handleClick={handleClick}
         id="extra_toggle"
+        isButtonLeft
       />
     );
   }

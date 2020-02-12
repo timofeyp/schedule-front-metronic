@@ -50,6 +50,7 @@
     "chart.js": "^2.8.0",
     "clipboard-copy": "^3.1.0",
     "clsx": "^1.0.4",
+    "connected-react-router": "^6.6.1",
     "cp-cli": "^2.0.0",
     "css-mediaquery": "^0.1.2",
     "date-fns": "^2.5.1",

@@ -17,8 +17,6 @@ const EventRow = ({
     timeStart,
     timeEnd,
     localRoom,
-    isVideo,
-    isLocal,
   },
   eventClickHandler,
   eventRoomChangeHandler,
@@ -27,10 +25,7 @@ const EventRow = ({
 }) => {
   const handleChangeRoom = e => {
     eventRoomChangeHandler({
-      _id,
-      localRoom: e.target.value,
-      isVideo,
-      isLocal,
+      event: { _id, localRoom: e.target.value },
       isDebounced: true,
     });
   };
@@ -48,8 +43,14 @@ const EventRow = ({
     ) : (
       localRoom
     );
-  const isInfo = isCanceled || !isEmpty(confirms) || isHidden;
-  const infoMargin = isInfo ? 'mb-2' : '';
+  const { isExtraInfo: isExtraInfoSetInSettings } = useSelector(
+    state => state.settings,
+  );
+  const isExtraInfo =
+    isAdmin &&
+    isExtraInfoSetInSettings &&
+    (isCanceled || !isEmpty(confirms) || isHidden);
+  const infoMargin = isExtraInfo && isExtraInfoSetInSettings ? 'mb-2' : '';
   return (
     <div className={`event-row p-2 ${className}`}>
       <Row className={infoMargin} onClick={handleClick}>
@@ -71,7 +72,7 @@ const EventRow = ({
         </Col>
       </Row>
       <Info
-        isInfo={isInfo}
+        isInfo={isExtraInfo}
         isCanceled={isCanceled}
         confirms={confirms}
         isHidden={isHidden}

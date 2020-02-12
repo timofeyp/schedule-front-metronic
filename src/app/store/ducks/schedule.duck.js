@@ -16,6 +16,10 @@ export const eraseCurrentWeekEventsRoutine = createAction(
   'ERASE_CURRNET_WEEK_EVENTS',
   'schedule',
 );
+export const updateEventByIndexRoutine = createAction(
+  'UPDATE_EVENT_BY_INDEX',
+  'schedule',
+);
 
 export const initialState = {
   currentWeekEvents: [],
@@ -30,6 +34,10 @@ export const reducer = (state = initialState, action) =>
         break;
       case eraseCurrentWeekEventsRoutine.SUCCESS:
         draft.currentWeekEvents = [];
+        break;
+      case updateEventByIndexRoutine.SUCCESS:
+        draft.currentWeekEvents[action.payload.eventIndex] =
+          action.payload.event;
         break;
     }
   });

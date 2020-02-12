@@ -1,17 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
-import { useSelector } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
 
 const Info = ({ confirms, isCanceled, isHidden, handleClick, isInfo }) => {
-  const isAdmin = useSelector(state => state.session.profile.isAdmin);
-  const { isExtraInfo } = useSelector(state => state.settings);
-  if (isExtraInfo && isInfo) {
+  if (isInfo) {
     return (
       <Row className="pt-1" onClick={handleClick}>
         <Col xs={{ span: 8, offset: 1 }}>
-          {isHidden && isAdmin && (
+          {isHidden && (
             <div className="text-warning">
               Эта конференция скрыта от пользователей
             </div>
