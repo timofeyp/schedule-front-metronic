@@ -101,6 +101,11 @@ $kt-header-item-hover-bg: rgba(#4d5995, 0.06);
 			// User profile
 			&.kt-header__topbar-item--user {
 				.kt-header__topbar-user {
+					&:hover {
+						.kt-header__topbar-username {
+							color: #4596d1 !important;
+						}
+					}
 					.kt-header__topbar-welcome {
 						@include kt-transition();
 						color: #959cb6;

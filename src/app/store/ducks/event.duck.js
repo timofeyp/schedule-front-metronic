@@ -5,12 +5,11 @@ import {
   put,
   takeLatest,
   delay,
-  select,
 } from 'redux-saga/dist/redux-saga-effects-npm-proxy.esm';
 import API from 'app/api';
-import { updateEventByIndexRoutine } from 'app/store/ducks/schedule.duck';
-export const fetchEventRoutine = createAction('FETCH__EVENT', 'event');
-export const eraseEventRoutine = createAction('ERASE__EVENT', 'event');
+import { updateScheduleEventRoutine } from 'app/store/ducks/schedule.duck';
+export const fetchEventRoutine = createAction('FETCH_EVENT', 'event');
+export const eraseEventRoutine = createAction('ERASE_EVENT', 'event');
 export const confirmLocalEventRoutine = createAction(
   'CONFIRM_LOCAL_EVENT',
   'event',
@@ -49,16 +48,7 @@ function* updateEvent({ payload }) {
   }
   const res = yield call(API.schedule.updateEvent, event);
   yield put(updateEventRoutine.success(res.data));
-  const events = yield select(store => store.schedule.currentWeekEvents);
-  const updatedEventIndex = events.findIndex(e => e.id === res.data.id);
-  if (updatedEventIndex !== -1) {
-    yield put(
-      updateEventByIndexRoutine.success({
-        eventIndex: updatedEventIndex,
-        event: res.data,
-      }),
-    );
-  }
+  yield put(updateScheduleEventRoutine.trigger(res.data));
 }
 
 function* localConfirmEvent({ payload }) {

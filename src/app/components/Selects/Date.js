@@ -30,10 +30,14 @@ CustomInput.propTypes = {
 };
 
 const Date = ({ label, isTime, isFrom, field, handleChange }) => {
-  const time = moment()
-    .add(!isFrom ? 4 : 2, 'hours')
+  let time = moment()
     .minutes(0)
-    .toDate();
+    .seconds(0)
+    .milliseconds(0);
+  if (!isTime) time = time.startOf('day');
+  if (isTime) time = time.add(isFrom ? 2 : 4, 'hours');
+  time = time.toDate();
+
   const [value, changeValue] = useState(time);
   useEffect(() => {
     handleChange(field, value);

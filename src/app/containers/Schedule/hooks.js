@@ -6,20 +6,20 @@ const useHooks = ({
   fetchSelectedVCParts,
   fetchVCParts,
   isLocal,
-  isVideo,
-  currentWeekEvents,
+  isConcern,
+  events,
 }) => {
   useEffect(() => {
-    if (isVideo) {
+    if (isConcern) {
       fetchVCParts();
       fetchSelectedVCParts();
     }
-    fetchEvents({ isVideo, isLocal });
-  }, [fetchEvents, fetchSelectedVCParts, fetchVCParts, isLocal, isVideo]);
+    fetchEvents({ isLocal, isConcern });
+  }, [fetchEvents, fetchSelectedVCParts, fetchVCParts, isConcern, isLocal]);
   const sortedEvents = useMemo(() => {
-    if (!isEmpty(currentWeekEvents)) {
+    if (!isEmpty(events)) {
       const sortedEventsAccumulator = {};
-      currentWeekEvents.forEach(e => {
+      events.forEach(e => {
         if (!sortedEventsAccumulator[e.yearMonthDay]) {
           sortedEventsAccumulator[e.yearMonthDay] = [e];
         } else {
@@ -29,7 +29,7 @@ const useHooks = ({
       return sortedEventsAccumulator;
     }
     return [];
-  }, [currentWeekEvents]);
+  }, [events]);
 
   const [isInfoModalOpen, toggleInfoModalOpen] = useState(false);
 

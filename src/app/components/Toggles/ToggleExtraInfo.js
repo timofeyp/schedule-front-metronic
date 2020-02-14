@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleExtraInfoRoutine } from 'app/store/ducks/settings.duck';
-import Toggler from 'app/components/Togglers/Toggler';
+import Toggle from 'app/components/Toggles/Toggle';
 
 const ToggleExtraInfo = () => {
   const isExtraInfo = useSelector(state => state.settings.isExtraInfo);
@@ -11,12 +11,11 @@ const ToggleExtraInfo = () => {
     dispatch(toggleExtraInfoRoutine.trigger(!isExtraInfo));
   if (isAdmin) {
     return (
-      <Toggler
+      <Toggle
         text="Доп. инфо"
         defaultChecked={isExtraInfo}
         handleClick={handleClick}
         id="extra_toggle"
-        isButtonLeft
       />
     );
   }

@@ -10,7 +10,7 @@ export default {
         translate: 'MENU.SCHEDULE',
       },
       {
-        title: 'Локальные мероприятия',
+        title: 'Локальные мероприятия и ВКС',
         root: true,
         alignment: 'left',
         page: 'local-events',

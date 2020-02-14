@@ -11,7 +11,7 @@ import {
   put,
   takeLatest,
 } from 'redux-saga/dist/redux-saga-effects-npm-proxy.esm';
-import { fetchCurrentWeekEventsRoutine } from 'app/store/ducks/schedule.duck';
+import { fetchConcernEventsRoutine } from 'app/store/ducks/schedule.duck';
 import { defaultFilter } from 'app/store/constants';
 import { isEmpty } from 'lodash';
 
@@ -50,7 +50,7 @@ export const reducer = (state = initialState, action) =>
 function* updateFilter({ payload }) {
   setFilter(payload);
   yield put(updateFilterRoutine.success(payload));
-  yield put(fetchCurrentWeekEventsRoutine.trigger({ isVideo: true }));
+  yield put(fetchConcernEventsRoutine.trigger());
 }
 
 function* toggleExtraInfo({ payload }) {

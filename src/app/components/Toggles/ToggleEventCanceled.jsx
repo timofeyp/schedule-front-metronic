@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateEventRoutine } from 'app/store/ducks/event.duck';
-import Toggler from 'app/components/Togglers/Toggler';
+import Toggle from 'app/components/Toggles/Toggle';
 import PropTypes from 'prop-types';
 
 const ToggleEventVisibility = ({ event, updateEvent, isAdmin }) => {
@@ -11,12 +11,11 @@ const ToggleEventVisibility = ({ event, updateEvent, isAdmin }) => {
 
   if (isAdmin && event) {
     return (
-      <Toggler
+      <Toggle
         text="Отмена мероприятия"
         defaultChecked={isCanceled}
         handleClick={handleClick}
         id="canceled_toggle"
-        isButtonLeft
       />
     );
   }

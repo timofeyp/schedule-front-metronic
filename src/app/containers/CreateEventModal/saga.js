@@ -10,7 +10,7 @@ import {
   createEventRoutine,
 } from 'containers/CreateEvent/constants';
 import axios from 'utils/axios';
-import { fetchCurrentWeekEventsRoutine } from 'containers/Schedule/constants';
+import { fetchConcernEventsRoutine } from 'containers/Schedule/constants';
 import moment from 'moment';
 import { toggleShowCreateModal } from 'containers/App/settings/constants';
 
@@ -49,7 +49,7 @@ function* createEvent({
     ],
   };
   yield call(axios.post, `/api/events/create`, query);
-  yield put(fetchCurrentWeekEventsRoutine.trigger());
+  yield put(fetchConcernEventsRoutine.trigger());
   yield put(toggleShowCreateModal.success(false));
   yield put(changeEventNameInputRoutine.success(''));
 }

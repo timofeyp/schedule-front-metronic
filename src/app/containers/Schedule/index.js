@@ -6,7 +6,7 @@ import {
   fetchVCPartsRoutine,
   fetchSelectedVCPartsRoutine,
 } from 'app/store/ducks/vcparts.duck';
-import { fetchCurrentWeekEventsRoutine } from 'app/store/ducks/schedule.duck';
+import { fetchEventsRoutine } from 'app/store/ducks/schedule.duck';
 import { isEmpty } from 'lodash';
 import InfoModal from 'app/containers/EventInfoModal';
 import ReactToPrint from 'react-to-print';
@@ -16,21 +16,23 @@ import AnimateLoading from 'app/partials/layout/AnimateLoading';
 import useHooks from 'app/containers/Schedule/hooks';
 
 const Schedule = ({
-  currentWeekEvents,
+  concernEvents,
+  localEvents,
   fetchVCParts,
   fetchSelectedVCParts,
   fetchEvents,
   isParticipantsInfo,
-  isVideo,
+  isConcern,
   isLocal,
 }) => {
+  const events = isConcern ? concernEvents : localEvents;
   const { isInfoModalOpen, toggleInfoModalOpen, sortedEvents } = useHooks({
     fetchEvents,
     fetchSelectedVCParts,
     fetchVCParts,
     isLocal,
-    isVideo,
-    currentWeekEvents,
+    isConcern,
+    events,
   });
   const toggleHandler = () => toggleInfoModalOpen(!isInfoModalOpen);
 
@@ -65,23 +67,25 @@ const Schedule = ({
 };
 
 Schedule.propTypes = {
-  currentWeekEvents: PropTypes.array,
+  concernEvents: PropTypes.array,
+  localEvents: PropTypes.array,
   fetchVCParts: PropTypes.func,
   fetchSelectedVCParts: PropTypes.func,
   fetchEvents: PropTypes.func,
   isParticipantsInfo: PropTypes.bool,
-  isVideo: PropTypes.bool,
+  isConcern: PropTypes.bool,
   isLocal: PropTypes.bool,
 };
 
 const mapStateToProps = store => ({
-  currentWeekEvents: store.schedule.currentWeekEvents,
+  concernEvents: store.schedule.concernEvents,
+  localEvents: store.schedule.localEvents,
 });
 
 const mapDispatchToProps = {
   fetchVCParts: fetchVCPartsRoutine.trigger,
   fetchSelectedVCParts: fetchSelectedVCPartsRoutine.trigger,
-  fetchEvents: fetchCurrentWeekEventsRoutine.trigger,
+  fetchEvents: fetchEventsRoutine.trigger,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Schedule);
