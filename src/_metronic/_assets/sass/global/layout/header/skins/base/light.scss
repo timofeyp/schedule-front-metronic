@@ -83,7 +83,9 @@ $kt-header-item-hover-bg: rgba(#4d5995, 0.06);
 		}
 
 		.kt-header__topbar-item {
+
 			.kt-header__topbar-icon {
+
 				i {
 					@include kt-transition();
 					color: $kt-header-item-icon-color;
@@ -93,6 +95,14 @@ $kt-header-item-hover-bg: rgba(#4d5995, 0.06);
 					g {
 						[fill] {
 							fill: kt-brand-color();
+						}
+					}
+				}
+
+				&:hover {
+					a {
+						span {
+							color: #4596d1 !important;
 						}
 					}
 				}
@@ -122,6 +132,7 @@ $kt-header-item-hover-bg: rgba(#4d5995, 0.06);
 
 			// Quick panel
 			&.kt-header__topbar-item--quick-panel {
+
 				.kt-header__topbar-icon {
 					i {
 						color: $kt-header-item-icon-color;
@@ -131,6 +142,7 @@ $kt-header-item-hover-bg: rgba(#4d5995, 0.06);
 
 			&:hover,
 			&.show {
+
 				.kt-header__topbar-icon {
 					@include kt-transition();
 					background-color: $kt-header-item-hover-bg;

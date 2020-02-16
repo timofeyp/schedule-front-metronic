@@ -12,7 +12,14 @@ import LanguageSelector from '../../../app/partials/layout/LanguageSelector';
 import { toAbsoluteUrl } from '../../utils/utils';
 
 const Topbar = ({ isAuth }) => (
-  <div className="kt-header__topbar">
+  <div
+    style={{
+      marginLeft: 'auto',
+      flex: 1,
+      justifyContent: 'flex-end',
+    }}
+    className="kt-header__topbar"
+  >
     {false && <SearchDropdown useSVG="true" />}
 
     <UserNotifications
