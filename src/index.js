@@ -17,6 +17,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import './_metronic/_assets/plugins/line-awesome/css/line-awesome.css';
 import './_metronic/_assets/plugins/flaticon/flaticon.css';
 import './_metronic/_assets/plugins/flaticon2/flaticon.css';
+
 /**
  * Base URL of the website.
  *

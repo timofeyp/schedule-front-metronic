@@ -3,7 +3,7 @@ import React from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { Nav, Tab } from 'react-bootstrap';
 import Filter from 'app/containers/Filter';
-import ToggleExtraInfo from 'app/components/Togglers/ToggleExtraInfo';
+import ToggleExtraInfo from 'app/components/Toggles/ToggleExtraInfo';
 
 const perfectScrollbarOptions = {
   wheelSpeed: 2,

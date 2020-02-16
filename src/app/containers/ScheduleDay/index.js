@@ -10,7 +10,7 @@ import {
 
 import {
   fetchEventRoutine,
-  debouncedUpdateEventRoutine,
+  updateEventRoutine,
 } from 'app/store/ducks/event.duck';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -18,25 +18,26 @@ import { isEmpty } from 'lodash';
 
 const ScheduleDay = ({
   defaultFilter,
-  eventData,
+  events,
+  dayTitle,
   toggleHandler,
   fetchEvent,
   children,
   updateRoomEvent,
   dayId,
+  isParticipantsInfo,
   ...props
 }) => {
-  const { events } = eventData;
   const sortFunc = (a, b) => {
     const aStartString = a.timeStart.replace(':', '');
     const bStartString = b.timeStart.replace(':', '');
     const aEndString = a.timeEnd.replace(':', '');
     const bEndString = b.timeEnd.replace(':', '');
-    return (
-      parseInt(aStartString, 10) - parseInt(bStartString, 10) ||
-      parseInt(aEndString, 10) - parseInt(bEndString, 10) ||
-      a._id - b._id
-    );
+    const compareStart =
+      parseInt(aStartString, 10) - parseInt(bStartString, 10);
+    const compareEnd = parseInt(aEndString, 10) - parseInt(bEndString, 10);
+    const compareNames = a.eventName.length - b.eventName.length;
+    return compareStart || compareEnd || compareNames;
   };
   const eventsSorted = [...events].sort(sortFunc);
   const eventClickHandler = id => {
@@ -57,8 +58,10 @@ const ScheduleDay = ({
         <Col>
           <DayCard>
             <DayHeader>
-              <p className="text-center"> {eventData._id}</p>
-              <p className="text-center">{participantsInfo}</p>
+              <p className="text-center"> {dayTitle}</p>
+              {isParticipantsInfo && (
+                <p className="text-center">{participantsInfo}</p>
+              )}
             </DayHeader>
             <Row className="p-2">
               <Col xs={1}>#</Col>
@@ -92,13 +95,15 @@ const ScheduleDay = ({
 };
 
 ScheduleDay.propTypes = {
-  eventData: PropTypes.object,
+  events: PropTypes.array,
   toggleHandler: PropTypes.func,
   fetchEvent: PropTypes.func,
   children: PropTypes.object,
   updateRoomEvent: PropTypes.func,
   dayId: PropTypes.number,
   defaultFilter: PropTypes.array,
+  isParticipantsInfo: PropTypes.bool,
+  dayTitle: PropTypes.string,
 };
 
 const mapStateToProps = store => ({
@@ -107,7 +112,7 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = {
   fetchEvent: fetchEventRoutine.trigger,
-  updateRoomEvent: debouncedUpdateEventRoutine.trigger,
+  updateRoomEvent: updateEventRoutine.trigger,
 };
 
 export default compose(connect(mapStateToProps, mapDispatchToProps))(

@@ -11,7 +11,10 @@ import { defaultParticipant } from 'app/store/constants';
 import moment from 'moment';
 import API from 'app/api';
 import { toggleShowCreateModal } from 'app/store/ducks/settings.duck';
-import { fetchCurrentWeekEventsRoutine } from 'app/store/ducks/schedule.duck';
+import {
+  fetchConcernEventsRoutine,
+  fetchLocalEventsRoutine,
+} from 'app/store/ducks/schedule.duck';
 import { toggleShowAlert } from 'app/store/ducks/alert.duck';
 export const fetchEventNamesRoutine = createAction(
   'FETCH_EVENT_NAMES',
@@ -53,18 +56,30 @@ function* fetchNames({ payload }) {
 }
 
 function* createEvent({
-  payload: { eventName, timeStart, timeEnd, dateStart, localRoom },
+  payload: {
+    eventName,
+    timeStart,
+    timeEnd,
+    dateStart,
+    localRoom,
+    isVideo,
+    isLocal,
+  },
 }) {
   const isAdmin = yield select(state => state.session.profile.isAdmin);
   const query = {
     eventName,
     timeStart: moment(timeStart).format('HH:mm'),
     timeEnd: moment(timeEnd).format('HH:mm'),
+    dateTimeStart: moment(timeStart),
+    dateTimeEnd: moment(timeEnd),
     dateStart,
     yearMonthDay: moment(dateStart).format('DD-MM-YYYY'),
     localRoom,
     VCPartsIDs: [7],
     VCParts: [defaultParticipant],
+    isVideo,
+    isLocal,
   };
   try {
     yield call(API.creating.createEvent, query);
@@ -84,7 +99,11 @@ function* createEvent({
       }),
     );
   }
-  yield put(fetchCurrentWeekEventsRoutine.trigger());
+  if (isLocal && isAdmin) {
+    yield put(fetchLocalEventsRoutine.trigger());
+  } else if (!isLocal && isAdmin) {
+    yield put(fetchConcernEventsRoutine.trigger());
+  }
   yield put(toggleShowCreateModal.success(false));
   yield put(changeEventNameInputRoutine.success(''));
 }

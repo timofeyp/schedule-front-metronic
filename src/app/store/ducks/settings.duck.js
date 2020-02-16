@@ -2,7 +2,7 @@ import createAction from 'app/utils/createAction';
 
 import produce from 'immer/dist/immer';
 import {
-  filterDef as localStoreFilter,
+  filterDef as localStorageFilter,
   isExtraInfo,
   setExtraInfo,
   setFilter,
@@ -11,7 +11,7 @@ import {
   put,
   takeLatest,
 } from 'redux-saga/dist/redux-saga-effects-npm-proxy.esm';
-import { fetchCurrentWeekEventsRoutine } from 'app/store/ducks/schedule.duck';
+import { fetchConcernEventsRoutine } from 'app/store/ducks/schedule.duck';
 import { defaultFilter } from 'app/store/constants';
 import { isEmpty } from 'lodash';
 
@@ -27,7 +27,7 @@ export const toggleShowCreateModal = createAction(
 
 export const initialState = {
   isExtraInfo,
-  filter: isEmpty(localStoreFilter) ? defaultFilter : localStoreFilter,
+  filter: isEmpty(localStorageFilter) ? defaultFilter : localStorageFilter,
   isShowCreateModal: false,
 };
 
@@ -50,7 +50,7 @@ export const reducer = (state = initialState, action) =>
 function* updateFilter({ payload }) {
   setFilter(payload);
   yield put(updateFilterRoutine.success(payload));
-  yield put(fetchCurrentWeekEventsRoutine.trigger());
+  yield put(fetchConcernEventsRoutine.trigger());
 }
 
 function* toggleExtraInfo({ payload }) {

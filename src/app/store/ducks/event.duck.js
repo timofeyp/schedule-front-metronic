@@ -7,18 +7,14 @@ import {
   delay,
 } from 'redux-saga/dist/redux-saga-effects-npm-proxy.esm';
 import API from 'app/api';
-import { fetchCurrentWeekEventsRoutine } from 'app/store/ducks/schedule.duck';
-export const fetchEventRoutine = createAction('FETCH__EVENT', 'event');
-export const eraseEventRoutine = createAction('ERASE__EVENT', 'event');
+import { updateScheduleEventRoutine } from 'app/store/ducks/schedule.duck';
+export const fetchEventRoutine = createAction('FETCH_EVENT', 'event');
+export const eraseEventRoutine = createAction('ERASE_EVENT', 'event');
 export const confirmLocalEventRoutine = createAction(
   'CONFIRM_LOCAL_EVENT',
   'event',
 );
 export const updateEventRoutine = createAction('UPDATE_EVENT', 'event');
-export const debouncedUpdateEventRoutine = createAction(
-  'UPDATE_EVENT_DEBOUNCED',
-  'event',
-);
 
 export const initialState = {
   data: {},
@@ -34,6 +30,9 @@ export const reducer = (state = initialState, action) =>
       case eraseEventRoutine.SUCCESS:
         draft.data = {};
         break;
+      case updateEventRoutine.SUCCESS:
+        draft.data = action.payload;
+        break;
     }
   });
 
@@ -43,22 +42,19 @@ function* fetchEvent({ payload }) {
 }
 
 function* updateEvent({ payload }) {
-  const res = yield call(API.schedule.updateEvent, payload);
+  const { isDebounced, event } = payload;
+  if (isDebounced) {
+    yield delay(500);
+  }
+  const res = yield call(API.schedule.updateEvent, event);
   yield put(updateEventRoutine.success(res.data));
-  yield put(fetchCurrentWeekEventsRoutine.trigger());
-}
-
-function* updateEventDebounced({ payload }) {
-  yield delay(500);
-  yield call(API.schedule.updateEventDebounced, payload);
-  yield put({ type: fetchCurrentWeekEventsRoutine.TRIGGER });
+  yield put(updateScheduleEventRoutine.trigger(res.data));
 }
 
 function* localConfirmEvent({ payload }) {
   const id = payload;
   yield call(API.schedule.localConfirmEvent, id);
   yield put(fetchEventRoutine.trigger(id));
-  yield put(fetchCurrentWeekEventsRoutine.trigger());
   yield put(confirmLocalEventRoutine.success());
 }
 
@@ -66,5 +62,4 @@ export function* saga() {
   yield takeLatest(fetchEventRoutine.TRIGGER, fetchEvent);
   yield takeLatest(confirmLocalEventRoutine.TRIGGER, localConfirmEvent);
   yield takeLatest(updateEventRoutine.TRIGGER, updateEvent);
-  yield takeLatest(debouncedUpdateEventRoutine.TRIGGER, updateEventDebounced);
 }

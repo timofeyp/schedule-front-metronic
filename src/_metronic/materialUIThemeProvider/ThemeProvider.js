@@ -1,6 +1,6 @@
-import React from "react";
-import { createMuiTheme } from "@material-ui/core";
-import { ThemeProvider as MuiThemeProvider } from "@material-ui/styles";
+import React from 'react';
+import { createMuiTheme } from '@material-ui/core';
+import { ThemeProvider as MuiThemeProvider } from '@material-ui/styles';
 
 const theme = createMuiTheme(
   /**
@@ -9,29 +9,29 @@ const theme = createMuiTheme(
   {
     // direction: "rtl",
     typography: {
-      fontFamily: ["Poppins"].join(",")
+      fontFamily: ['Poppins'].join(','),
     },
 
     palette: {
       contrastThreshold: 2,
       primary: {
         // light: will be calculated from palette.primary.main,
-        main: "#4596d1"
+        main: '#4596d1',
         // dark: will be calculated from palette.primary.main,
         // contrastText: will be calculated to contrast with palette.primary.main
       },
       secondary: {
         // light: will be calculated from palette.primary.main,
-        main: "#5ba252",
+        main: '#5ba252',
         // dark: will be calculated from palette.primary.main,
-        contrastText: "#ffffff"
+        contrastText: '#ffffff',
       },
       error: {
         // light: will be calculated from palette.primary.main,
-        main: "#c63032"
+        main: '#c63032',
         // dark: will be calculated from palette.primary.main,
         // contrastText: will be calculated to contrast with palette.primary.main
-      }
+      },
     },
 
     /**
@@ -41,15 +41,15 @@ const theme = createMuiTheme(
       // Name of the component ⚛️
       MuiButtonBase: {
         // The properties to apply
-        disableRipple: true // No more ripple, on the whole application 💣!
+        disableRipple: true, // No more ripple, on the whole application 💣!
       },
 
       // Set default elevation to 1 for popovers.
       MuiPopover: {
-        elevation: 1
-      }
-    }
-  }
+        elevation: 1,
+      },
+    },
+  },
 );
 
 export default function ThemeProvider(props) {
