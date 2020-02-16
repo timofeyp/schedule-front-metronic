@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import VideoConferences from 'app/pages/home/VideoConferences';
 import LocalEvents from 'app/pages/home/LocalEvents';
