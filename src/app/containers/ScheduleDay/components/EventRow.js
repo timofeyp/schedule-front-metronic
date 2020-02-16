@@ -17,6 +17,7 @@ const EventRow = ({
     timeStart,
     timeEnd,
     localRoom,
+    isPossiblyCanceled,
   },
   eventClickHandler,
   eventRoomChangeHandler,
@@ -49,7 +50,7 @@ const EventRow = ({
   const isExtraInfo =
     isAdmin &&
     isExtraInfoSetInSettings &&
-    (isCanceled || !isEmpty(confirms) || isHidden);
+    (!isEmpty(confirms) || isHidden || isPossiblyCanceled);
   const infoMargin = isExtraInfo && isExtraInfoSetInSettings ? 'mb-2' : '';
   return (
     <div className={`event-row p-2 ${className}`}>
@@ -73,7 +74,7 @@ const EventRow = ({
       </Row>
       <Info
         isInfo={isExtraInfo}
-        isCanceled={isCanceled}
+        isPossiblyCanceled={isPossiblyCanceled}
         confirms={confirms}
         isHidden={isHidden}
         handleClick={handleClick}

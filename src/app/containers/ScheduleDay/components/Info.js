@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import { Col, Row } from 'react-bootstrap';
 
-const Info = ({ confirms, isCanceled, isHidden, handleClick, isInfo }) => {
+const Info = ({
+  confirms,
+  isHidden,
+  handleClick,
+  isInfo,
+  isPossiblyCanceled,
+}) => {
   if (isInfo) {
     return (
       <Row className="pt-1" onClick={handleClick}>
@@ -13,8 +19,11 @@ const Info = ({ confirms, isCanceled, isHidden, handleClick, isInfo }) => {
               Эта конференция скрыта от пользователей
             </div>
           )}
-          {isCanceled && (
-            <div className="text-danger">Эта конференция отменена</div>
+          {isPossiblyCanceled && (
+            <div className="text-danger">
+              Конференция отсутствует в расписании на портале концерна. Уточнить
+              отмену.
+            </div>
           )}
           {!isEmpty(confirms) && (
             <>
@@ -41,9 +50,9 @@ const Info = ({ confirms, isCanceled, isHidden, handleClick, isInfo }) => {
 Info.propTypes = {
   confirms: PropTypes.array,
   isHidden: PropTypes.bool,
-  isCanceled: PropTypes.bool,
   handleClick: PropTypes.func,
   isInfo: PropTypes.bool,
+  isPossiblyCanceled: PropTypes.bool,
 };
 
 export default Info;
