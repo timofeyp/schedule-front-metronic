@@ -66,17 +66,19 @@ const FormComponent = ({ setFieldValue, handleSubmit, values, isAdmin }) => {
       </Form.Row>
       <Form.Group as={Row} className="justify-content-between">
         <Col xs={3}>
-          <Field
-            name="isVideo"
-            component={props => (
-              <FormikToggle
-                text="Мероприятие с ВКС"
-                id="is_video_toggle"
-                disabled={!isLocal}
-                {...props}
-              />
-            )}
-          />
+          {isAdmin && (
+            <Field
+              name="isVideo"
+              component={props => (
+                <FormikToggle
+                  text="Мероприятие с ВКС"
+                  id="is_video_toggle"
+                  disabled={!isLocal}
+                  {...props}
+                />
+              )}
+            />
+          )}
         </Col>
         {isAdmin && (
           <Col xs={3}>
