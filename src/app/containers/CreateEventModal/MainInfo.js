@@ -5,7 +5,7 @@ import { Field } from 'formik';
 import FormControl from 'app/components/Fields/FormControl';
 import DatePickerField from 'app/components/Selects/Date';
 
-const MainDataForm = ({ setFieldValue }) => (
+const MainInfo = ({ setFieldValue }) => (
   <div>
     <Form.Row>
       <Form.Group xs={12} as={Col}>
@@ -54,8 +54,8 @@ const MainDataForm = ({ setFieldValue }) => (
   </div>
 );
 
-MainDataForm.propTypes = {
+MainInfo.propTypes = {
   setFieldValue: PropTypes.func,
 };
 
-export default MainDataForm;
+export default MainInfo;

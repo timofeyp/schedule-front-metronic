@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from 'app/components/Tabs';
-import MainDataForm from 'app/containers/CreateEventModal/MainDataForm';
-import ParticipantsForm from 'app/containers/CreateEventModal/ParticipantsForm';
+import MainInfo from 'app/containers/CreateEventModal/MainInfo';
+import Participants from 'app/containers/CreateEventModal/Participants';
 
-const ModalTabs = ({ setFieldValue }) => {
+const ModalTabs = ({ isLocal, setFieldValue }) => {
   const tabs = [
     {
       title: 'Инфо',
-      content: <MainDataForm setFieldValue={setFieldValue} />,
+      content: <MainInfo setFieldValue={setFieldValue} />,
       isShown: true,
     },
     {
       title: 'Участники',
-      content: <ParticipantsForm />,
+      content: <Participants isLocal={isLocal} />,
       isShown: true,
     },
   ];
@@ -21,6 +21,7 @@ const ModalTabs = ({ setFieldValue }) => {
 };
 
 ModalTabs.propTypes = {
+  isLocal: PropTypes.bool,
   setFieldValue: PropTypes.func,
 };
 

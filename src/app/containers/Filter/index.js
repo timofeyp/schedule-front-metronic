@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { updateFilterRoutine } from 'app/store/ducks/settings.duck';
-import FilterSelect from 'app/components/Selects/FilterSelect';
+import FilterSelect from 'app/components/Selects/Filter';
 import { isEmpty } from 'lodash';
 
 const Filter = ({ currentWeekVCParts, updateFilter }) => {
@@ -23,7 +23,7 @@ Filter.propTypes = {
 };
 
 const mapStateToProps = store => ({
-  currentWeekVCParts: store.vcparts.selectedVCParts,
+  currentWeekVCParts: store.vcparts.selected,
   filter: store.settings.filter,
 });
 

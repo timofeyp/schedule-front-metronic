@@ -3,18 +3,26 @@ export default {
     self: {},
     items: [
       {
-        title: 'ВКС с концерном',
+        title: 'Расписание',
         root: true,
         alignment: 'left',
-        page: 'video-conferences',
-        translate: 'MENU.SCHEDULE',
-      },
-      {
-        title: 'Локальные мероприятия и ВКС',
-        root: true,
-        alignment: 'left',
-        page: 'local-events',
-        translate: 'MENU.ROOMS',
+        toggle: 'click',
+        submenu: [
+          {
+            title: 'ВКС с концерном',
+            root: true,
+            alignment: 'left',
+            page: 'video-conferences',
+            translate: 'MENU.SCHEDULE',
+          },
+          {
+            title: 'Локальные мероприятия и ВКС',
+            root: true,
+            alignment: 'left',
+            page: 'local-events',
+            translate: 'MENU.ROOMS',
+          },
+        ],
       },
       {
         title: 'Dashboards',

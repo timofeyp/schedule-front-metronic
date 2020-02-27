@@ -2,10 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ScheduleDay from 'app/containers/ScheduleDay';
 import { connect } from 'react-redux';
-import {
-  fetchVCPartsRoutine,
-  fetchSelectedVCPartsRoutine,
-} from 'app/store/ducks/vcparts.duck';
+import { fetchSelectedVCPartsRoutine } from 'app/store/ducks/vcparts.duck';
 import { fetchEventsRoutine } from 'app/store/ducks/schedule.duck';
 import { isEmpty } from 'lodash';
 import InfoModal from 'app/containers/EventInfoModal';
@@ -18,7 +15,6 @@ import useHooks from 'app/containers/Schedule/hooks';
 const Schedule = ({
   concernEvents,
   localEvents,
-  fetchVCParts,
   fetchSelectedVCParts,
   fetchEvents,
   isParticipantsInfo,
@@ -29,7 +25,6 @@ const Schedule = ({
   const { isInfoModalOpen, toggleInfoModalOpen, sortedEvents } = useHooks({
     fetchEvents,
     fetchSelectedVCParts,
-    fetchVCParts,
     isLocal,
     isConcern,
     events,
@@ -69,7 +64,6 @@ const Schedule = ({
 Schedule.propTypes = {
   concernEvents: PropTypes.array,
   localEvents: PropTypes.array,
-  fetchVCParts: PropTypes.func,
   fetchSelectedVCParts: PropTypes.func,
   fetchEvents: PropTypes.func,
   isParticipantsInfo: PropTypes.bool,
@@ -83,7 +77,6 @@ const mapStateToProps = store => ({
 });
 
 const mapDispatchToProps = {
-  fetchVCParts: fetchVCPartsRoutine.trigger,
   fetchSelectedVCParts: fetchSelectedVCPartsRoutine.trigger,
   fetchEvents: fetchEventsRoutine.trigger,
 };

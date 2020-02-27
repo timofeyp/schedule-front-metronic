@@ -15,8 +15,8 @@ export const fetchSelectedVCPartsRoutine = createAction(
 export const eraseVCPartsRoutine = createAction('ERASE_VC_PARTS', 'vcparts');
 
 export const initialState = {
-  VCParts: [],
-  selectedVCParts: [],
+  all: [],
+  selected: [],
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -24,14 +24,14 @@ export const reducer = (state = initialState, action) =>
   produce(state, draft => {
     switch (action.type) {
       case fetchVCPartsRoutine.SUCCESS:
-        draft.VCParts = action.payload;
+        draft.all = action.payload;
         break;
       case fetchSelectedVCPartsRoutine.SUCCESS:
-        draft.selectedVCParts = action.payload;
+        draft.selected = action.payload;
         break;
       case eraseVCPartsRoutine.SUCCESS:
-        draft.selectedVCParts = [];
-        draft.VCParts = [];
+        draft.selected = [];
+        draft.all = [];
         break;
     }
   });

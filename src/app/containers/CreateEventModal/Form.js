@@ -19,9 +19,9 @@ const FormComponent = ({ setFieldValue, handleSubmit, values, isAdmin }) => {
   }, [isLocal, isVideo, setFieldValue]);
   return (
     <Form onSubmit={handleSubmit} className="p-2">
-      <ModalTabs setFieldValue={setFieldValue} />
+      <ModalTabs isLocal={isLocal} setFieldValue={setFieldValue} />
       <Form.Group as={Row} className="justify-content-between">
-        <Col xs={3}>
+        <Col xs={{ span: 3, offset: 2 }}>
           {isAdmin && (
             <Field
               name="isVideo"

@@ -4,18 +4,16 @@ import { isEmpty } from 'lodash';
 const useHooks = ({
   fetchEvents,
   fetchSelectedVCParts,
-  fetchVCParts,
   isLocal,
   isConcern,
   events,
 }) => {
   useEffect(() => {
     if (isConcern) {
-      fetchVCParts();
       fetchSelectedVCParts();
     }
     fetchEvents({ isLocal, isConcern });
-  }, [fetchEvents, fetchSelectedVCParts, fetchVCParts, isConcern, isLocal]);
+  }, [fetchEvents, fetchSelectedVCParts, isConcern, isLocal]);
   const sortedEvents = useMemo(() => {
     if (!isEmpty(events)) {
       const sortedEventsAccumulator = {};

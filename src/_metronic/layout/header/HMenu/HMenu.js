@@ -105,7 +105,7 @@ class HMenu extends React.Component {
         >
           {disabledAsideSelfDisplay && (
             <PortalTitle className="kt-header-logo">
-              <b>ПОРТАЛ МЕРОПРИЯТИЙ</b>
+              <b className="text-nowrap">ПОРТАЛ МЕРОПРИЯТИЙ</b>
             </PortalTitle>
           )}
 

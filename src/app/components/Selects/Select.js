@@ -1,9 +1,8 @@
 import React from 'react';
 import Select from 'react-select';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
-const FilterSelect = ({ defaultFilter, onChange, options }) => {
+const View = ({ defaultValue, onChange, options, placeholder }) => {
   const customStyles = {
     control: provided => ({
       ...provided,
@@ -15,24 +14,21 @@ const FilterSelect = ({ defaultFilter, onChange, options }) => {
   return (
     <Select
       styles={customStyles}
-      defaultValue={defaultFilter}
+      defaultValue={defaultValue}
       onChange={onChange}
       isMulti
       options={options}
       noOptionsMessage={() => 'Не найдено'}
-      placeholder="Выберите филиалы"
+      placeholder={placeholder}
     />
   );
 };
 
-FilterSelect.propTypes = {
+View.propTypes = {
   onChange: PropTypes.func,
   options: PropTypes.array,
-  defaultFilter: PropTypes.array,
+  defaultValue: PropTypes.array,
+  placeholder: PropTypes.string,
 };
 
-const mapStateToProps = store => ({
-  defaultFilter: store.settings.filter,
-});
-
-export default connect(mapStateToProps, null)(FilterSelect);
+export default View;
