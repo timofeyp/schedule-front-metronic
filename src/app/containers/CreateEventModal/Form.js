@@ -2,10 +2,9 @@ import React, { useEffect } from 'react';
 import { Formik, Field } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Row, Col, Button } from 'react-bootstrap';
-import FormControl from 'app/components/Fields/FormControl';
-import DatePickerField from 'app/components/Selects/Date';
 import { createEventRoutine } from 'app/store/ducks/creating.duck';
 import FormikToggle from 'app/components/Toggles/FormikToggle';
+import ModalTabs from 'app/containers/CreateEventModal/ModalTabs';
 import PropTypes from 'prop-types';
 
 const FormComponent = ({ setFieldValue, handleSubmit, values, isAdmin }) => {
@@ -20,50 +19,7 @@ const FormComponent = ({ setFieldValue, handleSubmit, values, isAdmin }) => {
   }, [isLocal, isVideo, setFieldValue]);
   return (
     <Form onSubmit={handleSubmit} className="p-2">
-      <Form.Row>
-        <Form.Group xs={12} as={Col}>
-          <Field
-            type="text"
-            name="eventName"
-            component={FormControl}
-            placeholder="Введите название мероприятия"
-          />
-        </Form.Group>
-      </Form.Row>
-      <Form.Row>
-        <Form.Group xs={3} as={Col}>
-          <DatePickerField
-            handleChange={setFieldValue}
-            field="dateStart"
-            label="Дата"
-          />
-        </Form.Group>
-        <Form.Group xs={3} as={Col}>
-          <DatePickerField
-            isTime
-            isFrom
-            handleChange={setFieldValue}
-            field="timeStart"
-            label="С"
-          />
-        </Form.Group>
-        <Form.Group xs={3} as={Col}>
-          <DatePickerField
-            isTime
-            handleChange={setFieldValue}
-            field="timeEnd"
-            label="По"
-          />
-        </Form.Group>
-        <Form.Group xs={3} as={Col}>
-          <Field
-            name="localRoom"
-            component={FormControl}
-            type="text"
-            placeholder="Введите аудиторию"
-          />
-        </Form.Group>
-      </Form.Row>
+      <ModalTabs setFieldValue={setFieldValue} />
       <Form.Group as={Row} className="justify-content-between">
         <Col xs={3}>
           {isAdmin && (
