@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Tabs from 'app/components/Tabs';
 import MainInfo from 'app/containers/CreateEventModal/MainInfo';
 import Participants from 'app/containers/CreateEventModal/Participants';
+import { FormContext } from 'app/containers/CreateEventModal/Form';
 
-const ModalTabs = ({ isLocal, setFieldValue }) => {
+const ModalTabs = ({ isLocal }) => {
+  const { setFieldValue } = useContext(FormContext);
   const tabs = [
     {
       title: 'Инфо',
@@ -13,7 +15,7 @@ const ModalTabs = ({ isLocal, setFieldValue }) => {
     },
     {
       title: 'Участники',
-      content: <Participants isLocal={isLocal} />,
+      content: <Participants isLocal={isLocal} setFieldValue={setFieldValue} />,
       isShown: true,
     },
   ];

@@ -1,18 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Select from 'app/components/Selects/Select';
 import PropTypes from 'prop-types';
+import { FormContext } from 'app/containers/CreateEventModal/Form';
 
-const FilterSelect = ({ onChange, options }) => (
-  <Select
-    onChange={onChange}
-    options={options}
-    placeholder="Выберите участников"
-  />
-);
+const View = ({ onChange, options }) => {
+  const { setFieldValue } = useContext(FormContext);
+  return (
+    <Select
+      onChange={e => console.log(e)}
+      options={options}
+      placeholder="Выберите участников"
+    />
+  );
+};
 
-FilterSelect.propTypes = {
+View.propTypes = {
   onChange: PropTypes.func,
   options: PropTypes.array,
 };
 
-export default FilterSelect;
+export default View;

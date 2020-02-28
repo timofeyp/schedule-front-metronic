@@ -5,10 +5,11 @@ import * as auth from 'app/store/ducks/auth.duck';
 import * as session from 'app/store/ducks/session.duck';
 import * as schedule from 'app/store/ducks/schedule.duck';
 import * as event from 'app/store/ducks/event.duck';
-import * as vcparts from 'app/store/ducks/vcparts.duck';
+import * as vcparts from 'app/store/ducks/v-c-parts.duck';
 import * as settings from 'app/store/ducks/settings.duck';
 import * as creating from 'app/store/ducks/creating.duck';
 import * as alert from 'app/store/ducks/alert.duck';
+import * as ldap from 'app/store/ducks/ldap.duck';
 import { metronic } from '../../_metronic';
 
 export const rootReducer = combineReducers({
@@ -22,6 +23,7 @@ export const rootReducer = combineReducers({
   i18n: metronic.i18n.reducer,
   builder: metronic.builder.reducer,
   alert: alert.reducer,
+  ldap: ldap.reducer,
 });
 
 export function* rootSaga() {
@@ -34,5 +36,6 @@ export function* rootSaga() {
     settings.saga(),
     creating.saga(),
     alert.saga(),
+    ldap.saga(),
   ]);
 }

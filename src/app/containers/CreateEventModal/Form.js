@@ -6,6 +6,7 @@ import { createEventRoutine } from 'app/store/ducks/creating.duck';
 import FormikToggle from 'app/components/Toggles/FormikToggle';
 import ModalTabs from 'app/containers/CreateEventModal/ModalTabs';
 import PropTypes from 'prop-types';
+export const FormContext = React.createContext();
 
 const FormComponent = ({ setFieldValue, handleSubmit, values, isAdmin }) => {
   const { isLocal, isVideo } = values;
@@ -17,47 +18,50 @@ const FormComponent = ({ setFieldValue, handleSubmit, values, isAdmin }) => {
       setFieldValue('isLocal', true);
     }
   }, [isLocal, isVideo, setFieldValue]);
+
   return (
-    <Form onSubmit={handleSubmit} className="p-2">
-      <ModalTabs isLocal={isLocal} setFieldValue={setFieldValue} />
-      <Form.Group as={Row} className="justify-content-between">
-        <Col xs={{ span: 3, offset: 2 }}>
-          {isAdmin && (
-            <Field
-              name="isVideo"
-              component={props => (
-                <FormikToggle
-                  text="Мероприятие с ВКС"
-                  id="is_video_toggle"
-                  disabled={!isLocal}
-                  {...props}
-                />
-              )}
-            />
-          )}
-        </Col>
-        {isAdmin && (
-          <Col xs={3}>
-            <Field
-              name="isLocal"
-              component={props => (
-                <FormikToggle
-                  text="Локальное мероприятие"
-                  id="is_local_toggle"
-                  disabled={!isVideo}
-                  {...props}
-                />
-              )}
-            />
+    <FormContext.Provider value={{ setFieldValue }}>
+      <Form onSubmit={handleSubmit} className="p-2">
+        <ModalTabs isLocal={isLocal} />
+        <Form.Group as={Row} className="justify-content-between">
+          <Col xs={{ span: 3, offset: 2 }}>
+            {isAdmin && (
+              <Field
+                name="isVideo"
+                component={props => (
+                  <FormikToggle
+                    text="Мероприятие с ВКС"
+                    id="is_video_toggle"
+                    disabled={!isLocal}
+                    {...props}
+                  />
+                )}
+              />
+            )}
           </Col>
-        )}
-        <Col className="text-right">
-          <Button variant="primary" type="submit">
-            Отправить
-          </Button>
-        </Col>
-      </Form.Group>
-    </Form>
+          {isAdmin && (
+            <Col xs={3}>
+              <Field
+                name="isLocal"
+                component={props => (
+                  <FormikToggle
+                    text="Локальное мероприятие"
+                    id="is_local_toggle"
+                    disabled={!isVideo}
+                    {...props}
+                  />
+                )}
+              />
+            </Col>
+          )}
+          <Col className="text-right">
+            <Button variant="primary" type="submit">
+              Отправить
+            </Button>
+          </Col>
+        </Form.Group>
+      </Form>
+    </FormContext.Provider>
   );
 };
 

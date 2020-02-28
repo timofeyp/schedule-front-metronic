@@ -7,12 +7,12 @@ import {
 } from 'redux-saga/dist/redux-saga-effects-npm-proxy.esm';
 import API from 'app/api';
 
-export const fetchVCPartsRoutine = createAction('FETCH_VC_PARTS', 'vcparts');
+export const fetchVCPartsRoutine = createAction('FETCH_VC_PARTS', 'v-c-parts');
 export const fetchSelectedVCPartsRoutine = createAction(
   'FETCH_SELECTED_VC_PARTS',
-  'vcparts',
+  'v-c-parts',
 );
-export const eraseVCPartsRoutine = createAction('ERASE_VC_PARTS', 'vcparts');
+export const eraseVCPartsRoutine = createAction('ERASE_VC_PARTS', 'v-c-parts');
 
 export const initialState = {
   all: [],
@@ -36,22 +36,22 @@ export const reducer = (state = initialState, action) =>
     }
   });
 
-function* fetchVcParts() {
-  const res = yield call(API.schedule.fetchVCParts);
+function* fetchVCParts() {
+  const res = yield call(API.VCParts.fetchVCParts);
   yield put({ type: fetchVCPartsRoutine.SUCCESS, payload: res.data });
 }
 
-function* fetchSelectedVcParts() {
-  const res = yield call(API.schedule.fetchSelectedVcParts);
+function* fetchSelectedVCParts() {
+  const res = yield call(API.VCParts.fetchSelectedVcParts);
   yield put({ type: fetchSelectedVCPartsRoutine.SUCCESS, payload: res.data });
 }
 
-function* eraseVcParts() {
+function* eraseVCParts() {
   yield put(fetchSelectedVCPartsRoutine.success());
 }
 
 export function* saga() {
-  yield takeLatest(fetchVCPartsRoutine.TRIGGER, fetchVcParts);
-  yield takeLatest(fetchSelectedVCPartsRoutine.TRIGGER, fetchSelectedVcParts);
-  yield takeLatest(eraseVCPartsRoutine.TRIGGER, eraseVcParts);
+  yield takeLatest(fetchVCPartsRoutine.TRIGGER, fetchVCParts);
+  yield takeLatest(fetchSelectedVCPartsRoutine.TRIGGER, fetchSelectedVCParts);
+  yield takeLatest(eraseVCPartsRoutine.TRIGGER, eraseVCParts);
 }

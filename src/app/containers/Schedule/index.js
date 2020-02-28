@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ScheduleDay from 'app/containers/ScheduleDay';
 import { connect } from 'react-redux';
-import { fetchSelectedVCPartsRoutine } from 'app/store/ducks/vcparts.duck';
+import { fetchSelectedVCPartsRoutine } from 'app/store/ducks/v-c-parts.duck';
 import { fetchEventsRoutine } from 'app/store/ducks/schedule.duck';
 import { isEmpty } from 'lodash';
 import InfoModal from 'app/containers/EventInfoModal';

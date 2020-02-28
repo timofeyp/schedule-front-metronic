@@ -15,14 +15,6 @@ export function* fetchEvent(id) {
   return yield call(axios.get, `/api/events/get-event-data/${id}`);
 }
 
-export function* fetchVCParts() {
-  return yield call(axios.get, '/api/events/get-vc-parts');
-}
-
-export function* fetchSelectedVcParts() {
-  return yield call(axios.get, '/api/events/get-selected-vc-parts');
-}
-
 export function* updateEvent(data) {
   return yield call(axios.put, `/api/events/update`, data);
 }
@@ -33,8 +25,6 @@ export function* localConfirmEvent(id) {
 
 export default {
   fetchEvents,
-  fetchVCParts,
-  fetchSelectedVcParts,
   updateEvent,
   localConfirmEvent,
   fetchEvent,
