@@ -10,10 +10,7 @@ import {
 import API from 'app/api';
 import moment from 'moment';
 import { toggleShowCreateModal } from 'app/store/ducks/settings.duck';
-import {
-  fetchConcernEventsRoutine,
-  fetchLocalEventsRoutine,
-} from 'app/store/ducks/schedule.duck';
+import { pushNewEventRoutine } from 'app/store/ducks/schedule.duck';
 import { toggleShowAlert } from 'app/store/ducks/alert.duck';
 export const fetchEventNamesRoutine = createAction(
   'FETCH_EVENT_NAMES',
@@ -66,7 +63,11 @@ function* createEvent({ payload }) {
     ...payload,
   };
   try {
-    yield call(API.creating.createEvent, query);
+    const res = yield call(API.creating.createEvent, query);
+    yield put(createEventRoutine.success());
+    if (isAdmin) {
+      yield put(pushNewEventRoutine.trigger(res.data));
+    }
     yield put(
       toggleShowAlert.trigger({
         variant: 'success',
@@ -82,11 +83,6 @@ function* createEvent({ payload }) {
         text: 'При добавлении мероприятия произошла ошибка!',
       }),
     );
-  }
-  if (isLocal && isAdmin) {
-    yield put(fetchLocalEventsRoutine.trigger());
-  } else if (!isLocal && isAdmin) {
-    yield put(fetchConcernEventsRoutine.trigger());
   }
   yield put(toggleShowCreateModal.success(false));
   yield put(changeEventNameInputRoutine.success(''));

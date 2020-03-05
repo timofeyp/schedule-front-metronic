@@ -36,29 +36,38 @@ export const updateScheduleEventRoutine = createAction(
   'schedule',
 );
 
+export const pushNewEventRoutine = createAction('PUSH_NEW_EVENT', 'schedule');
+
 export const initialState = {
   concernEvents: [],
   localEvents: [],
 };
 
 /* eslint-disable default-case, no-param-reassign */
-export const reducer = (state = initialState, action) =>
+export const reducer = (state = initialState, { payload, type }) =>
   produce(state, draft => {
-    switch (action.type) {
+    switch (type) {
       case fetchConcernEventsRoutine.SUCCESS:
-        draft.concernEvents = action.payload;
+        draft.concernEvents = payload;
         break;
       case fetchLocalEventsRoutine.SUCCESS:
-        draft.localEvents = action.payload;
+        draft.localEvents = payload;
         break;
       case eraseConcernEventsRoutine.SUCCESS:
         draft.concernEvents = [];
         break;
       case updateConcernEventRoutine.SUCCESS:
-        draft.concernEvents[action.payload.eventIndex] = action.payload.event;
+        draft.concernEvents[payload.eventIndex] = payload.event;
         break;
       case updateLocalEventRoutine.SUCCESS:
-        draft.localEvents[action.payload.eventIndex] = action.payload.event;
+        draft.localEvents[payload.eventIndex] = payload.event;
+        break;
+      case pushNewEventRoutine.SUCCESS:
+        if (payload.isLocal) {
+          draft.localEvents.push(payload);
+        } else {
+          draft.concernEvents.push(payload);
+        }
         break;
     }
   });
@@ -117,10 +126,15 @@ function* eraseConcernEvents() {
   yield put(eraseConcernEventsRoutine.success());
 }
 
+function* pushNewEvent({ payload }) {
+  yield put(pushNewEventRoutine.success(payload));
+}
+
 export function* saga() {
   yield takeLatest(fetchConcernEventsRoutine.TRIGGER, fetchConcernEvents);
   yield takeLatest(fetchLocalEventsRoutine.TRIGGER, fetchLocalEvents);
   yield takeLatest(eraseConcernEventsRoutine.TRIGGER, eraseConcernEvents);
   yield takeLatest(fetchEventsRoutine.TRIGGER, fetchEvents);
   yield takeLatest(updateScheduleEventRoutine.TRIGGER, updadeScheduleEvent);
+  yield takeLatest(pushNewEventRoutine.TRIGGER, pushNewEvent);
 }

@@ -6,12 +6,12 @@ import { FormContext } from 'app/containers/CreateEventModal/Form';
 import { connect } from 'react-redux';
 import { isEmpty } from 'lodash';
 
-const View = ({ ldapUsers, fetchUsers }) => {
+const View = ({ ldapParts, fetchUsers }) => {
   useEffect(() => {
     fetchUsers();
   }, [fetchUsers]);
   const { setFieldValue } = useContext(FormContext);
-  const usersOptions = ldapUsers.map(user => ({
+  const usersOptions = ldapParts.map(user => ({
     chipLabel: user.displayName,
     label: `${user.displayName} - ${
       user.userPrincipalName
@@ -24,7 +24,7 @@ const View = ({ ldapUsers, fetchUsers }) => {
     } else {
       users = [];
     }
-    setFieldValue('ldapUsers', users);
+    setFieldValue('ldapParts', users);
   };
   return (
     <Select
@@ -40,12 +40,12 @@ const View = ({ ldapUsers, fetchUsers }) => {
 };
 
 View.propTypes = {
-  ldapUsers: PropTypes.array,
+  ldapParts: PropTypes.array,
   fetchUsers: PropTypes.func,
 };
 
 const mapStateToProps = store => ({
-  ldapUsers: store.ldap.users,
+  ldapParts: store.ldap.users,
 });
 
 const mapDispatchToProps = {

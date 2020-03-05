@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import Tabs from 'app/components/Tabs';
 import MainInfo from 'app/containers/CreateEventModal/MainInfo';
 import SelectVCParts from 'app/components/Selects/VCParts';
-import SelectLDAPUsers from 'app/components/Selects/ldapUsers';
+import SelectLDAPParts from 'app/components/Selects/ldapParts';
 
 const ModalTabs = ({ isLocal }) => {
-  const selectParticipants = isLocal ? <SelectLDAPUsers /> : <SelectVCParts />;
+  const selectParticipants = isLocal ? <SelectLDAPParts /> : <SelectVCParts />;
   const tabs = [
     {
       title: 'Инфо',

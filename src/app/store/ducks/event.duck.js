@@ -63,6 +63,7 @@ function* localConfirmEvent({ payload }) {
 function* acceptEvent({ payload }) {
   const res = yield call(API.schedule.acceptEvent, payload);
   yield put(fetchEventRoutine.success(res.data));
+  yield put(updateScheduleEventRoutine.trigger(res.data));
   yield put(acceptEventRoutine.success());
 }
 
