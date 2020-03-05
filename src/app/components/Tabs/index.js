@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Nav, Tab, Row, Col } from 'react-bootstrap';
 import { StyledNavLink, StyledNavItem } from 'app/components/Tabs/styles';
 import PropTypes from 'prop-types';
@@ -22,9 +22,10 @@ const Tabs = ({
       resubmit();
     }
   }, [activeTab, errors, resubmit, submitFailed, tabs]);
+  const setActiveFirstTab = useCallback(() => tabs[0].title, [tabs]);
   useEffect(() => {
-    if (resetTabsTrigger !== undefined) setTab(tabs[0].title);
-  }, [resetTabsTrigger]);
+    if (resetTabsTrigger !== undefined) setActiveFirstTab();
+  }, [resetTabsTrigger, setActiveFirstTab]);
   const handleChangeTab = title => {
     if (onChange) {
       onChange(title);

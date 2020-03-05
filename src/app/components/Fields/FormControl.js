@@ -8,7 +8,7 @@ const FormControl = ({
   field: { name },
 }) => (
   <Form.Control
-    value={values[name]}
+    value={values[name] || ''}
     onChange={e => setFieldValue(name, e.target.value)}
     placeholder={placeholder}
   />

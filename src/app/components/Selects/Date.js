@@ -38,16 +38,13 @@ const Date = ({ label, isTime, isFrom, field, setFieldValue }) => {
   if (isTime) time = time.add(isFrom ? 2 : 4, 'hours');
   time = time.toDate();
   const [value, changeValue] = useState(time);
-  const setFields = () => {
-    setFieldValue(field, value);
-  };
   useEffect(() => {
-    setFields();
+    setFieldValue(field, value);
   }, [setFieldValue, field, value]);
 
   const handleChangeDate = date => {
     changeValue(date);
-    setFields();
+    setFieldValue(field, value);
   };
   const dateFormat = isTime ? 'HH:mm' : 'dd-MM-yyyy';
   return (

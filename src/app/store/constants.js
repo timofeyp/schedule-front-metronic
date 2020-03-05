@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const defaultFilter = [
   {
     _id: 'Действующие атомные станции',
@@ -10,3 +12,12 @@ export const defaultFilter = [
     label: 'Ленинградская АЭС-2',
   },
 ];
+
+export const startFromToday = () => moment().startOf('day');
+export const endOfWeekFromToday = () =>
+  moment()
+    .add(6, 'day')
+    .hour(23)
+    .minute(59)
+    .second(59)
+    .millisecond(999);

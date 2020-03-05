@@ -6,6 +6,8 @@ import {
   takeLatest,
   select,
 } from 'redux-saga/dist/redux-saga-effects-npm-proxy.esm';
+import moment from 'moment';
+import { startFromToday, endOfWeekFromToday } from 'app/store/constants';
 import API from 'app/api';
 import { isEmpty } from 'lodash';
 
@@ -127,7 +129,17 @@ function* eraseConcernEvents() {
 }
 
 function* pushNewEvent({ payload }) {
-  yield put(pushNewEventRoutine.success(payload));
+  const startMoment = startFromToday();
+  const endMoment = endOfWeekFromToday();
+  const isBetweenWeek = moment(payload.dateStart).isBetween(
+    startMoment,
+    endMoment,
+    'days',
+    '[]',
+  );
+  if (isBetweenWeek) {
+    yield put(pushNewEventRoutine.success(payload));
+  }
 }
 
 export function* saga() {
