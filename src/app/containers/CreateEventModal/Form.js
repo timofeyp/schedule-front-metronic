@@ -8,19 +8,27 @@ import ModalTabs from 'app/containers/CreateEventModal/ModalTabs';
 import PropTypes from 'prop-types';
 export const FormContext = React.createContext();
 
-const FormComponent = ({ setFieldValue, handleSubmit, values, isAdmin }) => {
+const FormComponent = ({
+  setFieldValue,
+  handleSubmit,
+  values,
+  isAdmin,
+  initialValues,
+}) => {
   const { isLocal, isVideo } = values;
+  const { VCPartsIDs } = initialValues;
   useEffect(() => {
-    if (!isLocal) {
+    if (isVideo) {
       setFieldValue('isVideo', true);
     }
-    if (!isVideo) {
+    if (isLocal) {
       setFieldValue('isLocal', true);
+      setFieldValue('VCPartsIDs', VCPartsIDs);
     }
-  }, [isLocal, isVideo, setFieldValue]);
+  }, [VCPartsIDs, setFieldValue, isLocal, isVideo]);
 
   return (
-    <FormContext.Provider value={{ setFieldValue }}>
+    <FormContext.Provider value={{ setFieldValue, values }}>
       <Form onSubmit={handleSubmit} className="p-2">
         <ModalTabs isLocal={isLocal} />
         <Form.Group as={Row} className="justify-content-between">
@@ -70,6 +78,8 @@ FormComponent.propTypes = {
   handleSubmit: PropTypes.func,
   values: PropTypes.object,
   isAdmin: PropTypes.bool,
+  initialValues: PropTypes.object,
+  resetForm: PropTypes.func,
 };
 
 const View = () => {
@@ -78,7 +88,7 @@ const View = () => {
   return (
     <>
       <Formik
-        initialValues={{ isVideo: isAdmin, isLocal: !isAdmin }}
+        initialValues={{ isVideo: isAdmin, isLocal: !isAdmin, VCPartsIDs: [7] }}
         onSubmit={values => dispatch(createEventRoutine.trigger(values))}
       >
         {props => <FormComponent {...props} isAdmin={isAdmin} />}

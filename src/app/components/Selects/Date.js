@@ -29,7 +29,7 @@ CustomInput.propTypes = {
   onClick: PropTypes.func,
 };
 
-const Date = ({ label, isTime, isFrom, field, handleChange }) => {
+const Date = ({ label, isTime, isFrom, field, setFieldValue }) => {
   let time = moment()
     .minutes(0)
     .seconds(0)
@@ -37,17 +37,19 @@ const Date = ({ label, isTime, isFrom, field, handleChange }) => {
   if (!isTime) time = time.startOf('day');
   if (isTime) time = time.add(isFrom ? 2 : 4, 'hours');
   time = time.toDate();
-
   const [value, changeValue] = useState(time);
+  const setFields = () => {
+    setFieldValue(field, value);
+  };
   useEffect(() => {
-    handleChange(field, value);
-  }, [handleChange, field, value]);
+    setFields();
+  }, [setFieldValue, field, value]);
+
   const handleChangeDate = date => {
     changeValue(date);
-    handleChange(field, value);
+    setFields();
   };
-  const dateFormat = isTime ? 'HH:mm' : 'dd/MM/yyyy';
-
+  const dateFormat = isTime ? 'HH:mm' : 'dd-MM-yyyy';
   return (
     <StyledDatePicker
       locale="ru"
@@ -66,7 +68,7 @@ const Date = ({ label, isTime, isFrom, field, handleChange }) => {
 };
 
 Date.propTypes = {
-  handleChange: PropTypes.func,
+  setFieldValue: PropTypes.func,
   field: PropTypes.string,
   isTime: PropTypes.bool,
   isFrom: PropTypes.bool,

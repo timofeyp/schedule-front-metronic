@@ -33,10 +33,10 @@ export const initLayoutConfig = {
       dark: '#003274',
       light: '#ffffff',
       primary: '#4596d1',
-      success: '#5ba252',
+      success: '#6AB16F',
       info: '#36a3f7',
       warning: '#f6b021',
-      danger: '#c63032',
+      danger: '#E18987',
     },
     base: {
       label: ['#c5cbe3', '#a1a8c3', '#3d4465', '#3e4466'],

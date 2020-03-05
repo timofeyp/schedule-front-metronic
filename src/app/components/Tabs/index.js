@@ -4,14 +4,16 @@ import { StyledNavLink, StyledNavItem } from 'app/components/Tabs/styles';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 
-const Tabs = ({ tabs, initial, onChange, errors, submitFailed, resubmit }) => {
+const Tabs = ({
+  tabs,
+  initial,
+  onChange,
+  errors,
+  submitFailed,
+  resubmit,
+  resetTabsTrigger,
+}) => {
   const [activeTab, setTab] = useState(initial || tabs[0].title);
-  const handleChangeTab = title => {
-    if (onChange) {
-      onChange(title);
-    }
-    setTab(title);
-  };
   useEffect(() => {
     // Если находимся не на первой вкладке и сработала валидация после сабмита,
     // то при возврате на первую, поля с ошибкой не будут подсвечены.
@@ -20,8 +22,21 @@ const Tabs = ({ tabs, initial, onChange, errors, submitFailed, resubmit }) => {
       resubmit();
     }
   }, [activeTab, errors, resubmit, submitFailed, tabs]);
+  useEffect(() => {
+    if (resetTabsTrigger !== undefined) setTab(tabs[0].title);
+  }, [resetTabsTrigger]);
+  const handleChangeTab = title => {
+    if (onChange) {
+      onChange(title);
+    }
+    setTab(title);
+  };
   return (
-    <Tab.Container className="mt-3" defaultActiveKey={activeTab}>
+    <Tab.Container
+      className="mt-3"
+      activeKey={activeTab}
+      defaultActiveKey={activeTab}
+    >
       <Row>
         <Col sm={2}>
           <Nav variant="pills">
@@ -77,6 +92,7 @@ Tabs.propTypes = {
   resubmit: PropTypes.func,
   errors: PropTypes.object,
   submitFailed: PropTypes.bool,
+  resetTabsTrigger: PropTypes.any,
 };
 
 export default Tabs;

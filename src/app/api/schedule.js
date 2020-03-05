@@ -23,9 +23,19 @@ export function* localConfirmEvent(id) {
   return yield call(axios.put, `/api/events/local-confirm-event/${id}`);
 }
 
+export function* acceptEvent(id) {
+  return yield call(axios.put, `/api/events/local-accept-event/${id}`);
+}
+
+export function* removeEvent(id) {
+  return yield call(axios.put, `/api/events/local-remove-event/${id}`);
+}
+
 export default {
   fetchEvents,
   updateEvent,
   localConfirmEvent,
   fetchEvent,
+  acceptEvent,
+  removeEvent,
 };

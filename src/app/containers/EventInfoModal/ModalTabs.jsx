@@ -6,7 +6,8 @@ import { connect, useSelector } from 'react-redux';
 import { confirmLocalEventRoutine } from 'app/store/ducks/event.duck';
 import Tabs from 'app/components/Tabs';
 import InfoTab from 'app/containers/EventInfoModal/InfoTab';
-import OptionsTab from 'app/containers/EventInfoModal/OptionsTab';
+import OptionsButtons from 'app/containers/EventInfoModal/OptionsButtons';
+import AcceptionButtons from 'app/containers/EventInfoModal/AcceptionButtons';
 
 const ModalTabs = ({
   data: {
@@ -17,6 +18,7 @@ const ModalTabs = ({
     room,
     VCParts,
     confirmed,
+    isPendingForAccept,
   },
   confirmLocalEvent,
   isAuth,
@@ -53,7 +55,7 @@ const ModalTabs = ({
       isShown: !!VCParts,
     },
     {
-      content: <OptionsTab />,
+      content: <OptionsButtons />,
       title: 'Настройки',
       isShown: isAdmin,
     },
@@ -64,7 +66,7 @@ const ModalTabs = ({
   return (
     <Col className="mt-2  mb-4" md={12} lg={12} xs={12}>
       <Tabs tabs={tabs} initial={activeTab.title} />
-      {isAuth && (
+      {isAuth && !isAdmin && (
         <div className="text-center">
           <Button
             disabled={!isAuth || confirmed}
@@ -78,6 +80,7 @@ const ModalTabs = ({
           </Button>
         </div>
       )}
+      <AcceptionButtons eventId={id} isShown={isAdmin && isPendingForAccept} />
     </Col>
   );
 };

@@ -15,6 +15,8 @@ export const confirmLocalEventRoutine = createAction(
   'event',
 );
 export const updateEventRoutine = createAction('UPDATE_EVENT', 'event');
+export const acceptEventRoutine = createAction('ACCEPT_EVENT', 'event');
+export const rejectEventRoutine = createAction('REJECT_EVENT', 'event');
 
 export const initialState = {
   data: {},
@@ -58,8 +60,15 @@ function* localConfirmEvent({ payload }) {
   yield put(confirmLocalEventRoutine.success());
 }
 
+function* acceptEvent({ payload }) {
+  const res = yield call(API.schedule.acceptEvent, payload);
+  yield put(fetchEventRoutine.success(res.data));
+  yield put(acceptEventRoutine.success());
+}
+
 export function* saga() {
   yield takeLatest(fetchEventRoutine.TRIGGER, fetchEvent);
+  yield takeLatest(acceptEventRoutine.TRIGGER, acceptEvent);
   yield takeLatest(confirmLocalEventRoutine.TRIGGER, localConfirmEvent);
   yield takeLatest(updateEventRoutine.TRIGGER, updateEvent);
 }

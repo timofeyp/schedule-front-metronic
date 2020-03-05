@@ -1,21 +1,21 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Tabs from 'app/components/Tabs';
 import MainInfo from 'app/containers/CreateEventModal/MainInfo';
-import Participants from 'app/containers/CreateEventModal/Participants';
-import { FormContext } from 'app/containers/CreateEventModal/Form';
+import SelectVCParts from 'app/components/Selects/VCParts';
+import SelectLDAPUsers from 'app/components/Selects/ldapUsers';
 
 const ModalTabs = ({ isLocal }) => {
-  const { setFieldValue } = useContext(FormContext);
+  const selectParticipants = isLocal ? <SelectLDAPUsers /> : <SelectVCParts />;
   const tabs = [
     {
       title: 'Инфо',
-      content: <MainInfo setFieldValue={setFieldValue} />,
+      content: <MainInfo />,
       isShown: true,
     },
     {
       title: 'Участники',
-      content: <Participants isLocal={isLocal} setFieldValue={setFieldValue} />,
+      content: selectParticipants,
       isShown: true,
     },
   ];
@@ -24,7 +24,6 @@ const ModalTabs = ({ isLocal }) => {
 
 ModalTabs.propTypes = {
   isLocal: PropTypes.bool,
-  setFieldValue: PropTypes.func,
 };
 
 export default ModalTabs;

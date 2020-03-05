@@ -48,6 +48,7 @@ module.exports = {
         'import/no-unresolved': 2,
         'import/no-webpack-loader-syntax': 0,
         'import/prefer-default-export': 0,
+        'react-hooks/exhaustive-deps': 0,
         "no-restricted-imports": ["error", { paths: [].concat(...restrictedPaths) }],
         indent: [
             2,

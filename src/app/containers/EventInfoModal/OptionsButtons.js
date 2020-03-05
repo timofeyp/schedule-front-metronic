@@ -2,11 +2,11 @@ import React from 'react';
 import ToggleEventVisibility from 'app/components/Toggles/ToggleEventVisibility';
 import ToggleEventCanceled from 'app/components/Toggles/ToggleEventCanceled';
 
-const OptionsTab = () => (
+const OptionsButtons = () => (
   <>
     <ToggleEventVisibility />
     <ToggleEventCanceled />
   </>
 );
 
-export default OptionsTab;
+export default OptionsButtons;

@@ -1,13 +1,3 @@
-export const defaultParticipant = {
-  groupName: 'Действующие атомные станции',
-  VCParts: [
-    {
-      id: 7,
-      name: 'Ленинградская АЭС',
-    },
-  ],
-};
-
 export const defaultFilter = [
   {
     _id: 'Действующие атомные станции',

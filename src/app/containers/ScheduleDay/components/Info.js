@@ -9,6 +9,7 @@ const Info = ({
   handleClick,
   isInfo,
   isPossiblyCanceled,
+  isPendingForAccept,
 }) => {
   if (isInfo) {
     return (
@@ -17,6 +18,11 @@ const Info = ({
           {isHidden && (
             <div className="text-warning">
               Эта конференция скрыта от пользователей
+            </div>
+          )}
+          {isPendingForAccept && (
+            <div className="text-warning">
+              Концеренция была добавлена пользователем и ожидает подтверждения.
             </div>
           )}
           {isPossiblyCanceled && (
@@ -35,7 +41,7 @@ const Info = ({
                   key={item._id}
                   className="text-primary align-items-end justify-content-end"
                 >
-                  {`${item.user.name} - ${item.user.departament} - ${item.user.mail} - ${item.user.phone}`}
+                  {`${item.user.name} - ${item.user.department} - ${item.user.mail} - ${item.user.phone}`}
                 </div>
               ))}
             </>
@@ -53,6 +59,7 @@ Info.propTypes = {
   handleClick: PropTypes.func,
   isInfo: PropTypes.bool,
   isPossiblyCanceled: PropTypes.bool,
+  isPendingForAccept: PropTypes.bool,
 };
 
 export default Info;

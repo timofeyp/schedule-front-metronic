@@ -18,6 +18,7 @@ const EventRow = ({
     timeEnd,
     localRoom,
     isPossiblyCanceled,
+    isPendingForAccept,
   },
   eventClickHandler,
   eventRoomChangeHandler,
@@ -47,10 +48,10 @@ const EventRow = ({
   const { isExtraInfo: isExtraInfoSetInSettings } = useSelector(
     state => state.settings,
   );
+  const isEventContainsExtraInfo =
+    !isEmpty(confirms) || isHidden || isPossiblyCanceled || isPendingForAccept;
   const isExtraInfo =
-    isAdmin &&
-    isExtraInfoSetInSettings &&
-    (!isEmpty(confirms) || isHidden || isPossiblyCanceled);
+    isAdmin && isExtraInfoSetInSettings && isEventContainsExtraInfo;
   const infoMargin = isExtraInfo && isExtraInfoSetInSettings ? 'mb-2' : '';
   return (
     <div className={`event-row p-2 ${className}`}>
@@ -77,6 +78,7 @@ const EventRow = ({
         isPossiblyCanceled={isPossiblyCanceled}
         confirms={confirms}
         isHidden={isHidden}
+        isPendingForAccept={isPendingForAccept}
         handleClick={handleClick}
       />
     </div>

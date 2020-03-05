@@ -1,8 +1,25 @@
 import React from 'react';
-import Select from 'react-select';
+import Select, { components } from 'react-select';
 import PropTypes from 'prop-types';
+import { isEmpty } from 'lodash';
 
-const View = ({ defaultValue, onChange, options, placeholder }) => {
+const MultiValue = props => (
+  <components.MultiValue {...props}>
+    {/* eslint-disable-next-line react/prop-types */}
+    {props.data.chipLabel}
+  </components.MultiValue>
+);
+
+const View = ({
+  defaultValue,
+  onChange,
+  options,
+  placeholder,
+  isShowEmpty,
+  onInputCb,
+  isChipLabel,
+  isHandleInputChange,
+}) => {
   const customStyles = {
     control: provided => ({
       ...provided,
@@ -11,24 +28,44 @@ const View = ({ defaultValue, onChange, options, placeholder }) => {
       boxShadow: 'none',
     }),
   };
-  return (
-    <Select
-      styles={customStyles}
-      defaultValue={defaultValue}
-      onChange={onChange}
-      isMulti
-      options={options}
-      noOptionsMessage={() => 'Не найдено'}
-      placeholder={placeholder}
-    />
-  );
+  const onInputChange = (value, { action }) => {
+    if (
+      action === 'menu-close' ||
+      action === 'input-blur' ||
+      action === 'set-value'
+    ) {
+      return undefined;
+    }
+    onInputCb(value);
+    return value;
+  };
+  if (!isEmpty(options) || isShowEmpty) {
+    return (
+      <Select
+        components={isChipLabel && { MultiValue }}
+        onInputChange={isHandleInputChange && onInputChange}
+        styles={customStyles}
+        defaultValue={defaultValue}
+        onChange={onChange}
+        isMulti
+        options={options}
+        noOptionsMessage={() => 'Не найдено'}
+        placeholder={placeholder}
+      />
+    );
+  }
+  return null;
 };
 
 View.propTypes = {
+  isChipLabel: PropTypes.bool,
+  isHandleInputChange: PropTypes.bool,
   onChange: PropTypes.func,
+  onInputCb: PropTypes.func,
   options: PropTypes.array,
   defaultValue: PropTypes.array,
   placeholder: PropTypes.string,
+  isShowEmpty: PropTypes.bool,
 };
 
 export default View;

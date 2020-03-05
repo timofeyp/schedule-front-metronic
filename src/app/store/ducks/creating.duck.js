@@ -7,9 +7,8 @@ import {
   delay,
   select,
 } from 'redux-saga/dist/redux-saga-effects-npm-proxy.esm';
-import { defaultParticipant } from 'app/store/constants';
-import moment from 'moment';
 import API from 'app/api';
+import moment from 'moment';
 import { toggleShowCreateModal } from 'app/store/ducks/settings.duck';
 import {
   fetchConcernEventsRoutine,
@@ -55,31 +54,16 @@ function* fetchNames({ payload }) {
   yield put(fetchEventNamesRoutine.success(eventNames));
 }
 
-function* createEvent({
-  payload: {
-    eventName,
-    timeStart,
-    timeEnd,
-    dateStart,
-    localRoom,
-    isVideo,
-    isLocal,
-  },
-}) {
+function* createEvent({ payload }) {
   const isAdmin = yield select(state => state.session.profile.isAdmin);
+  const { isLocal, dateTimeStart, dateTimeEnd, dateStart } = payload;
   const query = {
-    eventName,
-    timeStart: moment(timeStart).format('HH:mm'),
-    timeEnd: moment(timeEnd).format('HH:mm'),
-    dateTimeStart: moment(timeStart),
-    dateTimeEnd: moment(timeEnd),
+    timeStart: moment(dateTimeStart).format('HH:mm'),
+    timeEnd: moment(dateTimeEnd).format('HH:mm'),
     dateStart,
     yearMonthDay: moment(dateStart).format('DD-MM-YYYY'),
-    localRoom,
-    VCPartsIDs: [7],
-    VCParts: [defaultParticipant],
-    isVideo,
     isLocal,
+    ...payload,
   };
   try {
     yield call(API.creating.createEvent, query);

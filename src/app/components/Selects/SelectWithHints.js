@@ -32,7 +32,7 @@ const View = ({ options, eventNameInput }) => {
     dispatch(changeEventNameInputRoutine.success(value.value));
   };
   const menuOpacity = isEmpty(options) ? 0 : 1;
-  const arr = [{value: 1, label: 1}]
+  const arr = [{ value: 1, label: 1 }];
   return (
     <Select
       options={arr}
